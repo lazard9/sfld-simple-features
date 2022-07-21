@@ -1,0 +1,22 @@
+body .site {
+    background-color: rgb(92, 189, 206);
+}
+
+.ul-courses {
+    list-style: none;
+    padding-left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.ul-courses .li-course {
+    width: 50%;
+    padding: 10px;
+}
+
+.ul-courses .li-course .li-course-image img {
+    width: 100%;
+}

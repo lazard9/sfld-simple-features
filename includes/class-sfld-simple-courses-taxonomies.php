@@ -107,7 +107,7 @@ class SFLD_Simple_Courses_Taxonomies
 
     }
 
-    
+
 	/*
 	 * Set default cat for all CPT Courses taxonomies
 	 * @source {https://circlecube.com/says/2013/01/set-default-terms-for-your-custom-taxonomy-default/}
@@ -115,7 +115,7 @@ class SFLD_Simple_Courses_Taxonomies
 	 * @license   GPLv2
 	 */
 	public function sfld_set_default_object_terms( $post_id, $post ) : void {
-		if ( 'publish' === $post->post_status && $post->post_type === 'courses' ) {
+		if ( 'draft' === $post->post_status && $post->post_type === 'courses' ) {
 			$defaults = array(
 				'level' => array( 'Any' ),
 				'subjects' => array( 'Any' ),

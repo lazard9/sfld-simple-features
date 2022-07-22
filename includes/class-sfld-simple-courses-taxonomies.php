@@ -31,14 +31,14 @@ class SFLD_Simple_Courses_Taxonomies
             'menu_name' => 'Level'
         );
 
-		register_taxonomy( 'level', 'courses', array(
-			'labels' => $labels,
-			'show_in_quick_edit' => false,
-			'meta_box_cb' => false,
-			'hierarchical' => false,
-			'show_in_menu' => false,
-			'show_in_nav_menus' => false,
-		));
+        register_taxonomy( 'level', 'courses', array(
+            'labels' => $labels,
+            'show_in_quick_edit' => false,
+            'meta_box_cb' => false,
+            'hierarchical' => false,
+            'show_in_menu' => false,
+            'show_in_nav_menus' => false,
+        ));
 
         /**
          * Hierarchical taxonomy ~ Categories
@@ -108,66 +108,66 @@ class SFLD_Simple_Courses_Taxonomies
     }
 
 
-	/*
-	 * Set default cat for all CPT Courses taxonomies
-	 * @source {https://circlecube.com/says/2013/01/set-default-terms-for-your-custom-taxonomy-default/}
-	 * @source {http://wordpress.mfields.org/2010/set-default-terms-for-your-custom-taxonomies-in-wordpress-3-0/}
-	 * @license   GPLv2
-	 */
-	public function sfld_set_default_object_terms( $post_id, $post ) : void {
-		if ( 'draft' === $post->post_status && $post->post_type === 'courses' ) {
-			$defaults = array(
-				'level' => array( 'Any' ),
-				'subjects' => array( 'Any' ),
-				'topics' => array( 'Any' )
-			);
-			$taxonomies = get_object_taxonomies( $post->post_type );
+    /*
+     * Set default cat for all CPT Courses taxonomies
+     * @source {https://circlecube.com/says/2013/01/set-default-terms-for-your-custom-taxonomy-default/}
+     * @source {http://wordpress.mfields.org/2010/set-default-terms-for-your-custom-taxonomies-in-wordpress-3-0/}
+     * @license   GPLv2
+     */
+    public function sfld_set_default_object_terms( $post_id, $post ) : void {
+        if ( 'draft' === $post->post_status && $post->post_type === 'courses' ) {
+            $defaults = array(
+                'level' => array( 'Any' ),
+                'subjects' => array( 'Any' ),
+                'topics' => array( 'Any' )
+            );
+            $taxonomies = get_object_taxonomies( $post->post_type );
 
-			foreach ( (array) $taxonomies as $taxonomy ) {
-				$terms = wp_get_post_terms( $post_id, $taxonomy );
-				if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
-					wp_set_object_terms( $post_id, $defaults[$taxonomy], $taxonomy );
-				}
-			}
-		}
-	}
+            foreach ( (array) $taxonomies as $taxonomy ) {
+                $terms = wp_get_post_terms( $post_id, $taxonomy );
+                if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
+                    wp_set_object_terms( $post_id, $defaults[$taxonomy], $taxonomy );
+                }
+            }
+        }
+    }
 
-	/*
-	 * Only in array (e.g. 'Any','Beginer','Medium','Advanced') 
-	 * specified taxonomy terms are included.
-	 * 
-	 */
+    /*
+     * Only in array (e.g. 'Any','Beginer','Medium','Advanced') 
+     * specified taxonomy terms are included.
+     * 
+     */
     public function sfld_cleanup_level_taxonomy_terms() : void {
 
-		// Define your terms inside this array
-		$predefined_terms = array(
-			'Any',
-			'Beginer',
-			'Medium',
-			'Advanced'
-		);
-		// Name your taxonomy here
-		$predefined_taxonomy = 'level';
+	// Define your terms inside this array
+	$predefined_terms = array(
+	    'Any',
+            'Beginer',
+            'Medium',
+            'Advanced'
+	);
+	// Name your taxonomy here
+	$predefined_taxonomy = 'level';
 
-		$all_terms_inside_tax = get_terms( 
-			$predefined_taxonomy,
-			array(
-				'hide_empty'   => false,
-				'taxonomy'     => $predefined_taxonomy
-			) 
-		);
+	$all_terms_inside_tax = get_terms( 
+            $predefined_taxonomy,
+            array(
+                'hide_empty'   => false,
+                'taxonomy'     => $predefined_taxonomy
+            ) 
+	);
 
-		foreach ( $all_terms_inside_tax as $term ) {
-			if ( ! in_array( $term->name, $predefined_terms ) )
-				wp_delete_term( $term->term_id, $predefined_taxonomy );
-		}
-
+	foreach ( $all_terms_inside_tax as $term ) {
+            if ( ! in_array( $term->name, $predefined_terms ) )
+                wp_delete_term( $term->term_id, $predefined_taxonomy );
 	}
 
-	/*
-	 * Populate terms for taxonomy Level. 
-	 * 
-	 */
+    }
+
+    /*
+     * Populate terms for taxonomy Level. 
+     * 
+     */
 	public function sfld_insert_level_taxonomy_terms() : void {
 
 		$taxonomyName = 'level';

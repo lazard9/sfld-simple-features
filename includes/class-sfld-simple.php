@@ -10,7 +10,8 @@
  * Load Archive Courses Template
  * Register CPT Courses
  * Register CPT Professors
- * Register Custom Taxonomies for CPT Courses
+ * Register Custom Taxonomies for CPT Courses with additional functionalities for tax Level
+ * Register Custom Taxonomies for CPT Professors and autopopulate
  * Register Shortcode to display Swiper.js slider in Course Template
  * Metabox - Select Editor
  * Save Editor to Post Meta
@@ -71,7 +72,8 @@ class SFLD_Simple
         require_once SFLD_SIMPLE_DIR . 'public/class-sfld-simple-public.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-templates.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-cpt.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-taxonomy.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-courses-taxonomies.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-professors-taxonomy.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-shortcode.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-meta-boxes.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-ajax-vote.php';
@@ -85,74 +87,83 @@ class SFLD_Simple
     private function define_admin_hooks() {
 
         $plugin_admin = new SFLD_Simple_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'sfld_enqueue_admin_assets');
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'sfld_enqueue_admin_assets' );
 
-        $this->loader->add_action('admin_menu', $plugin_admin, 'sfld_simple_settings_page');
-        $this->loader->add_filter($plugin_admin->get_plugin_action_links(), $plugin_admin, 'sfld_simple_add_settings_link');
-        $this->loader->add_action('admin_init', $plugin_admin, 'sfld_simple_options' );
-        $this->loader->add_action('admin_menu', $plugin_admin, 'sfld_simple_default_sub_pages');
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'sfld_simple_settings_page' );
+        $this->loader->add_filter( $plugin_admin->get_plugin_action_links(), $plugin_admin, 'sfld_simple_add_settings_link' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'sfld_simple_options' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'sfld_simple_default_sub_pages' );
         
     }
     
     private function define_public_hooks() {
 
         $plugin_public = new SFLD_Simple_Public( $this->get_plugin_name(), $this->get_plugin_version() );
-        $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'sfld_enqueue_frontend_assets');
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'sfld_enqueue_frontend_assets' );
 
     }
 
     private function define_template_hooks() {
 
         $plugin_templates = new SFLD_Simple_Templates();
-        $this->loader->add_filter('single_template', $plugin_templates, 'sfld_template_course');
-        $this->loader->add_filter('template_include', $plugin_templates, 'sfld_template_arcive_courses');
+        $this->loader->add_filter( 'single_template', $plugin_templates, 'sfld_template_course' );
+        $this->loader->add_filter( 'template_include', $plugin_templates, 'sfld_template_arcive_courses' );
 
     }
 
     private function define_cpt_hooks() {
 
         $plugin_cpt = new SFLD_Simple_CPT();
-        $this->loader->add_filter('init', $plugin_cpt, 'sfld_simple_cpt_init');
+        $this->loader->add_filter( 'init', $plugin_cpt, 'sfld_simple_cpt_init' );
 
     }
 
     private function define_taxonomy_hooks() {
 
-        $plugin_taxonomy = new SFLD_Simple_Taxonomy();
-        $this->loader->add_filter('init', $plugin_taxonomy, 'sfld_simple_taxonomy_init', 0);
+        $courses_taxonies = new SFLD_Simple_Courses_Taxonomies();
+        $this->loader->add_filter( 'init', $courses_taxonies, 'sfld_simple_courses_taxonomies_init', 0 );
+        $this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_set_default_object_terms', 100, 2 );
+        $this->loader->add_action( 'init', $courses_taxonies, 'sfld_cleanup_level_taxonomy_terms' );
+		$this->loader->add_action( 'init', $courses_taxonies, 'sfld_insert_level_taxonomy_terms', 999 );
+        $this->loader->add_action( 'add_meta_boxes', $courses_taxonies, 'sfld_add_level_meta_box' );
+		$this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_save_level_taxonomy' );
+
+        $professors_taxony = new SFLD_Simple_Professors_Taxonomy();
+        $this->loader->add_filter( 'init', $professors_taxony, 'sfld_simple_professors_taxonomy_init', 0 );
+        $this->loader->add_action( 'save_post', $professors_taxony, 'sfld_insert_curriculums_taxonomy_terms', 100, 2 );
 
     }
 
     private function define_shortcode_hooks() {
 
         $plugin_shortcode = new SFLD_Simple_Shortcode();
-        $this->loader->add_shortcode('swiper-slider-01', $plugin_shortcode, 'sfld_create_shortcode_swiper');
+        $this->loader->add_shortcode( 'swiper-slider-01', $plugin_shortcode, 'sfld_create_shortcode_swiper' );
         
     }
 
     private function define_meta_boxes() {
 
         $plugin_meta_boxes = new SFLD_Meta_Boxes();
-        $this->loader->add_action('add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor');
-        $this->loader->add_action('save_post', $plugin_meta_boxes, 'sfld_save_editor');
-        $this->loader->add_action('add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main');
-        $this->loader->add_action('save_post', $plugin_meta_boxes, 'sfld_save_course_details');
+        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor' );
+        $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_editor' );
+        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main' );
+        $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_course_details' );
         
     }
 
     private function define_ajax_vote() {
 
         $plugin_ajax_vote = new SFLD_Ajax_Vote();
-        $this->loader->add_action('wp_ajax_sfld_ajax_user_vote', $plugin_ajax_vote, 'sfld_ajax_user_vote');
-        $this->loader->add_action('wp_ajax_nopriv_sfld_ajax_must_login', $plugin_ajax_vote, 'sfld_ajax_must_login');
+        $this->loader->add_action( 'wp_ajax_sfld_ajax_user_vote', $plugin_ajax_vote, 'sfld_ajax_user_vote' );
+        $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_must_login', $plugin_ajax_vote, 'sfld_ajax_must_login' );
         
     }
 
     private function define_ajax_load_more() {
 
         $plugin_ajax_load_more = new SFLD_Ajax_Load_More();
-        $this->loader->add_action('wp_ajax_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts');
-        $this->loader->add_action('wp_ajax_nopriv_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts');
+        $this->loader->add_action( 'wp_ajax_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
+        $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
         
     }
 

@@ -31,7 +31,7 @@ class SFLD_Simple_Courses_Taxonomies
             'menu_name' => 'Level'
         );
 
-        register_taxonomy( 'level', 'courses', array(
+		register_taxonomy( 'level', 'courses', array(
 			'labels' => $labels,
 			'show_in_quick_edit' => false,
 			'meta_box_cb' => false,
@@ -108,7 +108,7 @@ class SFLD_Simple_Courses_Taxonomies
     }
 
     
-    /*
+	/*
 	 * Set default cat for all CPT Courses taxonomies
 	 * @source {https://circlecube.com/says/2013/01/set-default-terms-for-your-custom-taxonomy-default/}
 	 * @source {http://wordpress.mfields.org/2010/set-default-terms-for-your-custom-taxonomies-in-wordpress-3-0/}
@@ -132,16 +132,16 @@ class SFLD_Simple_Courses_Taxonomies
 		}
 	}
 
-    /*
+	/*
 	 * Only in array (e.g. 'Any','Beginer','Medium','Advanced') 
-     * specified taxonomy terms are included.
-     * 
+	 * specified taxonomy terms are included.
+	 * 
 	 */
-    public function sfld_cleanup_level_taxonomy_terms() {
+    public function sfld_cleanup_level_taxonomy_terms() : void {
 
 		// Define your terms inside this array
 		$predefined_terms = array(
-            'Any',
+			'Any',
 			'Beginer',
 			'Medium',
 			'Advanced'
@@ -157,22 +157,21 @@ class SFLD_Simple_Courses_Taxonomies
 			) 
 		);
 
-		foreach ( $all_terms_inside_tax as $term )
-		{
+		foreach ( $all_terms_inside_tax as $term ) {
 			if ( ! in_array( $term->name, $predefined_terms ) )
 				wp_delete_term( $term->term_id, $predefined_taxonomy );
 		}
 
 	}
 
-    /*
+	/*
 	 * Populate terms for taxonomy Level. 
-     * 
+	 * 
 	 */
-    public function sfld_insert_level_taxonomy_terms() {
+	public function sfld_insert_level_taxonomy_terms() : void {
 
 		$taxonomyName = 'level';
-	
+
 		$terms = [
 			'Any',
 			'Beginer',
@@ -186,11 +185,11 @@ class SFLD_Simple_Courses_Taxonomies
 
 	}
 
-    /*
+	/*
 	 * Add metabox for taxonomy Level.
-     * 
+	 * 
 	 */
-    public function sfld_add_level_meta_box() {
+	public function sfld_add_level_meta_box() : void {
 
 		add_meta_box(
 			'sfld_level_box',
@@ -198,16 +197,16 @@ class SFLD_Simple_Courses_Taxonomies
 			[$this, 'sfld_level_meta_box_term'],
 			['courses'],
 			'side',
-            'high'
+			'high'
 		);
 
 	}
 
-    /*
+	/*
 	 * Make options radio (can select only singe term) for taxonomy Level. 
-     * 
+	 * 
 	 */
-	public function sfld_level_meta_box_term( $post ) {
+	public function sfld_level_meta_box_term( $post ) : void {
 
 		$terms = get_terms( array(
 			'taxonomy' => 'level',
@@ -216,7 +215,7 @@ class SFLD_Simple_Courses_Taxonomies
 
 		// We assume that there is a single category
 		$currentTaxonomyValue = get_the_terms($post->ID, 'level')[0];
-	    ?>
+		?>
 		<p>Choose taxonomy value</p>
 		<p>
 			<?php foreach($terms as $term): ?>
@@ -225,14 +224,14 @@ class SFLD_Simple_Courses_Taxonomies
 				</input><br/>
 			<?php endforeach; ?>
 		</p>
-	    <?php
+		<?php
 	}
 
-    /*
+	/*
 	 * Save term for taxonomy Level. 
-     * 
+	 * 
 	 */
-    function sfld_save_level_taxonomy($post_id){
+	function sfld_save_level_taxonomy($post_id) : void {
 		if ( isset( $_REQUEST['level'] ) ) 
 			wp_set_object_terms($post_id, (int)sanitize_text_field( $_POST['level'] ), 'level');
 	}

@@ -44,15 +44,15 @@ class SFLD_Simple_Professors_Taxonomy
     }
 
     /*
-	 * Populate terms for taxonomy Level. 
+     * Populate terms for taxonomy Level.
      * 
-	 */
-    public function sfld_insert_curriculums_taxonomy_terms() {
+     */
+    public function sfld_insert_curriculums_taxonomy_terms() : void {
 
-		$taxonomyName = 'curriculums';
-	
-		$terms = [
-			"mathematics" => "Mathematics",
+        $taxonomyName = 'curriculums';
+
+        $terms = [
+            "mathematics" => "Mathematics",
             "geography" => "Geography",
             "physics" => "Physics",
             "biology" => "Biology",
@@ -67,6 +67,6 @@ class SFLD_Simple_Professors_Taxonomy
             ]);
         }
 
-	}
+    }
 
 }

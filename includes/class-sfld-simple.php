@@ -5,7 +5,8 @@
  * Table of Contents (number is code line):
  * 
  * Include admin scripts
- * Include frontend scripts
+ * Include admin scripts
+ * Admin pages - menu page, for CPT courses, under Tools
  * Load Course Template
  * Load Archive Courses Template
  * Register CPT Courses
@@ -38,6 +39,7 @@ class SFLD_Simple
         $this->load_dependencies();
 
         $this->define_admin_hooks();
+        $this->define_admin_pages_hooks();
         $this->define_public_hooks();
         $this->define_template_hooks();
         $this->define_cpt_hooks();
@@ -69,6 +71,7 @@ class SFLD_Simple
     private function load_dependencies() : void {
 
         require_once SFLD_SIMPLE_DIR . 'admin/class-sfld-simple-admin.php';
+        require_once SFLD_SIMPLE_DIR . 'admin/class-sfld-simple-admin-pages.php';
         require_once SFLD_SIMPLE_DIR . 'public/class-sfld-simple-public.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-templates.php';
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-cpt.php';
@@ -88,11 +91,16 @@ class SFLD_Simple
 
         $plugin_admin = new SFLD_Simple_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'sfld_enqueue_admin_assets' );
+        
+    }
 
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'sfld_simple_settings_page' );
-        $this->loader->add_filter( $plugin_admin->get_plugin_action_links(), $plugin_admin, 'sfld_simple_add_settings_link' );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'sfld_simple_options' );
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'sfld_simple_default_sub_pages' );
+    private function define_admin_pages_hooks() {
+
+        $plugin_admin_pages = new SFLD_Simple_Admin_Pages( $this->get_plugin_name(), $this->get_plugin_version() );
+        $this->loader->add_action( 'admin_menu', $plugin_admin_pages, 'sfld_simple_settings_page' );
+        $this->loader->add_filter( $plugin_admin_pages->get_plugin_action_links(), $plugin_admin_pages, 'sfld_simple_add_settings_link' );
+        $this->loader->add_action( 'admin_init', $plugin_admin_pages, 'sfld_simple_options' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin_pages, 'sfld_simple_default_sub_pages' );
         
     }
     

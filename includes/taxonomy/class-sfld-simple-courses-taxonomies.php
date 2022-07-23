@@ -139,14 +139,14 @@ class SFLD_Simple_Courses_Taxonomies
      */
     public function sfld_cleanup_level_taxonomy_terms() : void {
 
-	// Define your terms inside this array
-	$predefined_terms = array(
-	    'Any',
+        // Define your terms inside this array
+        $predefined_terms = array(
+            'Any',
             'Beginer',
             'Medium',
             'Advanced'
-	);
-	// Name your taxonomy here
+        );
+        // Name your taxonomy here
 	$predefined_taxonomy = 'level';
 
 	$all_terms_inside_tax = get_terms( 
@@ -168,72 +168,72 @@ class SFLD_Simple_Courses_Taxonomies
      * Populate terms for taxonomy Level. 
      * 
      */
-	public function sfld_insert_level_taxonomy_terms() : void {
+    public function sfld_insert_level_taxonomy_terms() : void {
 
-		$taxonomyName = 'level';
+        $taxonomyName = 'level';
 
-		$terms = [
-			'Any',
-			'Beginer',
-			'Medium',
-			'Advanced'
-		];
+        $terms = [
+            'Any',
+            'Beginer',
+            'Medium',
+            'Advanced'
+        ];
 
-		foreach ($terms as $term) {
-			wp_insert_term($term, $taxonomyName);
-		}
+        foreach ($terms as $term) {
+            wp_insert_term($term, $taxonomyName);
+        }
 
-	}
+    }
 
-	/*
-	 * Add metabox for taxonomy Level.
-	 * 
-	 */
-	public function sfld_add_level_meta_box() : void {
+    /*
+     * Add metabox for taxonomy Level.
+     * 
+     */
+    public function sfld_add_level_meta_box() : void {
 
-		add_meta_box(
-			'sfld_level_box',
-			__('Level', 'sfldsimple'),
-			[$this, 'sfld_level_meta_box_term'],
-			['courses'],
-			'side',
-			'high'
-		);
+        add_meta_box(
+            'sfld_level_box',
+            __('Level', 'sfldsimple'),
+            [$this, 'sfld_level_meta_box_term'],
+            ['courses'],
+            'side',
+            'high'
+        );
 
-	}
+    }
 
-	/*
-	 * Make options radio (can select only singe term) for taxonomy Level. 
-	 * 
-	 */
-	public function sfld_level_meta_box_term( $post ) : void {
+    /*
+     * Make options radio (can select only singe term) for taxonomy Level. 
+     * 
+     */
+    public function sfld_level_meta_box_term( $post ) : void {
 
-		$terms = get_terms( array(
+       $terms = get_terms( array(
 			'taxonomy' => 'level',
 			'hide_empty' => false // Retrieve all terms
-		));
+        ));
 
-		// We assume that there is a single category
-		$currentTaxonomyValue = get_the_terms($post->ID, 'level')[0];
-		?>
-		<p>Choose taxonomy value</p>
-		<p>
-			<?php foreach($terms as $term): ?>
-				<input type="radio" name="level" id="taxonomy_term_<?php echo $term->term_id;?>" value="<?php echo $term->term_id;?>"<?php if($term->term_id==$currentTaxonomyValue->term_id) echo "checked"; ?>>
-				<label for="taxonomy_term_<?php echo $term->term_id;?>"><?php echo $term->name; ?></label>
-				</input><br/>
-			<?php endforeach; ?>
-		</p>
-		<?php
-	}
+        // We assume that there is a single category
+        $currentTaxonomyValue = get_the_terms($post->ID, 'level')[0];
+	?>
+	<p>Choose taxonomy value</p>
+	<p>
+            <?php foreach($terms as $term): ?>
+                <input type="radio" name="level" id="taxonomy_term_<?php echo $term->term_id;?>" value="<?php echo $term->term_id;?>"<?php if($term->term_id==$currentTaxonomyValue->term_id) echo "checked"; ?>>
+                <label for="taxonomy_term_<?php echo $term->term_id;?>"><?php echo $term->name; ?></label>
+                </input><br/>
+            <?php endforeach; ?>
+        </p>
+        <?php
+    }
 
-	/*
-	 * Save term for taxonomy Level. 
-	 * 
-	 */
-	function sfld_save_level_taxonomy($post_id) : void {
-		if ( isset( $_REQUEST['level'] ) ) 
-			wp_set_object_terms($post_id, (int)sanitize_text_field( $_POST['level'] ), 'level');
-	}
+    /*
+     * Save term for taxonomy Level. 
+     * 
+     */
+    function sfld_save_level_taxonomy($post_id) : void {
+        if ( isset( $_REQUEST['level'] ) ) 
+            wp_set_object_terms($post_id, (int)sanitize_text_field( $_POST['level'] ), 'level');
+    }
 
 }

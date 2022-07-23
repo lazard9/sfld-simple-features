@@ -29,7 +29,7 @@ class SFLD_Meta_Boxes
 
 	public function sfld_save_editor( $post_id ) : void {
 
-        var_dump($_POST['sfld_post_editor']);
+        // var_dump($_POST['sfld_post_editor']);
 
 		if(isset($_POST['sfld_post_editor']) && is_numeric($_POST['sfld_post_editor']) ) {
 

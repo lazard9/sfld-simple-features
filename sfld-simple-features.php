@@ -64,8 +64,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
  */
 function run_sfld_simple_plugin() : void {
 
-    $plugin = new SFLD_Simple();
-    $plugin->run_hooks();
+    // $plugin = new SFLD_Simple();
+    // $plugin->run_hooks();
+
+    $sfld_simple = SFLD_Simple::getInstance();
+    $sfld_simple->run_dependencies();
+    $sfld_simple->run_hooks();
 
 }
 
@@ -133,4 +137,4 @@ class SFLD_Simple_Test {
     }
 }
 
-new SFLD_Simple_Test();
+// new SFLD_Simple_Test();

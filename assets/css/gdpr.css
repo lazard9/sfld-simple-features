@@ -1,0 +1,45 @@
+.comment-form-consent {
+    position: relative;
+}
+
+.comment-form-consent input {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    opacity: 0;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.comment-form-consent input:checked + label::before {
+	background-color: #a6d131;
+}
+
+.comment-form-consent label {
+    position: relative;
+    padding-left: 30px;
+}
+
+.comment-form-consent label a {
+    color: #a9a9a9;
+    text-decoration: underline;
+}
+
+.comment-form-consent label a:hover {
+    color: #a6d131;
+}
+
+.comment-form-consent label::before {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    content: '';
+    width: 17px;
+    height: 17px;
+    border: 1px solid #a6d131;
+    background-color: transparent;
+    -webkit-transition: ease 0.4s;
+    -o-transition: ease 0.4s;
+    transition: ease 0.4s;
+}

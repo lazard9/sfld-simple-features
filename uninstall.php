@@ -35,6 +35,7 @@ $wpdb->query( "DROP TABLE IF EXISTS $database_table_name" );
  * 
  */
 delete_option( 'sfld_simple_options' );
+// delete_option( 'sfld_simple_settings' );
 
 // Access the database via SQL
 //global $wpdb;

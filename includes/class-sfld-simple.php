@@ -18,20 +18,40 @@
  * Save Editor to Post Meta
  * Metabox - Add Custom Fields - Courses
  * Save Course Details to the DB
+ * Woo GDPR Complience Checkbox for the Comments/Reviews
  * 
  * @package SFLD Simple Features
  *  
  */
 
  
-class SFLD_Simple
+ 
+final class SFLD_Simple
 {
+
+    // Unique instance.
+    private static $instance = null;
+
+    // Private constructor prevent you from instancing the class with "new".
+    private function __construct() {  
+    }
+
+    // Method to get the unique instance.
+    public static function getInstance() {
+        // Create the instance if it does not exist.
+        if (!isset(self::$instance)) {
+            self::$instance = new SFLD_Simple();
+        }
+
+        // Return the unique instance.
+        return self::$instance;
+    }
 
     protected $loader;
     protected $plugin_name;
     protected $plugin_version;
 
-    function __construct() {
+    function run_dependencies() { // was __construct
 
         $this->plugin_name = 'sfld-simple';
         $this->plugin_version = '2.0.0';
@@ -39,7 +59,6 @@ class SFLD_Simple
         $this->load_dependencies();
 
         $this->define_admin_hooks();
-        $this->define_admin_pages_hooks();
         $this->define_public_hooks();
         $this->define_template_hooks();
         $this->define_cpt_hooks();
@@ -48,8 +67,17 @@ class SFLD_Simple
         $this->define_meta_boxes();
         $this->define_ajax_vote();
         $this->define_ajax_load_more();
+        $this->define_woo_gdpr();
 
 	}
+
+    /**
+     * Run the loader to execute all of the hooks with WordPress.
+     *
+     */
+    public function run_hooks() {
+        $this->loader->run();
+    }
 
     /**
      * Retrieve the name of the plugin used to uniquely identify it.
@@ -70,17 +98,17 @@ class SFLD_Simple
 
     private function load_dependencies() : void {
 
-        require_once SFLD_SIMPLE_DIR . 'admin/class-sfld-simple-admin.php';
-        require_once SFLD_SIMPLE_DIR . 'admin/class-sfld-simple-admin-pages.php';
-        require_once SFLD_SIMPLE_DIR . 'public/class-sfld-simple-public.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-templates.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-cpt.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-courses-taxonomies.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-professors-taxonomy.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-shortcode.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-meta-boxes.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-ajax-vote.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-ajax-load-more.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-simple-admin.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-simple-public.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-simple-templates.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-simple-cpt.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-courses-taxonomies.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-professors-taxonomy.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/shortcode/class-sfld-simple-shortcode.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/meta-box/class-sfld-simple-meta-boxes.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-simple-ajax-vote.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-simple-ajax-load-more.php';
+        require_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-simple-woo-gdpr.php';
 
         require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-loader.php';
         $this->loader = new SFLD_Simple_Loader();
@@ -91,16 +119,13 @@ class SFLD_Simple
 
         $plugin_admin = new SFLD_Simple_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'sfld_enqueue_admin_assets' );
-        
-    }
 
-    private function define_admin_pages_hooks() {
+        // $plugin_admin_links = new SFLD_Simple_Admin_Links();
+        $this->loader->add_filter( $plugin_admin->admin_links->get_plugin_action_links(), $plugin_admin->admin_links, 'sfld_simple_add_settings_link' );
 
-        $plugin_admin_pages = new SFLD_Simple_Admin_Pages( $this->get_plugin_name(), $this->get_plugin_version() );
-        $this->loader->add_action( 'admin_menu', $plugin_admin_pages, 'sfld_simple_settings_page' );
-        $this->loader->add_filter( $plugin_admin_pages->get_plugin_action_links(), $plugin_admin_pages, 'sfld_simple_add_settings_link' );
-        $this->loader->add_action( 'admin_init', $plugin_admin_pages, 'sfld_simple_options' );
-        $this->loader->add_action( 'admin_menu', $plugin_admin_pages, 'sfld_simple_default_sub_pages' );
+        // $plugin_admin_pages = new SFLD_Simple_Admin_Pages( $this->get_plugin_name(), $this->get_plugin_version() );
+        $this->loader->add_action( 'admin_menu', $plugin_admin->admin_pages, 'sfld_simple_settings_page' );
+        $this->loader->add_action( 'admin_init', $plugin_admin->admin_pages, 'sfld_simple_example_options' );
         
     }
     
@@ -174,14 +199,17 @@ class SFLD_Simple
         $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
         
     }
-
-    /**
-     * Run the loader to execute all of the hooks with WordPress.
-     *
-     * 
-     */
-    public function run_hooks() {
-        $this->loader->run();
-    }
     
+    private function define_woo_gdpr() {
+
+        $plugin_woo_gdpr = new SFLD_Woo_GDPR();
+        $this->loader->add_action('comment_form_logged_in_after', $plugin_woo_gdpr, 'sfld_additional_fields');
+        $this->loader->add_action('comment_form_after_fields', $plugin_woo_gdpr, 'sfld_additional_fields');
+        $this->loader->add_action('comment_post', $plugin_woo_gdpr, 'sfld_save_comment_meta_data');
+        $this->loader->add_filter('preprocess_comment', $plugin_woo_gdpr, 'sfld_verify_comment_meta_data');
+        $this->loader->add_action('add_meta_boxes_comment', $plugin_woo_gdpr, 'sfld_extend_comment_add_meta_box');
+        $this->loader-> add_action('edit_comment', $plugin_woo_gdpr, 'sfld_extend_comment_edit_metafields');
+        
+    }
+
 }

@@ -27,29 +27,57 @@ class SFLD_Simple_Admin_Pages {
         // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $callback = '', int|float $position = null )
         add_submenu_page(
             'sfld-simple',
-            __( 'SFLD Feature 1', 'sfldsimple' ),
-            __( 'Feature 1', 'sfldsimple' ),
+            __( 'SFLD various form fields', 'sfldsimple' ),
+            __( 'Form', 'sfldsimple' ),
             'manage_options',
-            'sfld-simple-feature-1',
-            [$this, 'sfld_simple_settings_subpage_markup_1']
-        );
-        
-        add_submenu_page(
-            'sfld-simple',
-            __( 'SFLD Feature 2', 'sfldsimple' ),
-            __( 'Feature 2', 'sfldsimple' ),
-            'manage_options',
-            'sfld-simple-feature-2',
+            'sfld-simple-form',
             [$this, 'sfld_simple_settings_subpage_markup_2'],
         );
-    
+
         add_submenu_page(
-            'edit.php?post_type=courses', // CPT Courses
+            'sfld-simple',
+            __( 'SFLD Description', 'sfldsimple' ),
+            __( 'Description', 'sfldsimple' ),
+            'manage_options',
+            'sfld-simple-descriptio',
+            [$this, 'sfld_simple_example_subpage_markup']
+        );
+
+        /**
+         * Adds a submenu page for the CPT Courses.
+         * 
+         */  
+        add_submenu_page(
+            'edit.php?post_type=courses',
             __( 'SFLD Simple Default Sub Page', 'sfldsimple' ),
             __( 'SFLD Sub Page', 'sfldsimple' ),
             'manage_options',
             'sfld-simple-subpage',
-            [$this, 'sfld_simple_settings_submenu_page_markup'],
+            [$this, 'sfld_simple_courses_submenu_page_markup'],
+        );
+
+        /**
+         * Adds a submenu page for the management page (tools).
+         * 
+         */        
+        // Can add page as a submenu using the following:
+        // add_dashboard_page()
+        // add_posts_page()
+        // add_media_page()
+        // add_pages_page()
+        // add_comments_page()
+        // add_theme_page()
+        // add_plugins_page()
+        // add_users_page()
+        // add_management_page()
+        // add_options_page()
+    
+        add_management_page(
+            __( 'SFLD Simple Sub Page Info', 'sfldsimple' ),
+            __( 'SFLD Info', 'sfldsimple' ),
+            'manage_options',
+            'sfld-simple-info',
+            [$this, 'sfld_simple_management_submenu_page_markup']
         );
     
     }
@@ -66,7 +94,7 @@ class SFLD_Simple_Admin_Pages {
         ?>
         <div class="sfld-simple-wrap">
             <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
-            <p><?php esc_html_e( 'This one simple plugin with numerous features. :-)', 'sfldsimple' ); ?></p>
+            <p><?php esc_html_e( 'This is one simple plugin with numerous features. :-)', 'sfldsimple' ); ?></p>
         </div>
         <?php
     }
@@ -75,7 +103,7 @@ class SFLD_Simple_Admin_Pages {
      * Display callback for the submenu page 1.
      * 
      */
-    function sfld_simple_settings_subpage_markup_1() {
+    function sfld_simple_example_subpage_markup() {
         // Double check user capabilities
         if ( !current_user_can('manage_options') ) {
             return;
@@ -84,7 +112,7 @@ class SFLD_Simple_Admin_Pages {
         <div class="sfld-simple-wrap">
             <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
     
-            <h2><?php esc_html_e( 'All Options', 'sfldsimple' ); ?></h2>
+            <h2><?php esc_html_e( 'About the author', 'sfldsimple' ); ?></h2>
     
             <?php $options = get_option( 'sfld_simple_options' ); ?>
     
@@ -97,7 +125,7 @@ class SFLD_Simple_Admin_Pages {
     
                 <?php if( array_key_exists( 'name', $options ) ): ?>
                     <h2><?php esc_html_e( 'Specific Option', 'sfldsimple' ); ?></h2>
-                    <p><?php esc_html_e( $options['name'] ); ?></p>
+                    <p><?php esc_html_e( $options['sponsor'] ); ?></p>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
@@ -105,10 +133,10 @@ class SFLD_Simple_Admin_Pages {
     }
 
     /**
-     * Function for learning how to add options for the submenu page 1.
+     * Function for learning how to add options for the first submenu page.
      * 
      */
-    public function sfld_simple_options() {
+    public function sfld_simple_example_options() {
 
         // $options = [
         //   'First Name',
@@ -118,8 +146,8 @@ class SFLD_Simple_Admin_Pages {
 
         $options = [];
         $options['name']      = 'Lazar Dacic';
-        $options['location']  = 'Novi Sad, Serbia';
-        $options['sponsor']   = 'Plugin Co.';
+        $options['location']  = 'Serbia';
+        $options['sponsor']   = 'Plugin Dev. Co.';
 
         if( !get_option( 'sfld_simple_options' ) ) {
             add_option( 'sfld_simple_options', $options );
@@ -150,7 +178,7 @@ class SFLD_Simple_Admin_Pages {
      * Display callback for the submenu page.
      * 
      */
-    public function sfld_simple_settings_submenu_page_markup() : void { 
+    public function sfld_simple_courses_submenu_page_markup() : void { 
         ?>
         <div class="sfld-simple-wrap">
             <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
@@ -158,62 +186,12 @@ class SFLD_Simple_Admin_Pages {
         </div>
         <?php
     }
-
-    /**
-     * Add a link to your settings page in your plugin
-     * 
-     */
-    public function sfld_simple_add_settings_link( $links ) : array {
-    
-        $settings_link = '<a href="admin.php?page=sfld-simple">' . __( 'Settings', 'sfldsimple' ) . '</a>';
-        array_push( $links, $settings_link );
-        return $links;
-    
-    }
-    
-    /**
-     * Retrieve the plugin action links.
-     * 
-     */
-    public function get_plugin_action_links() : string {
-    
-        return "plugin_action_links_" . SFLD_SIMPLE_BASENAME;
-    
-    }
-    
-    /**
-     * Adds a submenu page for the management page (tools).
-     * 
-     */
-    public function sfld_simple_default_sub_pages() : void {
-    
-        // Can add page as a submenu using the following:
-        // add_dashboard_page()
-        // add_posts_page()
-        // add_media_page()
-        // add_pages_page()
-        // add_comments_page()
-        // add_theme_page()
-        // add_plugins_page()
-        // add_users_page()
-        // add_management_page()
-        // add_options_page()
-    
-        add_management_page(
-            __( 'SFLD Simple Sub Page Info', 'sfldsimple' ),
-            __( 'SFLD Info', 'sfldsimple' ),
-            'manage_options',
-            'sfld-simple-info',
-            [$this, 'sfld_simple_settings_tools_markup']
-        );
-    
-    }
     
     /**
      * Display callback for the submenu page (tools).
      * 
      */
-    public function sfld_simple_settings_tools_markup() : void { 
+    public function sfld_simple_management_submenu_page_markup() : void { 
         ?>
         <div class="sfld-simple-wrap">
             <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>

@@ -8,11 +8,6 @@
 
 class SFLD_Simple_Public {
 
-    /**
-     * Register frontend assets for the public-facing side of the site.
-     *
-     * 
-     */
     public function __construct( $plugin_name, $plugin_version ) {
 
         $this->plugin_name = $plugin_name;
@@ -20,10 +15,21 @@ class SFLD_Simple_Public {
 
     }
 
+    /**
+     * Register frontend assets for the public-facing side of the site.
+     *
+     */
     public function sfld_enqueue_frontend_assets() : void {
         wp_enqueue_style(
 			$this->plugin_name . '-front-style',
 			SFLD_SIMPLE_URL . 'assets/css/frontend.css',
+			[],
+			$this->plugin_version
+        );
+
+        wp_enqueue_style(
+			$this->plugin_name . '-gdpr-style',
+			SFLD_SIMPLE_URL . 'assets/css/gdpr.css',
 			[],
 			$this->plugin_version
         );
@@ -58,14 +64,14 @@ class SFLD_Simple_Public {
 
         wp_enqueue_style(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'public/plugins/css/swiper-bundle.min.css',
+            SFLD_SIMPLE_URL . 'assets/plugins/css/swiper-bundle.min.css',
 			[],
 			$this->plugin_version
         );
 
         wp_enqueue_script(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'public/plugins/js/swiper-bundle.min.js',
+            SFLD_SIMPLE_URL . 'assets/plugins/js/swiper-bundle.min.js',
             NULL,
             $this->plugin_version,
             true
@@ -73,7 +79,7 @@ class SFLD_Simple_Public {
 
         wp_enqueue_script(
             $this->plugin_name . '-swiper-initialize',
-            SFLD_SIMPLE_URL . 'public/plugins/js/swiper-initialize.js',
+            SFLD_SIMPLE_URL . 'assets/plugins/js/swiper-initialize.js',
             NULL,
             $this->plugin_version,
             true

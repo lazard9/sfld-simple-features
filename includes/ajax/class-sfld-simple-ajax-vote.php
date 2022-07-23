@@ -17,7 +17,7 @@ class SFLD_Ajax_Vote
         }   
      
         $vote_count = get_post_meta($_REQUEST["post_id"], "votes", true);
-        $vote_count = ($vote_count == -1) ? 0 : $vote_count;
+        $vote_count = ($vote_count == '') ? 0 : $vote_count;
         $new_vote_count = $vote_count + 1;
      
         $vote = update_post_meta($_REQUEST["post_id"], "votes", $new_vote_count);

@@ -95,7 +95,10 @@ final class SFLD_Simple
         return $this->plugin_version;
     }
 
-
+    /**
+     * Load all dependencies.
+     * 
+     */
     private function load_dependencies() : void {
 
         require_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-simple-admin.php';

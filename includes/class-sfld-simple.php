@@ -157,9 +157,9 @@ final class SFLD_Simple
         $this->loader->add_filter( 'init', $courses_taxonies, 'sfld_simple_courses_taxonomies_init', 0 );
         $this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_set_default_object_terms', 100, 2 );
         $this->loader->add_action( 'init', $courses_taxonies, 'sfld_cleanup_level_taxonomy_terms' );
-		$this->loader->add_action( 'init', $courses_taxonies, 'sfld_insert_level_taxonomy_terms', 999 );
+        $this->loader->add_action( 'init', $courses_taxonies, 'sfld_insert_level_taxonomy_terms', 999 );
         $this->loader->add_action( 'add_meta_boxes', $courses_taxonies, 'sfld_add_level_meta_box' );
-		$this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_save_level_taxonomy' );
+        $this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_save_level_taxonomy' );
 
         $professors_taxony = new SFLD_Simple_Professors_Taxonomy();
         $this->loader->add_filter( 'init', $professors_taxony, 'sfld_simple_professors_taxonomy_init', 0 );

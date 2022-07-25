@@ -19,7 +19,7 @@
  * Metabox - Select Editor
  * Save Editor to Post Meta
  * Metabox - Add Custom Fields - Courses
- * Save Course Details to the DB
+ * Save Course Details to custom DB table
  * Woo GDPR Complience Checkbox for the Comments/Reviews
  * 
  * @package SFLD Simple Features

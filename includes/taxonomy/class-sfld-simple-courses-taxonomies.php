@@ -146,21 +146,22 @@ class SFLD_Simple_Courses_Taxonomies
             'Medium',
             'Advanced'
         );
+        
         // Name your taxonomy here
-	$predefined_taxonomy = 'level';
+        $predefined_taxonomy = 'level';
 
-	$all_terms_inside_tax = get_terms( 
+        $all_terms_inside_tax = get_terms( 
             $predefined_taxonomy,
             array(
                 'hide_empty'   => false,
                 'taxonomy'     => $predefined_taxonomy
             ) 
-	);
+        );
 
-	foreach ( $all_terms_inside_tax as $term ) {
+        foreach ( $all_terms_inside_tax as $term ) {
             if ( ! in_array( $term->name, $predefined_terms ) )
                 wp_delete_term( $term->term_id, $predefined_taxonomy );
-	}
+        }
 
     }
 
@@ -218,13 +219,13 @@ class SFLD_Simple_Courses_Taxonomies
 	?>
 	<p>Choose taxonomy value</p>
 	<p>
-            <?php foreach($terms as $term): ?>
-                <input type="radio" name="level" id="taxonomy_term_<?php echo $term->term_id;?>" value="<?php echo $term->term_id;?>"<?php if($term->term_id==$currentTaxonomyValue->term_id) echo "checked"; ?>>
-                <label for="taxonomy_term_<?php echo $term->term_id;?>"><?php echo $term->name; ?></label>
-                </input><br/>
-            <?php endforeach; ?>
-        </p>
-        <?php
+        <?php foreach($terms as $term): ?>
+            <input type="radio" name="level" id="taxonomy_term_<?php echo $term->term_id;?>" value="<?php echo $term->term_id;?>"<?php if($term->term_id==$currentTaxonomyValue->term_id) echo "checked"; ?>>
+            <label for="taxonomy_term_<?php echo $term->term_id;?>"><?php echo $term->name; ?></label>
+            </input><br/>
+        <?php endforeach; ?>
+    </p>
+    <?php
     }
 
     /*

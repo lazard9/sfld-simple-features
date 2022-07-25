@@ -51,7 +51,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
 
 /**
  * Begins execution of the plugin.
@@ -64,9 +64,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
  */
 function run_sfld_simple_plugin() : void {
 
-    // $plugin = new SFLD_Simple();
-    // $plugin->run_hooks();
-
     $sfld_simple = SFLD_Simple::getInstance();
     $sfld_simple->run_dependencies();
     $sfld_simple->run_hooks();
@@ -74,7 +71,6 @@ function run_sfld_simple_plugin() : void {
 }
 
 run_sfld_simple_plugin();
-
 
 
 /**

@@ -37,7 +37,7 @@ class SFLD_Simple_Activator
                 content     TEXT NOT NULL,
                 PRIMARY KEY (ID)
             ) $charset; ";
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+        include_once( ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($course_details);
     }
 

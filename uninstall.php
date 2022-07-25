@@ -10,32 +10,67 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	die;
 }
 
+
+$options = get_option( 'sfld_main_settings' );
+
 /**
  * Clear Database stored data.
  * 
  */
-$courses = get_posts( array( 'post_type' => ['courses', 'professors'], 'numberposts' => -1 ) );
+if( array_key_exists( 'checkbox-cpt', $options )) {
 
-foreach( $courses as $course ) {
-	wp_delete_post( $course->ID, true );
+	$all_custom_posts = get_posts( array( 'post_type' => ['courses', 'professors'], 'numberposts' => -1, 'post_status' => 'any' ) );
+
+	foreach( $all_custom_posts as $custom_post ) {
+		wp_delete_post( $custom_post->ID, true );
+	}
 }
 
+/**
+ * Delete custom taxonomies terms
+ * 
+ */
+if( array_key_exists( 'checkbox-taxonomies', $options )) {
+
+	$predefined_taxonomy = ['level', 'subjects', 'topics', 'curriculums'];
+
+	$all_terms_inside_tax = get_terms( 
+		$predefined_taxonomy,
+		array(
+			'hide_empty'   => false,
+			'taxonomy'     => $predefined_taxonomy
+		) 
+	);
+
+	foreach ( $all_terms_inside_tax as $term ) {
+		wp_delete_term( $term->term_id, $predefined_taxonomy );
+	}
+
+}
 
 /**
  * Drop Database Table - course_details.
  * 
  */
-global $wpdb;
+if( array_key_exists( 'checkbox-database', $options )) {
 
-$database_table_name = $wpdb->prefix . 'ld_course_details';
-$wpdb->query( "DROP TABLE IF EXISTS $database_table_name" );
+	global $wpdb;
+
+	$database_table_name = $wpdb->prefix . 'ld_course_details';
+	$wpdb->query( "DROP TABLE IF EXISTS $database_table_name" );
+}
 
 /**
  * Delete data from options table.
  * 
  */
-delete_option( 'sfld_simple_options' );
-// delete_option( 'sfld_simple_settings' );
+if( array_key_exists( 'checkbox-settings', $options )) {
+	
+	delete_option( 'sfld_simple_options' );
+	delete_option( 'sfld_simple_settings' );
+	delete_option( 'sfld_main_settings' );	
+
+}
 
 // Access the database via SQL
 //global $wpdb;

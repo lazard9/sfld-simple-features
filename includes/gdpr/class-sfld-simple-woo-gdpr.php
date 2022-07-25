@@ -13,7 +13,7 @@ class SFLD_Woo_GDPR
    {
       echo '<p class="comment-form-consent">' .
          '<input type="checkbox" id="consent" name="consent" checked>
-         <label for="consent">' . sprintf(__('By using this form you agree with the storage and handling of your data by this website %s">GTC</a>', 'agbconsent'), '<a href="' . esc_url(home_url('/gtc/'))) . '<span class="required"> *</span></label>
+         <label for="consent">' . sprintf(__('By using this form you agree with the storage and handling of your data by this website %s">GTC</a>', 'sfldsimple'), '<a href="' . esc_url(home_url('/gtc/'))) . '<span class="required"> *</span></label>
       </p>';
    }
 
@@ -31,7 +31,7 @@ class SFLD_Woo_GDPR
    function sfld_verify_comment_meta_data($commentdata)
    {
       if (!isset($_POST['consent']))
-         wp_die(__('Error: You did not consent.', 'agbconsent'));
+         wp_die(__('Error: You did not consent.', 'sfldsimple'));
       return $commentdata;
    }
 
@@ -56,7 +56,7 @@ class SFLD_Woo_GDPR
       wp_nonce_field('extend_comment_update', 'extend_comment_update', false);
    ?>
       <p>
-         <label for="consent"><?php _e('Consent: ', 'agbconsent'); ?></label>
+         <label for="consent"><?php _e('Consent: ', 'sfldsimple'); ?></label>
          <span class="consentchecked">
          <?php
          if ($consent) {

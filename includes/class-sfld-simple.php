@@ -5,7 +5,8 @@
  * Table of Contents (number is code line):
  * 
  * Include admin scripts
- * Include admin scripts
+ * Include frontend scripts
+ * Include Swiper.js plugin scripts
  * Admin pages - menu page, for CPT courses, under Tools
  * Admin pages - settings and forms
  * Load Course Template

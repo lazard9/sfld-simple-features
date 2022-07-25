@@ -7,6 +7,7 @@
  * Include admin scripts
  * Include admin scripts
  * Admin pages - menu page, for CPT courses, under Tools
+ * Admin pages - settings and forms
  * Load Course Template
  * Load Archive Courses Template
  * Register CPT Courses

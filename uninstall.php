@@ -30,23 +30,22 @@ if( array_key_exists( 'checkbox-cpt', $options )) {
  * Delete custom taxonomies terms
  * 
  */
-if( array_key_exists( 'checkbox-taxonomies', $options )) {
+// if( array_key_exists( 'checkbox-taxonomies', $options )) {
 
-	$predefined_taxonomy = ['level', 'subjects', 'topics', 'curriculums'];
+// 	$predefined_taxonomy = ['level', 'subjects', 'topics', 'curriculums'];
 
-	$all_terms_inside_tax = get_terms( 
-		$predefined_taxonomy,
-		array(
-			'hide_empty'   => false,
-			'taxonomy'     => $predefined_taxonomy
-		) 
-	);
+// 	$all_terms_inside_tax = get_terms(
+// 		array(
+// 			'hide_empty'   => false,
+// 			'taxonomy'     => $predefined_taxonomy
+// 		) 
+// 	);
 
-	foreach ( $all_terms_inside_tax as $term ) {
-		wp_delete_term( $term->term_id, $predefined_taxonomy );
-	}
+// 	foreach ( $all_terms_inside_tax as $term ) {
+// 		wp_delete_term( $term->term_id, $predefined_taxonomy );
+// 	}
 
-}
+// }
 
 /**
  * Drop Database Table - course_details.

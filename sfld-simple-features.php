@@ -11,7 +11,14 @@
  * @package SFLD Simple Features
  */
 
- 
+/**
+ * This plugin is for practice. Free for everyone to use.
+ * Slightly inspired by WooCommerce and Swiper.js plugins.
+ * Various functionalities have been added (some unfinished!) 
+ * from several courses, tutorials etc. Code refacting in progess!
+ */
+
+
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
 

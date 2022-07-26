@@ -39,7 +39,7 @@ if ( have_posts() ) {
 
             foreach($all_ids as $id) {
                 // echo $id . '<br/>';
-                echo get_the_title($id) . '<br/>';
+                // echo get_the_title($id) . '<br/>';
                 echo get_the_post_thumbnail_url($id) . '<br/>';
             };
 

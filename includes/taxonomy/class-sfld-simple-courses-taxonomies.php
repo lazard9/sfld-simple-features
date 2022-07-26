@@ -150,11 +150,10 @@ class SFLD_Simple_Courses_Taxonomies
         // Name your taxonomy here
         $predefined_taxonomy = 'level';
 
-        $all_terms_inside_tax = get_terms( 
-            $predefined_taxonomy,
+        $all_terms_inside_tax = get_terms(
             array(
-                'hide_empty'   => false,
-                'taxonomy'     => $predefined_taxonomy
+                'taxonomy'     => $predefined_taxonomy,
+                'hide_empty'   => false
             ) 
         );
 
@@ -183,6 +182,9 @@ class SFLD_Simple_Courses_Taxonomies
         foreach ($terms as $term) {
             wp_insert_term($term, $taxonomyName);
         }
+
+        // static $callCount=0;
+        // printf("%d\n", ++$callCount);
 
     }
 

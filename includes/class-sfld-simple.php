@@ -9,11 +9,13 @@
  * Include Swiper.js plugin scripts
  * Admin pages - menu page, for CPT courses, under Tools
  * Admin pages - settings and forms
- * Load Course Template
- * Load Archive Courses Template
+ * Load Course Template - with Swiper.js plugin carousel
+ * Load Archive Courses Template - with Ajax load more button
  * Register CPT Courses
  * Register CPT Professors
  * Register Custom Taxonomies for CPT Courses with additional functionalities for tax Level
+ * Tax Level has only 4 terms, custom metabox with input type radio (only one option can be selected)
+ * Taxonomies Level, Subject, Topics in draft have autosave set to term Any
  * Register Custom Taxonomies for CPT Professors and autopopulate
  * Register Shortcode to display Swiper.js slider in Course Template
  * Metabox - Select Editor
@@ -64,30 +66,6 @@ class SFLD_Simple
 	}
 
     /**
-     * Run the loader to execute all of the hooks with WordPress.
-     *
-     */
-    public function run_hooks() : void {
-        $this->loader->run();
-    }
-
-    /**
-     * Retrieve the name of the plugin used to uniquely identify it.
-     * 
-     */
-    public function get_plugin_name() : string {
-        return $this->plugin_name;
-    }
-
-    /**
-     * Retrieve the version number of the plugin.
-     * 
-     */
-    public function get_plugin_version() : string {
-        return $this->plugin_version;
-    }
-
-    /**
      * Load all dependencies.
      * 
      */
@@ -95,7 +73,7 @@ class SFLD_Simple
 
         include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-simple-admin.php';
         include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-simple-public.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-simple-templates.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/load-templates/class-sfld-simple-templates.php';
         include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-simple-cpt.php';
         include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-courses-taxonomies.php';
         include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-professors-taxonomy.php';
@@ -127,6 +105,30 @@ class SFLD_Simple
         $this->define_ajax_load_more();
         $this->define_woo_gdpr();
         
+    }
+
+    /**
+     * Run the loader to execute all of the hooks with WordPress.
+     *
+     */
+    public function run_hooks() : void {
+        $this->loader->run();
+    }
+
+    /**
+     * Retrieve the name of the plugin used to uniquely identify it.
+     * 
+     */
+    public function get_plugin_name() : string {
+        return $this->plugin_name;
+    }
+
+    /**
+     * Retrieve the version number of the plugin.
+     * 
+     */
+    public function get_plugin_version() : string {
+        return $this->plugin_version;
     }
 
     private function define_admin_hooks() : void {

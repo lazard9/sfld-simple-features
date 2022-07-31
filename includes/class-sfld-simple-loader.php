@@ -6,6 +6,8 @@
  * @link       https://digitalapps.com
  */
 
+namespace SFLD\includes;
+
 class SFLD_Simple_Loader {
 
     /**

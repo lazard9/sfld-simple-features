@@ -7,6 +7,8 @@
  * 
  */
 
+namespace SFLD\includes\shortcode;
+
 class SFLD_Simple_Shortcode
 {
 

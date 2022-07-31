@@ -3,6 +3,40 @@ get_header();
 
     echo '<div style="max-width: 800px; margin: auto; padding: 60px 20px;">';
 
+        $courses = new WP_Query([
+            'post_type' => 'courses',
+            'posts_per_page' => 6,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'paged' => 1,
+        ]);
+        
+        if($courses->have_posts()): ?>
+        <ul class="courses-list">
+            <?php 
+            while ($courses->have_posts()): $courses->the_post();
+            ?>
+                <li class="course-item" id="post-<?php the_ID(); ?>">
+                    <a href="<?php the_permalink(); ?>">
+                        <div class="course-image">
+                            <?php if ( has_post_thumbnail() ) {
+                                the_post_thumbnail('full', array('class' => 'course'));
+                            } ?>
+                        </div>
+                        <div class="course-title">
+                            <h3><?php the_title(); ?></h3>
+                        </div>
+                    </a>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+        <?php endif; wp_reset_postdata(); ?>
+        
+        <div class="btn__wrapper">
+            <a href="#!" class="btn btn__primary" id="load-more">Load more</a>
+        </div>
+        
+        <?php
         $num_posts = 4;
 
         $args = array(

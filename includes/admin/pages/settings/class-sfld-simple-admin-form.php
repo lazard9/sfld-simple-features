@@ -6,6 +6,8 @@
  * @package SFLD Simple Features
  */
 
+namespace SFLD\includes\admin\pages\settings;
+
 class SFLD_Simple_Admin_Form
 {
 

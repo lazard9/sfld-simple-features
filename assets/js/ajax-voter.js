@@ -8,7 +8,7 @@ jQuery(document).ready( function() {
       jQuery.ajax({
          type : "post",
          dataType : "json",
-         url : myAjax.ajaxurl,
+         url : ajaxConfig.ajaxUrl,
          data : {action: "sfld_ajax_user_vote", post_id : post_id, nonce: nonce},
          success: function(response) {
             if(response.type == "success") {

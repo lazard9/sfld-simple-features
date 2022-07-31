@@ -7,7 +7,10 @@
  * 
  */
 
-class SFLD_Ajax_Load_More
+namespace SFLD\includes\ajax;
+use \WP_Query;
+
+class SFLD_Simple_Ajax_Load_More
 {
 
    function sfld_ajax_load_more_posts() : void {
@@ -50,6 +53,29 @@ class SFLD_Ajax_Load_More
       endif;
       
       die($out);
+   }
+
+   function weichie_load_more() {
+      $ajaxposts = new WP_Query([
+        'post_type' => 'publications',
+        'posts_per_page' => 6,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'paged' => $_POST['paged'],
+      ]);
+    
+      $response = '';
+    
+      if($ajaxposts->have_posts()) {
+         while($ajaxposts->have_posts()) : $ajaxposts->the_post();
+            $response .= get_template_part('parts/card', 'publication');
+         endwhile;
+         } else {
+         $response = '';
+      }
+    
+      echo $response;
+      exit;
    }
 
 }

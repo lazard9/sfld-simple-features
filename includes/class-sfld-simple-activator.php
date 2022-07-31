@@ -7,6 +7,8 @@
  * 
  */
 
+namespace SFLD\includes;
+
 class SFLD_Simple_Activator
 {
 

@@ -6,6 +6,11 @@
  * @package SFLD Simple Features
  */
 
+namespace SFLD\includes\admin;
+use SFLD\includes\admin\pages\SFLD_Simple_Admin_Pages;
+use SFLD\includes\admin\pages\settings\SFLD_Simple_Admin_Form;
+use SFLD\includes\admin\pages\settings\SFLD_Simple_Main_Form;
+
 class SFLD_Simple_Admin {
 
     public function __construct( $plugin_name, $plugin_version ) {
@@ -13,7 +18,7 @@ class SFLD_Simple_Admin {
         $this->plugin_name = $plugin_name;
         $this->plugin_version = $plugin_version;
 
-        $this->admin_includes();
+        // $this->admin_includes();
         $this->admin_init();
 
 	}
@@ -28,7 +33,7 @@ class SFLD_Simple_Admin {
     }
 
     public function admin_init() {
-		
+        
         $this->admin_links = new SFLD_Simple_Admin_Links;
         $this->admin_pages = new SFLD_Simple_Admin_Pages;
         $this->admin_form_settings = new SFLD_Simple_Admin_Form;

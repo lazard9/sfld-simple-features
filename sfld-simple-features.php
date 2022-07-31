@@ -19,46 +19,54 @@
  */
 
 
+
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
 
-// Define namespace.
-//namespace SFLD\includes;
+// Define namespace. Just for testing!!!!!!
+namespace SFLD\includes;
 
 // Plugin dir path
-define( 'SFLD_SIMPLE_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'SFLD_SIMPLE_DIR' ) ) {
+    define( 'SFLD_SIMPLE_DIR', plugin_dir_path( __FILE__ ) );
+}
 // Plugin URL
-define( 'SFLD_SIMPLE_URL', plugin_dir_url( __FILE__ ) );
-// Gets the basename 
-define( 'SFLD_SIMPLE_BASENAME', plugin_basename( __FILE__ ) );
+if ( ! defined( 'SFLD_SIMPLE_URL' ) ) {
+    define( 'SFLD_SIMPLE_URL', plugin_dir_url( __FILE__ ) );
+}
+// Gets the basename
+if ( ! defined( 'SFLD_SIMPLE_BASENAME' ) ) {
+    define( 'SFLD_SIMPLE_BASENAME', plugin_basename( __FILE__ ) );
+}
+// Include the autoloader so we can dynamically include the rest of the classes.
+if ( ! class_exists( 'SFLD_Simple', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
 
-// // Include the autoloader so we can dynamically include the rest of the classes.
-// if ( file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
-// 	require_once SFLD_SIMPLE_DIR . 'lib/autoloader.php' ;
-// }
-
-function activate_sfld_simple() {
-
-    require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-activator.php';
-    SFLD_Simple_Activator::activate();
+    include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php' ;
+    define( 'AUTOLOADER_FILE_INCLUDED', TRUE );
 
 }
 
+function activate_sfld_simple() {
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-activator.php';
+    SFLD_Simple_Activator::activate();
+}
+
 function deactivate_sfld_simple() {
-
-    require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-deactivator.php';
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-deactivator.php';
     SFLD_Simple_Deactivator::deactivate();
-
 }
 
 register_activation_hook( __FILE__, 'activate_sfld_simple' );
 register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
 
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
+// if ( ! class_exists( 'SFLD_Simple', false ) ) {
+// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
+// }
 
 /**
  * Begins execution of the plugin.
@@ -69,75 +77,15 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
  *
  * 
  */
-function run_sfld_simple_plugin() : void {
+if ( AUTOLOADER_FILE_INCLUDED ) {
 
-    $sfld_simple = SFLD_Simple::getInstance();
-    $sfld_simple->run_dependencies();
-    $sfld_simple->run_hooks();
+    function run_simple() : void {
 
+        $sfld_simple = SFLD_Simple::get_instance();
+        $sfld_simple->run_dependencies();
+        $sfld_simple->run_hooks();
+
+    }
+
+    run_simple();
 }
-
-run_sfld_simple_plugin();
-
-
-/**
- * !!!!!!!!!!!!!!!!!!!!!
- * For testing purposes.
- * 
- */
-class SFLD_Simple_Test {
-
-    public function __construct() {
-        add_action( 'admin_menu', [$this, 'ld_plugin_settings_pages'] );
-    }
-
-    /**
-     * Display plugin file paths.
-     * Only for testing purposes.
-     * 
-     */
-    function ld_plugin_settings_page_markup() : void {
-        // Double check user capabilities
-        if ( !current_user_can('manage_options') ) {
-            return;
-        }
-        ?>
-        <div class="wrap">
-            <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
-
-            <?php
-            $wpplugin_plugin_basename = plugin_basename( __FILE__ );
-            $wpplugin_plugin_dir_path = plugin_dir_path( __FILE__ );
-            $wpplugin_plugins_url_default = plugins_url();
-            $wpplugin_plugins_url = plugins_url( 'includes', __FILE__ );
-            $wpplugin_plugin_dir_url = plugin_dir_url( __FILE__ );
-            ?>
-
-            <ul>
-                <li>plugin_basename( __FILE__ ) - <?php echo $wpplugin_plugin_basename; ?></li>
-                <li>plugin_dir_path( __FILE__ ) - <?php echo $wpplugin_plugin_dir_path; ?></li>
-                <li>plugins_url() - <?php echo $wpplugin_plugins_url_default; ?></li>
-                <li>plugins_url( 'includes', __FILE__ ) - <?php echo $wpplugin_plugins_url; ?></li>
-                <li>plugin_dir_url( __FILE__ ) - <?php echo $wpplugin_plugin_dir_url; ?></li>
-            </ul>
-
-        </div>
-        <?php
-    }
-
-    function ld_plugin_settings_pages() : void {
-
-        add_menu_page(
-            __( 'File Paths', 'sfldsimple' ),
-            __( 'File Paths', 'sfldsimple' ),
-            'manage_options',
-            'ld_plugin',
-            [$this, 'ld_plugin_settings_page_markup'],
-            'dashicons-screenoptions',
-            100
-        );
-
-    }
-}
-
-// new SFLD_Simple_Test();

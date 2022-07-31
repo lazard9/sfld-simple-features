@@ -6,6 +6,8 @@
  * @package SFLD Simple Features
  */
 
+namespace SFLD\includes\frontend;
+
 class SFLD_Simple_Public {
 
     public function __construct( $plugin_name, $plugin_version ) {
@@ -44,8 +46,11 @@ class SFLD_Simple_Public {
 
         wp_localize_script( 
             $this->plugin_name . "-ajax-voter-script", 
-            'myAjax', 
-            array( 'ajaxurl' => admin_url( 'admin-ajax.php' )),
+            'ajaxConfig', 
+            [
+                'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                'ajax_nonce' => wp_create_nonce( 'load_more_post_nonce' )
+            ]
         );
 
         wp_enqueue_script( 

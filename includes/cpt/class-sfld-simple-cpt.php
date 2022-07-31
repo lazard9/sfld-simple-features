@@ -6,6 +6,8 @@
  * @package SFLD Simple Features
  */
 
+namespace SFLD\includes\cpt;
+
 class SFLD_Simple_CPT
 {
 

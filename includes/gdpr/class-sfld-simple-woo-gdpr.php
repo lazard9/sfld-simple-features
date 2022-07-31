@@ -6,7 +6,9 @@
  * @package SFLD Simple Features 
  */
 
-class SFLD_Woo_GDPR
+namespace SFLD\includes\gdpr;
+
+class SFLD_Simple_Woo_GDPR
 {
    
    function sfld_additional_fields()

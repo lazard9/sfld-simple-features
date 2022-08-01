@@ -63,7 +63,7 @@ class SFLD_Simple_Features
         // $this->include();
         $this->init();
 
-	}
+    }
 
     /**
      * Load all dependencies.

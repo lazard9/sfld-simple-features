@@ -8,7 +8,7 @@
 
 namespace SFLD\includes;
 
-class SFLD_Simple_Loader {
+class SFLD_Loader {
 
     /**
      * The array of actions registered with WordPress.

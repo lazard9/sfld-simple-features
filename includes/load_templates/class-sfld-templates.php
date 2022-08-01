@@ -6,9 +6,9 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\templates;
+namespace SFLD\includes\load_templates;
 
-class SFLD_Simple_Templates
+class SFLD_Templates
 {
 
     /* 

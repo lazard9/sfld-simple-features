@@ -11,7 +11,7 @@ namespace SFLD\includes\metabox;
 
 use \WP_User_Query;
 
-class SFLD_Simple_Meta_Boxes
+class SFLD_Meta_Boxes
 {
 
     /*

@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\cpt;
 
-class SFLD_Simple_CPT
+class SFLD_CPT
 {
 
     function sfld_simple_cpt_init() {

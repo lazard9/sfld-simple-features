@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\admin;
 
-class SFLD_Simple_Admin_Links {
+class SFLD_Admin_Links {
 
     /**
      * Add a link to your settings page in your plugin

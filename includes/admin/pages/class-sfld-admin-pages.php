@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\admin\pages;
 
-class SFLD_Simple_Admin_Pages {
+class SFLD_Admin_Pages {
     
 
     /**
@@ -33,7 +33,7 @@ class SFLD_Simple_Admin_Pages {
             __( 'SFLD various form fields', 'sfldsimple' ),
             __( 'Form', 'sfldsimple' ),
             'manage_options',
-            'sfld-simple-form',
+            'sfld-form',
             [$this, 'sfld_simple_form_subpage_markup'],
         );
 
@@ -42,7 +42,7 @@ class SFLD_Simple_Admin_Pages {
             __( 'SFLD Description', 'sfldsimple' ),
             __( 'Description', 'sfldsimple' ),
             'manage_options',
-            'sfld-simple-description',
+            'sfld-description',
             [$this, 'sfld_simple_descriptio_subpage_markup']
         );
 
@@ -55,7 +55,7 @@ class SFLD_Simple_Admin_Pages {
             __( 'SFLD Simple Default Sub Page', 'sfldsimple' ),
             __( 'SFLD Sub Page', 'sfldsimple' ),
             'manage_options',
-            'sfld-simple-subpage',
+            'sfld-subpage',
             [$this, 'sfld_simple_courses_submenu_page_markup'],
         );
 
@@ -79,7 +79,7 @@ class SFLD_Simple_Admin_Pages {
             __( 'SFLD Simple Sub Page Info', 'sfldsimple' ),
             __( 'SFLD Info', 'sfldsimple' ),
             'manage_options',
-            'sfld-simple-info',
+            'sfld-info',
             [$this, 'sfld_simple_management_submenu_page_markup']
         );
     

@@ -1,4 +1,4 @@
-<div class="sfld-simple-wrap">
+<div class="sfld-wrap">
     <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 
     <h2><?php esc_html_e( 'About the author', 'sfldsimple' ); ?></h2>

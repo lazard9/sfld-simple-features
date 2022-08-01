@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\gdpr;
 
-class SFLD_Simple_Woo_GDPR
+class SFLD_Woo_GDPR
 {
    
    function sfld_additional_fields()

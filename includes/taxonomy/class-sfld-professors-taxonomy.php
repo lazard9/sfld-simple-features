@@ -9,7 +9,7 @@
 
 namespace SFLD\includes\taxonomy;
 
-class SFLD_Simple_Professors_Taxonomy
+class SFLD_Professors_Taxonomy
 {
 
     function sfld_simple_professors_taxonomy_init() : void {

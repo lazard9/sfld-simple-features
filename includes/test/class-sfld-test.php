@@ -2,10 +2,10 @@
 
 namespace SFLD\includes\test;
 
-class SFLD_Simple_Test {
+class SFLD_Test {
 
     public function __construct() {
-        add_action( 'admin_menu', [$this, 'ld_plugin_settings_pages'] );
+        add_action( 'admin_menu', [$this, 'sfld_plugin_settings_pages'] );
     }
 
     /**
@@ -13,13 +13,13 @@ class SFLD_Simple_Test {
      * Only for testing purposes.
      * 
      */
-    function ld_plugin_settings_page_markup() : void {
+    function sfld_plugin_settings_page_markup() : void {
         // Double check user capabilities
         if ( !current_user_can('manage_options') ) {
             return;
         }
         ?>
-        <div class="wrap">
+        <div class="sfld-wrap">
             <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 
             <?php
@@ -42,14 +42,14 @@ class SFLD_Simple_Test {
         <?php
     }
 
-    function ld_plugin_settings_pages() : void {
+    function sfld_plugin_settings_pages() : void {
 
         add_menu_page(
             __( 'File Paths', 'sfldsimple' ),
             __( 'File Paths', 'sfldsimple' ),
             'manage_options',
-            'ld_plugin',
-            [$this, 'ld_plugin_settings_page_markup'],
+            'sfld_plugin',
+            [$this, 'sfld_plugin_settings_page_markup'],
             'dashicons-image-rotate',
             100
         );

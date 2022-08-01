@@ -30,7 +30,7 @@
 
 namespace SFLD\includes;
  
-class SFLD_Simple
+class SFLD_Simple_Features
 {
 
     // Unique instance
@@ -44,7 +44,7 @@ class SFLD_Simple
     public static function get_instance() {
         // Create the instance if it does not exist.
         if (!isset(self::$_instance)) {
-            self::$_instance = new SFLD_Simple();  
+            self::$_instance = new SFLD_Simple_Features();  
         }
 
         // Return the unique instance.
@@ -71,18 +71,21 @@ class SFLD_Simple
      */
     private function include() : void {
 
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-simple-admin.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-simple-public.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/load-templates/class-sfld-simple-templates.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-simple-cpt.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-courses-taxonomies.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-simple-professors-taxonomy.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/shortcode/class-sfld-simple-shortcode.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/meta-box/class-sfld-simple-meta-boxes.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-simple-ajax-vote.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-simple-ajax-load-more.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-simple-woo-gdpr.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-loader.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/load-templates/class-sfld-templates.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-courses-taxonomies.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-professors-taxonomy.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/shortcode/class-sfld-shortcode.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/meta-box/class-sfld-meta-boxes.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
+
+        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
+
+        require_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
 
     }
 
@@ -92,7 +95,7 @@ class SFLD_Simple
      */
     private function init() : void {
 
-        $this->loader = new SFLD_Simple_Loader();
+        $this->loader = new SFLD_Loader();
 
         $this->define_admin_hooks();
         $this->define_public_hooks();
@@ -134,34 +137,34 @@ class SFLD_Simple
 
     private function define_admin_hooks() : void {
 
-        $plugin_admin = new admin\SFLD_Simple_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
+        $plugin_admin = new admin\SFLD_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'sfld_enqueue_admin_assets' );
 
-        // $plugin_admin_links = new SFLD_Simple_Admin_Links();
+        // $plugin_admin_links = new SFLD_Admin_Links();
         $this->loader->add_filter( $plugin_admin->admin_links->get_plugin_action_links(), $plugin_admin->admin_links, 'sfld_simple_add_settings_link' );
 
-        // $plugin_admin_pages = new SFLD_Simple_Admin_Pages();
+        // $plugin_admin_pages = new SFLD_Admin_Pages();
         $this->loader->add_action( 'admin_menu', $plugin_admin->admin_pages, 'sfld_simple_settings_page' );
         $this->loader->add_action( 'admin_init', $plugin_admin->admin_pages, 'sfld_simple_description_options' );
         
-        // $plugin_admin_form_settings = new SFLD_Simple_Admin_Form();
+        // $plugin_admin_form_settings = new SFLD_Admin_Form();
         $this->loader->add_action( 'admin_init', $plugin_admin->admin_form_settings, 'sfld_simple_admin_form_init' );
 
-        // $plugin_admin_main_settings = new SFLD_Simple_Main_Form();
+        // $plugin_admin_main_settings = new SFLD_Main_Form();
         $this->loader->add_action( 'admin_init', $plugin_admin->admin_main_settings, 'sfld_simple_main_form_init' );
         
     }
     
     private function define_public_hooks() : void {
 
-        $plugin_public = new frontend\SFLD_Simple_Public( $this->get_plugin_name(), $this->get_plugin_version() );
+        $plugin_public = new frontend\SFLD_Public( $this->get_plugin_name(), $this->get_plugin_version() );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'sfld_enqueue_frontend_assets' );
 
     }
 
     private function define_template_hooks() : void {
 
-        $plugin_templates = new templates\SFLD_Simple_Templates();
+        $plugin_templates = new load_templates\SFLD_Templates();
         $this->loader->add_filter( 'single_template', $plugin_templates, 'sfld_template_course' );
         $this->loader->add_filter( 'template_include', $plugin_templates, 'sfld_template_arcive_courses' );
 
@@ -169,14 +172,14 @@ class SFLD_Simple
 
     private function define_cpt_hooks() : void {
 
-        $plugin_cpt = new cpt\SFLD_Simple_CPT();
+        $plugin_cpt = new cpt\SFLD_CPT();
         $this->loader->add_filter( 'init', $plugin_cpt, 'sfld_simple_cpt_init' );
 
     }
 
     private function define_taxonomy_hooks() : void {
 
-        $courses_taxonies = new taxonomy\SFLD_Simple_Courses_Taxonomies();
+        $courses_taxonies = new taxonomy\SFLD_Courses_Taxonomies();
         $this->loader->add_filter( 'init', $courses_taxonies, 'sfld_simple_courses_taxonomies_init', 0 );
         $this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_set_default_object_terms', 100, 2 );
         $this->loader->add_action( 'init', $courses_taxonies, 'sfld_cleanup_level_taxonomy_terms' );
@@ -184,7 +187,7 @@ class SFLD_Simple
         $this->loader->add_action( 'add_meta_boxes', $courses_taxonies, 'sfld_add_level_meta_box' );
         $this->loader->add_action( 'save_post', $courses_taxonies, 'sfld_save_level_taxonomy' );
 
-        $professors_taxony = new taxonomy\SFLD_Simple_Professors_Taxonomy();
+        $professors_taxony = new taxonomy\SFLD_Professors_Taxonomy();
         $this->loader->add_filter( 'init', $professors_taxony, 'sfld_simple_professors_taxonomy_init', 0 );
         $this->loader->add_action( 'save_post', $professors_taxony, 'sfld_insert_curriculums_taxonomy_terms', 100, 2 );
 
@@ -192,14 +195,14 @@ class SFLD_Simple
 
     private function define_shortcode_hooks() : void {
 
-        $plugin_shortcode = new shortcode\SFLD_Simple_Shortcode();
+        $plugin_shortcode = new shortcode\SFLD_Shortcode();
         $this->loader->add_shortcode( 'swiper-slider-01', $plugin_shortcode, 'sfld_create_shortcode_swiper' );
         
     }
 
     private function define_meta_boxes() : void {
 
-        $plugin_meta_boxes = new metabox\SFLD_Simple_Meta_Boxes();
+        $plugin_meta_boxes = new metabox\SFLD_Meta_Boxes();
         $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor' );
         $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_editor' );
         $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main' );
@@ -209,7 +212,7 @@ class SFLD_Simple
 
     private function define_ajax_vote() : void {
 
-        $plugin_ajax_vote = new ajax\SFLD_Simple_Ajax_Vote();
+        $plugin_ajax_vote = new ajax\SFLD_Ajax_Vote();
         $this->loader->add_action( 'wp_ajax_sfld_ajax_user_vote', $plugin_ajax_vote, 'sfld_ajax_user_vote' );
         $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_must_login', $plugin_ajax_vote, 'sfld_ajax_must_login' );
         
@@ -217,7 +220,7 @@ class SFLD_Simple
 
     private function define_ajax_load_more() : void {
 
-        $plugin_ajax_load_more = new ajax\SFLD_Simple_Ajax_Load_More();
+        $plugin_ajax_load_more = new ajax\SFLD_Ajax_Load_More();
         $this->loader->add_action( 'wp_ajax_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
         $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
 
@@ -228,7 +231,7 @@ class SFLD_Simple
     
     private function define_woo_gdpr() : void {
 
-        $plugin_woo_gdpr = new gdpr\SFLD_Simple_Woo_GDPR();
+        $plugin_woo_gdpr = new gdpr\SFLD_Woo_GDPR();
         $this->loader->add_action('comment_form_logged_in_after', $plugin_woo_gdpr, 'sfld_additional_fields');
         $this->loader->add_action('comment_form_after_fields', $plugin_woo_gdpr, 'sfld_additional_fields');
         $this->loader->add_action('comment_post', $plugin_woo_gdpr, 'sfld_save_comment_meta_data');
@@ -240,7 +243,7 @@ class SFLD_Simple
 
     private function define_test() : void {
 
-        $plugin_test = new test\SFLD_Simple_Test();
+        $plugin_test = new test\SFLD_Test();
         
     }
 

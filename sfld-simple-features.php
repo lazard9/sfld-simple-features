@@ -40,20 +40,20 @@ if ( ! defined( 'SFLD_SIMPLE_BASENAME' ) ) {
 }
 // Include the autoloader so we can dynamically include the rest of the classes.
 if ( ! class_exists( 'SFLD_Simple', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
-
     include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php' ;
-    define( 'AUTOLOADER_FILE_INCLUDED', TRUE );
-
+} 
+ else {
+    return;
 }
 
 function activate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-activator.php';
-    SFLD_Simple_Activator::activate();
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php';
+    SFLD_Activator::activate();
 }
 
 function deactivate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-deactivator.php';
-    SFLD_Simple_Deactivator::deactivate();
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php';
+    SFLD_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_sfld_simple' );
@@ -65,7 +65,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  * admin-specific hooks, and public-facing site hooks.
  */
 // if ( ! class_exists( 'SFLD_Simple', false ) ) {
-// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-simple.php';
+// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php';
 // }
 
 /**
@@ -77,15 +77,13 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  *
  * 
  */
-if ( AUTOLOADER_FILE_INCLUDED ) {
+function run_simple() : void {
 
-    function run_simple() : void {
+    $sfld_simple = SFLD_Simple_Features::get_instance();
+    $sfld_simple->run_dependencies();
+    $sfld_simple->run_hooks();
 
-        $sfld_simple = SFLD_Simple::get_instance();
-        $sfld_simple->run_dependencies();
-        $sfld_simple->run_hooks();
-
-    }
-
-    run_simple();
 }
+
+run_simple();
+

@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\admin\pages\settings;
 
-class SFLD_Simple_Main_Form
+class SFLD_Main_Form
 {
 
   public function sfld_simple_main_form_init(): void

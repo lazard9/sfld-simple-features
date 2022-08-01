@@ -9,7 +9,7 @@
 
 namespace SFLD\includes;
 
-class SFLD_Simple_Activator
+class SFLD_Activator
 {
 
     public static function activate() {

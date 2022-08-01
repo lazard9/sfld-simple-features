@@ -9,7 +9,7 @@
 
 namespace SFLD\includes\ajax;
 
-class SFLD_Simple_Ajax_Vote
+class SFLD_Ajax_Vote
 {
 
     function sfld_ajax_user_vote() : void {

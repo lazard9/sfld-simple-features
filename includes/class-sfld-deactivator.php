@@ -9,7 +9,7 @@
 
 namespace SFLD\includes;
 
-class SFLD_Simple_Deactivator
+class SFLD_Deactivator
 {
 
     public static function deactivate() {

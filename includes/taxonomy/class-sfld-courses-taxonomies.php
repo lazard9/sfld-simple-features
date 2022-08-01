@@ -9,7 +9,7 @@
 
 namespace SFLD\includes\taxonomy;
 
-class SFLD_Simple_Courses_Taxonomies
+class SFLD_Courses_Taxonomies
 {
 
     function sfld_simple_courses_taxonomies_init() : void {

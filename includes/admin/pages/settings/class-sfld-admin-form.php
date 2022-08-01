@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\admin\pages\settings;
 
-class SFLD_Simple_Admin_Form
+class SFLD_Admin_Form
 {
 
   public function sfld_simple_admin_form_init(): void
@@ -27,7 +27,7 @@ class SFLD_Simple_Admin_Form
       // Callback for an optional description
       [$this, 'sfld_simple_settings_section_callback'],
       // Admin page to add section to
-      'sfld-simple-form'
+      'sfld-form'
     );
 
     // Input Text Field
@@ -39,7 +39,7 @@ class SFLD_Simple_Admin_Form
       // Callback for field markup
       [$this, 'sfld_simple_settings_text_input_callback'],
       // Page to go on
-      'sfld-simple-form',
+      'sfld-form',
       // Section to go in
       'sfld_simple_settings_section'
     );
@@ -49,7 +49,7 @@ class SFLD_Simple_Admin_Form
       'sfld_simple_settings_textarea',
       __('Text Area', 'sfldsimple'),
       [$this, 'sfld_simple_settings_textarea_callback'],
-      'sfld-simple-form',
+      'sfld-form',
       'sfld_simple_settings_section'
     );
 
@@ -58,7 +58,7 @@ class SFLD_Simple_Admin_Form
       'sfld_simple_settings_checkbox',
       __('Checkbox', 'sfldsimple'),
       [$this, 'sfld_simple_settings_checkbox_callback'],
-      'sfld-simple-form',
+      'sfld-form',
       'sfld_simple_settings_section',
       [
         'label' => 'Checkbox Label'
@@ -70,7 +70,7 @@ class SFLD_Simple_Admin_Form
       'sfld_simple_settings_radio',
       __('Radio', 'sfldsimple'),
       [$this, 'sfld_simple_settings_radio_callback'],
-      'sfld-simple-form',
+      'sfld-form',
       'sfld_simple_settings_section',
       [
         'option_one' => 'Radio 1',
@@ -83,7 +83,7 @@ class SFLD_Simple_Admin_Form
       'sfld_simple_settings_select',
       __('Select', 'sfldsimple'),
       [$this, 'sfld_simple_settings_select_callback'],
-      'sfld-simple-form',
+      'sfld-form',
       'sfld_simple_settings_section',
       [
         'option_one' => 'Select Option 1',

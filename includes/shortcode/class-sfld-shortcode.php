@@ -9,7 +9,7 @@
 
 namespace SFLD\includes\shortcode;
 
-class SFLD_Simple_Shortcode
+class SFLD_Shortcode
 {
 
     function sfld_create_shortcode_swiper() : void {

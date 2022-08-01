@@ -8,7 +8,7 @@
 
 namespace SFLD\includes\frontend;
 
-class SFLD_Simple_Public {
+class SFLD_Public {
 
     public function __construct( $plugin_name, $plugin_version ) {
 

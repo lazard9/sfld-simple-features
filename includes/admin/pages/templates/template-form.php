@@ -1,4 +1,4 @@
-<div class="sfld-simple-wrap">
+<div class="sfld-wrap">
 
   <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 
@@ -6,7 +6,7 @@
     <!-- Display necessary hidden fields for settings -->
     <?php settings_fields( 'sfld_simple_settings' ); ?>
     <!-- Display the settings sections for the page -->
-    <?php do_settings_sections( 'sfld-simple-form' ); ?>
+    <?php do_settings_sections( 'sfld-form' ); ?>
     <!-- Default Submit Button -->
     <?php submit_button(); ?>
   </form>

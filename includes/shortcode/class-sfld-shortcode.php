@@ -12,7 +12,7 @@ namespace SFLD\includes\shortcode;
 class SFLD_Shortcode
 {
 
-    function sfld_create_shortcode_swiper() : void {
+    public function sfld_swiper_shortcode() : void {
 
         /**
          * Create Shortcode to Display Swiper slider

@@ -13,69 +13,79 @@ use \WP_Query;
 class SFLD_Ajax_Load_More
 {
 
-   function sfld_ajax_load_more_posts() : void {
+   public function sfld_ajax_load_more_posts( bool $initial_request = false ) : void {
 
-      $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 2;
-      $num_posts = 2;
+		if ( ! $initial_request && ! check_ajax_referer( 'load_more_post_nonce', 'ajax_nonce', false ) ) {
+			wp_send_json_error( __( 'Invalid security token sent.', 'text-domain' ) );
+			wp_die( '0', 400 );
+		}
 
-      header("Content-Type: text/html");
+		// Check if it's an ajax call.
+		$is_ajax_request = ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) &&
+		                   strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest';
+		/**
+		 * Page number.
+		 * If get_query_var( 'paged' ) is 2 or more, its a number pagination query.
+		 * If $_POST['page'] has a value which means its a loadmore request, which will take precedence.
+		 */
+		$page_no = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+		$page_no = ! empty( $_POST['page'] ) ? filter_var( $_POST['page'], FILTER_VALIDATE_INT ) + 1 : $page_no;
 
-      $args = array(
-         'suppress_filters' => true,
-         'post_type' => 'courses',
-         'posts_per_page' => $num_posts,
-         'paged' => $page,
-         'post_status' => 'publish',
-         'order' => 'ASC',
-      );
+		// Default Argument.
+		$args = [
+			'post_type'      => 'courses',
+			'post_status'    => 'publish',
+			'posts_per_page' => 2,
+			'paged'          => $page_no,
+		];
 
-      $loop = new WP_Query($args);
+		$lm_query = new WP_Query( $args );
 
-      $out = '';
+		if ( $lm_query->have_posts() ):
+			// Loop Posts.
+			while ( $lm_query->have_posts() ): $lm_query->the_post();
+            include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
+			endwhile;
+		else:
+			// Return response as zero, when no post found.
+			wp_die( '0' );
+		endif;
 
-      if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post(); ?>
+		wp_reset_postdata();
 
-         <li class="li-course" id="post-<?php the_ID(); ?>">
-            <a href="<?php the_permalink(); ?>">
-               <div class="li-course-image">
-                  <?php if ( has_post_thumbnail() ) {
-                        the_post_thumbnail('full', array('class' => 'course'));
-                  } ?>
-               </div>
-               <div class="li-course-name">
-                     <h3><?php the_title(); ?></h3>
-               </div>
-            </a>
-         </li>
+		/**
+		 * Check if its an ajax call, and not initial request
+		 *
+		 * @see https://wordpress.stackexchange.com/questions/116759/why-does-wordpress-add-0-zero-to-an-ajax-response
+		 */
+		if ( $is_ajax_request && ! $initial_request ) {
+			wp_die();
+		}
+	}
 
-      <?php
-      endwhile; wp_reset_postdata();
-      endif;
-      
-      die($out);
-   }
+	/**
+	 * Initial posts display.
+    * Create a short code.
+    *
+    * Usage echo do_shortcode('[ajax_load_more]');
+    */
+	public function sfld_ajax_lm_shortcode() {
 
-   function weichie_load_more() {
-      $ajaxposts = new WP_Query([
-        'post_type' => 'publications',
-        'posts_per_page' => 6,
-        'orderby' => 'date',
-        'order' => 'DESC',
-        'paged' => $_POST['paged'],
-      ]);
-    
-      $response = '';
-    
-      if($ajaxposts->have_posts()) {
-         while($ajaxposts->have_posts()) : $ajaxposts->the_post();
-            $response .= get_template_part('parts/card', 'publication');
-         endwhile;
-         } else {
-         $response = '';
-      }
-    
-      echo $response;
-      exit;
-   }
+		// Initial Post Load.
+		?>
+		<div class="load-more-content-wrap">
+			<div id="load-more-content" class="courses-list">
+					<?php
+					$this->sfld_ajax_load_more_posts( true );
+
+					// If user is not in editor and on page one, show the load more.
+					?>
+			</div>
+			<button id="load-more" data-page="1">
+				<span><?php esc_html_e( 'Load More', 'sfldsimple' ); ?></span>
+			</button>
+		</div>
+		<?php
+	}
 
 }

@@ -33,14 +33,30 @@ namespace SFLD\includes;
 class SFLD_Simple_Features
 {
 
-    // Unique instance
+    /**
+	 * Unique instance.
+	 */
     private static $_instance = null;
 
-    // Private constructor prevent you from instancing the class with "new".
+    /**
+	 * Protected class constructor to prevent direct object creation
+	 *
+	 * This is meant to be overridden in the classes which implement
+	 * this trait. This is ideal for doing stuff that you only want to
+	 * do once, such as hooking into actions and filters, etc.
+	 */
     private function __construct() {  
     }
 
-    // Method to get the unique instance.
+    /**
+	 * Prevent object cloning.
+	 */
+    final protected function __clone() {
+	}
+
+    /**
+	 * Method to get the unique instance.
+	 */
     public static function get_instance() {
         // Create the instance if it does not exist.
         if (!isset(self::$_instance)) {
@@ -196,7 +212,8 @@ class SFLD_Simple_Features
     private function define_shortcode_hooks() : void {
 
         $plugin_shortcode = new shortcode\SFLD_Shortcode();
-        $this->loader->add_shortcode( 'swiper-slider-01', $plugin_shortcode, 'sfld_create_shortcode_swiper' );
+        // Usage echo do_shortcode('[swiper_slider_01]');
+        add_shortcode( 'swiper_slider_01', [$plugin_shortcode, 'sfld_swiper_shortcode'] );
         
     }
 
@@ -221,11 +238,10 @@ class SFLD_Simple_Features
     private function define_ajax_load_more() : void {
 
         $plugin_ajax_load_more = new ajax\SFLD_Ajax_Load_More();
-        $this->loader->add_action( 'wp_ajax_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
-        $this->loader->add_action( 'wp_ajax_nopriv_sfld_ajax_load_more_posts', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
-
-        // add_action('wp_ajax_weichie_load_more', 'weichie_load_more');
-        // add_action('wp_ajax_nopriv_weichie_load_more', 'weichie_load_more');
+        $this->loader->add_action( 'wp_ajax_load_more', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
+        $this->loader->add_action( 'wp_ajax_nopriv_load_more', $plugin_ajax_load_more, 'sfld_ajax_load_more_posts' );
+        // Usage echo do_shortcode('[ajax_load_more]');
+		add_shortcode( 'ajax_load_more', [$plugin_ajax_load_more, 'sfld_ajax_lm_shortcode'] );
         
     }
     

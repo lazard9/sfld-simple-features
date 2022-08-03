@@ -20,7 +20,7 @@ if ( have_posts() ) {
 
         echo '<div style="max-width: 800px; margin: auto; padding: 60px 20px;">';
 
-            echo do_shortcode('[swiper-slider-01]');
+            echo do_shortcode('[swiper_slider_01]');
 
             echo '<div class="entry-hrader"><h1 class="entry-title">' . get_the_title() . '</h1></div>';
 
@@ -38,8 +38,8 @@ if ( have_posts() ) {
                 </div>';
 
             foreach($all_ids as $id) {
-                // echo $id . '<br/>';
-                // echo get_the_title($id) . '<br/>';
+                echo $id . '<br/>';
+                echo get_the_title($id) . '<br/>';
                 echo get_the_post_thumbnail_url($id) . '<br/>';
             };
 

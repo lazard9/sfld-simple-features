@@ -2,7 +2,7 @@ body .site {
     background-color: rgb(92, 189, 206);
 }
 
-.ul-courses {
+.courses-list {
     list-style: none;
     padding-left: 0;
     display: -webkit-box;
@@ -12,11 +12,11 @@ body .site {
     flex-wrap: wrap;
 }
 
-.ul-courses .li-course {
+.courses-list .course-item {
     width: 50%;
     padding: 10px;
 }
 
-.ul-courses .li-course .li-course-image img {
+.courses-list .course-item .course-image img {
     width: 100%;
 }

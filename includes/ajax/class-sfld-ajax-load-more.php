@@ -71,21 +71,19 @@ class SFLD_Ajax_Load_More
     */
 	public function sfld_ajax_lm_shortcode() {
 
+      $butonText =  esc_html__( "Load More", "sfldsimple" );
+      
 		// Initial Post Load.
-		?>
-		<div class="load-more-content-wrap">
-			<div id="load-more-content" class="courses-list">
-					<?php
-					$this->sfld_ajax_load_more_posts( true );
-
-					// If user is not in editor and on page one, show the load more.
-					?>
-			</div>
-			<button id="load-more" data-page="1">
-				<span><?php esc_html_e( 'Load More', 'sfldsimple' ); ?></span>
-			</button>
-		</div>
-		<?php
+		echo <<<END
+         <div class="load-more-content-wrap">
+            <div id="load-more-content" class="courses-list">
+               {$this->sfld_ajax_load_more_posts( true )}
+            </div>
+            <button id="load-more" data-page="1">
+               <span>{$butonText}</span>
+            </button>
+         </div>
+      END;
 	}
 
 }

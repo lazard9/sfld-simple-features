@@ -64,7 +64,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-// if ( ! class_exists( 'SFLD_Simple', false ) ) {
+// if ( ! class_exists( 'SFLD_Simple_Features', false ) ) {
 // 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php'; // Include files witout the autoloader
 // }
 

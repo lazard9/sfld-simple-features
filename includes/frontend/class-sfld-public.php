@@ -6,7 +6,7 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\frontend;
+namespace SFLD\Includes\Frontend;
 
 class SFLD_Public {
 
@@ -22,6 +22,7 @@ class SFLD_Public {
      *
      */
     public function sfld_enqueue_frontend_assets() : void {
+
         wp_enqueue_style(
 			$this->plugin_name . '-front-style',
 			SFLD_SIMPLE_URL . 'assets/css/frontend.css',
@@ -37,7 +38,7 @@ class SFLD_Public {
         );
 
         wp_enqueue_script( 
-            $this->plugin_name . "-ajax-voter-script",
+            $this->plugin_name . "-ajax-voter",
             SFLD_SIMPLE_URL . 'assets/js/ajax-voter.js',
             ['jquery'],
             $this->plugin_version,
@@ -45,7 +46,7 @@ class SFLD_Public {
         );
 
         wp_localize_script( 
-            $this->plugin_name . "-ajax-voter-script", 
+            $this->plugin_name . "-ajax-voter", 
             'ajaxConfig', 
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
@@ -54,18 +55,12 @@ class SFLD_Public {
         );
 
         wp_enqueue_script( 
-            $this->plugin_name . "-ajax-load-script",
+            $this->plugin_name . "-ajax-load",
             SFLD_SIMPLE_URL . 'assets/js/ajax-load-more.js',
             ['jquery'],
             $this->plugin_version,
             true
         );
-
-        // wp_localize_script( 
-        //     $this->plugin_name . "-ajax-load-script", 
-        //     'ajax_posts', 
-        //     array( 'ajaxurl' => admin_url( 'admin-ajax.php' )),
-        // );
 
         wp_enqueue_style(
             $this->plugin_name . '-swiper-bundle',

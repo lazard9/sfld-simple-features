@@ -6,7 +6,7 @@
  * @link       https://digitalapps.com
  */
 
-namespace SFLD\includes;
+namespace SFLD\Includes;
 
 class SFLD_Loader {
 
@@ -88,8 +88,9 @@ class SFLD_Loader {
      * @param    int                  $priority         Optional. The priority at which the function should be fired. Default is 10.
      * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1
      */
-    public function add_shortcode( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
-        $this->shortcodes = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
+    public function add_shortcode( $tag, $component, $callback ) {
+        // $this->shortcodes[] = array( 'tag'=> $tag, 'component' => $component, 'callback'=> $callback );
+        $this->shortcodes = $this->add_shortcodes( $this->shortcodes, $tag, $component, $callback );
     }
 
     /**
@@ -121,6 +122,22 @@ class SFLD_Loader {
     }
 
     /**
+     * A utility function that is used to register the shortcodes into a single
+     * collection.
+     */
+    private function add_shortcodes( $shortcodes, $tag, $component, $callback ) {
+        
+        $shortcodes[] = array(
+            'tag'          => $tag,
+            'component'    => $component,
+            'callback'     => $callback,
+        );
+
+        return $shortcodes;
+
+    }
+
+    /**
      * Register the filters and actions with WordPress.
      *
      * 
@@ -135,8 +152,8 @@ class SFLD_Loader {
             add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
         }
         
-        foreach ( $this->shortcodes as $hook ) {
-            add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+        foreach ( $this->shortcodes as $tag ) {
+            add_shortcode( $tag['tag'], array( $tag['component'], $tag['callback'] ) );
         }
 
     }

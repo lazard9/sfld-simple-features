@@ -5,6 +5,9 @@
  *
  * @package TODO
  */
+
+namespace SFLD\lib;
+
 spl_autoload_register(function( $filename ) {
 
 	// First, separate the components of the incoming file.
@@ -50,7 +53,7 @@ spl_autoload_register(function( $filename ) {
 	 */
 	$fully_qualified_path = trailingslashit(
 		dirname(
-			dirname( __FILE__ )
+			dirname( __FILE__ ) . "includes"
 		)
 	);
 

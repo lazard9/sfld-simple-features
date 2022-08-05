@@ -7,22 +7,22 @@
  * 
  */
 
-namespace SFLD\includes\ajax;
+namespace SFLD\Includes\Ajax;
 use \WP_Query;
 
 class SFLD_Ajax_Load_More
 {
 
-   public function sfld_ajax_load_more_posts( bool $initial_request = false ) : void {
+   public function sfld_ajax_load_more_posts() : void {
 
-		if ( ! $initial_request && ! check_ajax_referer( 'load_more_post_nonce', 'ajax_nonce', false ) ) {
+		if ( ! check_ajax_referer( 'load_more_post_nonce', 'ajax_nonce', false ) ) {
 			wp_send_json_error( __( 'Invalid security token sent.', 'text-domain' ) );
 			wp_die( '0', 400 );
 		}
 
 		// Check if it's an ajax call.
-		$is_ajax_request = ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) &&
-		                   strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest';
+		$is_ajax_request = ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest';
+		
 		/**
 		 * Page number.
 		 * If get_query_var( 'paged' ) is 2 or more, its a number pagination query.
@@ -44,7 +44,7 @@ class SFLD_Ajax_Load_More
 		if ( $lm_query->have_posts() ):
 			// Loop Posts.
 			while ( $lm_query->have_posts() ): $lm_query->the_post();
-            include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
+            	include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
 			endwhile;
 		else:
 			// Return response as zero, when no post found.
@@ -54,36 +54,14 @@ class SFLD_Ajax_Load_More
 		wp_reset_postdata();
 
 		/**
-		 * Check if its an ajax call, and not initial request
+		 * Check if its an ajax call
 		 *
 		 * @see https://wordpress.stackexchange.com/questions/116759/why-does-wordpress-add-0-zero-to-an-ajax-response
 		 */
-		if ( $is_ajax_request && ! $initial_request ) {
+		if ( $is_ajax_request ) {
 			wp_die();
 		}
-	}
-
-	/**
-	 * Initial posts display.
-    * Create a short code.
-    *
-    * Usage echo do_shortcode('[ajax_load_more]');
-    */
-	public function sfld_ajax_lm_shortcode() {
-
-      $butonText =  esc_html__( "Load More", "sfldsimple" );
       
-		// Initial Post Load.
-		echo <<<END
-         <div class="load-more-content-wrap">
-            <div id="load-more-content" class="courses-list">
-               {$this->sfld_ajax_load_more_posts( true )}
-            </div>
-            <button id="load-more" data-page="1">
-               <span>{$butonText}</span>
-            </button>
-         </div>
-      END;
 	}
 
 }

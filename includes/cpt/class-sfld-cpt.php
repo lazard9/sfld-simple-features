@@ -6,19 +6,19 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\cpt;
+namespace SFLD\Includes\CPT;
 
 class SFLD_CPT
 {
 
-    function sfld_simple_cpt_init() {
+    function sfld_register_cpt() {
 
-        $this->sfld_simple_courses_init();
-        $this->sfld_simple_professors_init();
+        $this->sfld_register_courses_cpt();
+        $this->sfld_register_professors_cpt();
 
     }
 
-    function sfld_simple_courses_init() : void {
+    function sfld_register_courses_cpt() : void {
 
         /**
          * Register a custom post type called "courses".
@@ -73,7 +73,7 @@ class SFLD_CPT
 
     }
 
-    function sfld_simple_professors_init() {
+    function sfld_register_professors_cpt() {
         /**
          * Register a custom post type called "Professors".
          *

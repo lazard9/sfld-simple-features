@@ -23,8 +23,8 @@
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
 
-// Define namespace. Just for testing!!!!!!
-namespace SFLD\includes;
+// Define namespace. To make it work remove "includes" from autoloader.php on line 56.
+// namespace SFLD\Includes;
 
 // Plugin dir path
 if ( ! defined( 'SFLD_SIMPLE_DIR' ) ) {
@@ -39,7 +39,7 @@ if ( ! defined( 'SFLD_SIMPLE_BASENAME' ) ) {
     define( 'SFLD_SIMPLE_BASENAME', plugin_basename( __FILE__ ) );
 }
 // Include the autoloader so we can dynamically include the rest of the classes.
-if ( ! class_exists( 'SFLD_Simple', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
+if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
     include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php' ;
 } 
  else {
@@ -47,13 +47,13 @@ if ( ! class_exists( 'SFLD_Simple', false ) && file_exists( SFLD_SIMPLE_DIR . 'l
 }
 
 function activate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php';
-    SFLD_Activator::activate();
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
+    SFLD\Includes\SFLD_Activator::activate();
 }
 
 function deactivate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php';
-    SFLD_Deactivator::deactivate();
+    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
+    SFLD\Includes\SFLD_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_sfld_simple' );
@@ -65,7 +65,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  * admin-specific hooks, and public-facing site hooks.
  */
 // if ( ! class_exists( 'SFLD_Simple', false ) ) {
-// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php';
+// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php'; // Include files witout the autoloader
 // }
 
 /**
@@ -77,13 +77,13 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  *
  * 
  */
-function run_simple() : void {
+function sfld_instance() : void {
 
-    $sfld_simple = SFLD_Simple_Features::get_instance();
-    $sfld_simple->run_dependencies();
-    $sfld_simple->run_hooks();
+    $sfld_instance = SFLD\Includes\SFLD_Simple_Features::get_instance();
+    $sfld_instance->run_dependencies();
+    $sfld_instance->run_hooks();
 
 }
 
-run_simple();
+sfld_instance();
 

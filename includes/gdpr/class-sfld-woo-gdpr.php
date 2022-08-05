@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Woo GDPR consetn checkbox for reviews
+ * GDPR checkbox for Woocommerce product review.
+ * This is a standalone plugin!
  *
  * @package SFLD Simple Features 
  */
 
-namespace SFLD\includes\gdpr;
+namespace SFLD\Includes\GDPR;
 
-class SFLD_Woo_GDPR
+if ( ! class_exists( 'SFLD_Woo_GDPR', false ) ) : class SFLD_Woo_GDPR
 {
    
    function sfld_additional_fields()
@@ -56,21 +57,21 @@ class SFLD_Woo_GDPR
    {
       $consent = get_comment_meta($comment->comment_ID, 'consent', true);
       wp_nonce_field('extend_comment_update', 'extend_comment_update', false);
-   ?>
-      <p>
-         <label for="consent"><?php _e('Consent: ', 'sfldsimple'); ?></label>
-         <span class="consentchecked">
-         <?php
-         if ($consent) {
-            $checked = 'checked';
-         } else {
-            $checked = '';
-         }
-         echo '<input type="checkbox" id="consent" name="consent" ' . $checked . '>';
-         ?>
-         </span>
-      </p>
-   <?php
+      ?>
+         <p>
+            <label for="consent"><?php _e('Consent: ', 'sfldsimple'); ?></label>
+            <span class="consentchecked">
+            <?php
+            if ($consent) {
+               $checked = 'checked';
+            } else {
+               $checked = '';
+            }
+            echo '<input type="checkbox" id="consent" name="consent" ' . $checked . '>';
+            ?>
+            </span>
+         </p>
+      <?php
    }
 
    // Update comment meta data from comment editing screen 
@@ -84,5 +85,6 @@ class SFLD_Woo_GDPR
       else :
          delete_comment_meta($comment_id, 'consent');
       endif;
+
    }
-}
+} endif;

@@ -6,10 +6,19 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\Includes\Admin\pages;
+namespace SFLD\Includes\Admin;
+use SFLD\Includes\Admin\Settings\SFLD_Admin_Form;
+use SFLD\Includes\Admin\Settings\SFLD_Main_Form;
 
 class SFLD_Admin_Pages {
     
+    public function admin_form_init() : object {
+        return new SFLD_Admin_Form;
+	}
+
+    public function main_form_init() : object {
+        return new SFLD_Main_Form;
+	}
 
     /**
      * Admin pages & sub pages.
@@ -21,7 +30,7 @@ class SFLD_Admin_Pages {
             __( 'Simple Features Plugin Options', 'sfldsimple' ), // Name of the plugin
             __( 'SFLD', 'sfldsimple' ), // Menu name of the plugin
             'manage_options',
-            'sfld-simple',
+            'sfld_settings',
             [$this, 'sfld_simple_settings_page_markup'],
             'dashicons-screenoptions',
             100
@@ -29,20 +38,20 @@ class SFLD_Admin_Pages {
     
         // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $callback = '', int|float $position = null )
         add_submenu_page(
-            'sfld-simple',
+            'sfld_settings',
             __( 'SFLD various form fields', 'sfldsimple' ),
             __( 'Form', 'sfldsimple' ),
             'manage_options',
-            'sfld-form',
+            'sfld_form',
             [$this, 'sfld_simple_form_subpage_markup'],
         );
 
         add_submenu_page(
-            'sfld-simple',
+            'sfld_settings',
             __( 'SFLD Description', 'sfldsimple' ),
             __( 'Description', 'sfldsimple' ),
             'manage_options',
-            'sfld-description',
+            'sfld_description',
             [$this, 'sfld_simple_descriptio_subpage_markup']
         );
 
@@ -55,7 +64,7 @@ class SFLD_Admin_Pages {
             __( 'SFLD Simple Default Sub Page', 'sfldsimple' ),
             __( 'SFLD Sub Page', 'sfldsimple' ),
             'manage_options',
-            'sfld-subpage',
+            'sfld_subpage',
             [$this, 'sfld_simple_courses_submenu_page_markup'],
         );
 
@@ -79,7 +88,7 @@ class SFLD_Admin_Pages {
             __( 'SFLD Simple Sub Page Info', 'sfldsimple' ),
             __( 'SFLD Info', 'sfldsimple' ),
             'manage_options',
-            'sfld-info',
+            'sfld_info',
             [$this, 'sfld_simple_management_submenu_page_markup']
         );
     
@@ -95,7 +104,7 @@ class SFLD_Admin_Pages {
             return;
         }
 
-        include SFLD_SIMPLE_DIR . 'includes/admin/pages/templates/template-main.php';
+        include SFLD_SIMPLE_DIR . 'includes/admin/templates/template-main.php';
     }
 
     /**
@@ -108,7 +117,7 @@ class SFLD_Admin_Pages {
             return;
         }
 
-        include SFLD_SIMPLE_DIR . 'includes/admin/pages/templates/template-form.php';
+        include SFLD_SIMPLE_DIR . 'includes/admin/templates/template-form.php';
     }
 
     /**
@@ -147,7 +156,7 @@ class SFLD_Admin_Pages {
             return;
         }
 
-        include SFLD_SIMPLE_DIR . 'includes/admin/pages/templates/template-description.php';
+        include SFLD_SIMPLE_DIR . 'includes/admin/templates/template-description.php';
     }
     
     /**
@@ -156,7 +165,7 @@ class SFLD_Admin_Pages {
      */
     public function sfld_simple_courses_submenu_page_markup() : void { 
         
-        include SFLD_SIMPLE_DIR . 'includes/admin/pages/templates/template-cpt-courses.php';
+        include SFLD_SIMPLE_DIR . 'includes/admin/templates/template-cpt-courses.php';
     }
     
     /**
@@ -165,7 +174,7 @@ class SFLD_Admin_Pages {
      */
     public function sfld_simple_management_submenu_page_markup() : void { 
         
-        include SFLD_SIMPLE_DIR . 'includes/admin/pages/templates/template-management.php';
+        include SFLD_SIMPLE_DIR . 'includes/admin/templates/template-management.php';
     }
 
 }

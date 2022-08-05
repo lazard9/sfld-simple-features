@@ -6,7 +6,7 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\load_templates;
+namespace SFLD\Includes\Templates;
 
 class SFLD_Templates
 {
@@ -18,8 +18,8 @@ class SFLD_Templates
         
         global $post;
 
-        if( 'courses' === $post->post_type && locate_template(array('template_course')) !== $template  ) {
-            return  SFLD_SIMPLE_DIR . 'templates/post/template_course.php';
+        if( 'courses' === $post->post_type && locate_template(array('template-course')) !== $template  ) {
+            return  SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
         }
 
         return $template;
@@ -31,7 +31,7 @@ class SFLD_Templates
      */
     public function sfld_template_arcive_courses($template) {
 
-        if( is_post_type_archive('courses') ) {
+        if( is_post_type_archive('courses') && locate_template(array('archive-course')) !== $template ) {
             return  SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
         }
 

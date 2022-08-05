@@ -1,8 +1,8 @@
 <?php
 
-namespace SFLD\includes\test;
+namespace SFLD\Includes\Test;
 
-class SFLD_Test {
+if ( ! class_exists( 'SFLD_Test', false ) ) : class SFLD_Test {
 
     public function __construct() {
         add_action( 'admin_menu', [$this, 'sfld_plugin_settings_pages'] );
@@ -56,4 +56,4 @@ class SFLD_Test {
 
     }
 
-}
+} endif;

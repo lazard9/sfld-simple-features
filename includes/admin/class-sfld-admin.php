@@ -6,10 +6,7 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\admin;
-use SFLD\includes\admin\pages\SFLD_Admin_Pages;
-use SFLD\includes\admin\pages\settings\SFLD_Admin_Form;
-use SFLD\includes\admin\pages\settings\SFLD_Main_Form;
+namespace SFLD\Includes\Admin;
 
 class SFLD_Admin {
 
@@ -18,40 +15,55 @@ class SFLD_Admin {
         $this->plugin_name = $plugin_name;
         $this->plugin_version = $plugin_version;
 
-        // $this->admin_includes();
-        $this->admin_init();
+        // $this->includes(); // Include files witout the autoloader
 
 	}
 
-    private function admin_includes() : void {
+    private function includes() : void {
 
         include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-links.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/pages/class-sfld-admin-pages.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/pages/settings/class-sfld-admin-form.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/pages/settings/class-sfld-main-form.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-pages.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-admin-form.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-main-form.php';
 
     }
-
-    public function admin_init() {
-        
-        $this->admin_links = new SFLD_Admin_Links;
-        $this->admin_pages = new SFLD_Admin_Pages;
-        $this->admin_form_settings = new SFLD_Admin_Form;
-        $this->admin_main_settings = new SFLD_Main_Form;
-
-	}
+    
+    /**
+     * Add a link to your settings page in your plugin
+     * 
+     */
+    public function sfld_settings_link( $links ) : array {
+    
+        $settings_link = '<a href="admin.php?page=sfld_settings">' . __( 'Settings', 'sfldsimple' ) . '</a>';
+        array_push( $links, $settings_link );
+        return $links;
+    
+    }
+    
+    /**
+     * Retrieve the plugin action links.
+     * 
+     */
+    public function get_plugin_action_links() : string {
+    
+        return "plugin_action_links_" . SFLD_SIMPLE_BASENAME;
+    
+    }
 
     /**
      * Register admin assets.
      *
      */
     public function sfld_enqueue_admin_assets() : void {
+        
         wp_enqueue_style( 
             $this->plugin_name . '-admin-style', 
             SFLD_SIMPLE_URL . 'assets/css/admin.css',
             [],
 			$this->plugin_version
         );
+        
     }
+
 
 }

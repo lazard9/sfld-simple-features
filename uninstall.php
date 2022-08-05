@@ -37,7 +37,9 @@ if (array_key_exists('checkbox-taxonomies', $options)) {
 		foreach ($terms as $term) {
 			wp_delete_term($term->term_id, $taxonomy);
 		}
+		
 	}
+
 }
 
 /**
@@ -51,6 +53,7 @@ if (array_key_exists('checkbox-cpt', $options)) {
 	foreach ($all_custom_posts as $custom_post) {
 		wp_delete_post($custom_post->ID, true);
 	}
+
 }
 
 /**
@@ -61,6 +64,7 @@ if (array_key_exists('checkbox-database', $options)) {
 
 	$database_table_name = $wpdb->prefix . 'ld_course_details';
 	$wpdb->query("DROP TABLE IF EXISTS $database_table_name");
+
 }
 
 /**
@@ -72,6 +76,7 @@ if (array_key_exists('checkbox-settings', $options)) {
 	delete_option('sfld_simple_options');
 	delete_option('sfld_simple_settings');
 	delete_option('sfld_main_settings');
+	
 }
 
 // Access the database via SQL

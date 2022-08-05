@@ -7,9 +7,10 @@
  * 
  */
 
-namespace SFLD\includes\shortcode;
+namespace SFLD\Includes\Shortcodes;
+use \WP_Query;
 
-class SFLD_Shortcode
+class SFLD_Shortcodes
 {
 
     public function sfld_swiper_shortcode() : void {
@@ -18,7 +19,6 @@ class SFLD_Shortcode
          * Create Shortcode to Display Swiper slider
          *
          */
-
         echo <<<END
             <style type="text/css">
                 .swiper {
@@ -53,7 +53,43 @@ class SFLD_Shortcode
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-        END;
+        END; // Heredoc https://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc
     }
+
+	/**
+	 * Initial posts display.
+     * Create a short code.
+     *
+     * Usage echo do_shortcode('[ajax_load_more]');
+     */
+	public function sfld_ajax_lm_shortcode() : void {
+
+        // Initial Post Load.
+        $args = [
+            'post_type'      => 'courses',
+            'post_status'    => 'publish',
+            'posts_per_page' => 2
+        ];
+
+        $lm_query = new WP_Query( $args );
+
+		?>
+		<div class="load-more-content-wrap">
+			<div id="load-more-content" class="courses-list">
+                <?php                     
+                    if ( $lm_query->have_posts() ):
+                        // Loop Posts.
+                        while ( $lm_query->have_posts() ): $lm_query->the_post();
+                            include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
+                        endwhile;
+                    endif;
+                ?>
+			</div>
+			<button id="load-more" data-page="1">
+				<span><?php esc_html_e( 'Load More', 'sfldsimple' ); ?></span>
+			</button>
+		</div>
+		<?php
+	}
 
 }

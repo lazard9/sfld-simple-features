@@ -6,7 +6,7 @@
  * @package SFLD Simple Features
  */
 
-namespace SFLD\includes\admin\pages\settings;
+namespace SFLD\Includes\Admin\settings;
 
 class SFLD_Main_Form
 {
@@ -27,7 +27,7 @@ class SFLD_Main_Form
       // Callback for an optional description
       [$this, 'sfld_main_settings_section_callback'],
       // Admin page to add section to
-      'sfld-simple'
+      'sfld_settings'
     );
 
     // Checkbox Field 1
@@ -35,7 +35,7 @@ class SFLD_Main_Form
       'sfld_main_settings_checkbox1',
       __('Remove all professors and course:', 'sfldsimple'),
       [$this, 'sfld_main_settings_cpt_checkbox_callback'],
-      'sfld-simple',
+      'sfld_settings',
       'sfld_main_settings_section',
       [
         'label' => '*Leave unchecked to preserve data for later use.'
@@ -47,7 +47,7 @@ class SFLD_Main_Form
       'sfld_main_settings_checkbox2',
       __('Remove all categories and tags:', 'sfldsimple'),
       [$this, 'sfld_main_settings_taxonomies_checkbox_callback'],
-      'sfld-simple',
+      'sfld_settings',
       'sfld_main_settings_section',
       [
         'label' => '*'
@@ -59,7 +59,7 @@ class SFLD_Main_Form
       'sfld_main_settings_checkbox3',
       __('Remove data from the database:', 'sfldsimple'),
       [$this, 'sfld_main_settings_database_checkbox_callback'],
-      'sfld-simple',
+      'sfld_settings',
       'sfld_main_settings_section',
       [
         'label' => '*'
@@ -71,13 +71,12 @@ class SFLD_Main_Form
       'sfld_main_settings_checkbox4',
       __('Remove all options data:', 'sfldsimple'),
       [$this, 'sfld_main_settings_checkbox_callback'],
-      'sfld-simple',
+      'sfld_settings',
       'sfld_main_settings_section',
       [
         'label' => '*'
       ]
     );
-
 
     register_setting(
       'sfld_main_settings',

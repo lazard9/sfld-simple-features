@@ -7,7 +7,7 @@
  * 
  */
 
-namespace SFLD\includes;
+namespace SFLD\Includes;
 
 class SFLD_Activator
 {

@@ -6,7 +6,7 @@
     <!-- Display necessary hidden fields for settings -->
     <?php settings_fields( 'sfld_simple_settings' ); ?>
     <!-- Display the settings sections for the page -->
-    <?php do_settings_sections( 'sfld-form' ); ?>
+    <?php do_settings_sections( 'sfld_form' ); ?>
     <!-- Default Submit Button -->
     <?php submit_button(); ?>
   </form>

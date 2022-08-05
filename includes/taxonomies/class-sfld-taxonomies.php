@@ -7,12 +7,78 @@
  * 
  */
 
-namespace SFLD\includes\taxonomy;
+namespace SFLD\Includes\Taxonomies;
 
-class SFLD_Courses_Taxonomies
+class SFLD_Taxonomies
 {
+    /**
+     * Professors CPT taxonomy
+     *
+     */
+    function sfld_register_curriculum_taxonomy() : void {
 
-    function sfld_simple_courses_taxonomies_init() : void {
+        /**
+         * Hierarchical taxonomy ~ Categories
+         *
+         */
+        $labels = array(
+            'name' => _x( 'Curriculums', 'taxonomy general name' ),
+            'singular_name' => _x( 'Curriculum', 'taxonomy singular name' ),
+            'search_items' =>  __( 'Search Curriculums' ),
+            'all_items' => __( 'All Curriculums' ),
+            'parent_item' => __( 'Parent Curriculum' ),
+            'parent_item_colon' => __( 'Parent Curriculum:' ),
+            'edit_item' => __( 'Edit Curriculum' ), 
+            'update_item' => __( 'Update Curriculum' ),
+            'add_new_item' => __( 'Add New Curriculum' ),
+            'new_item_name' => __( 'New Curriculum Name' ),
+            'menu_name' => __( 'Curriculums' ),
+        );    
+        
+        // Hierarchical taxonomy registration
+        register_taxonomy('curriculums', array('professors'), array(
+            'hierarchical' => true,
+            'labels' => $labels,
+            'show_ui' => true,
+            'show_in_rest' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'rewrite' => array( 'slug' => 'curriculum' ),
+        ));
+
+    }
+
+    /*
+     * Populate terms for taxonomy Curriculums.
+     * 
+     */
+    public function sfld_insert_curriculum_taxonomy_terms() : void {
+
+        $taxonomyName = 'curriculums';
+
+        $terms = [
+            "mathematics" => "Mathematics",
+            "geography" => "Geography",
+            "physics" => "Physics",
+            "biology" => "Biology",
+            "chemistry" => "Chemistry",
+            "computer-science" => "Computer Science",
+            "applied-chemistry" => "Applied Chemistry",
+        ];
+
+        foreach ($terms as $slug => $term) {
+            wp_insert_term($term, $taxonomyName, [
+                'slug' => $slug,
+            ]);
+        }
+
+    }
+
+    /**
+     * Courses CPT taxonomies
+     *
+     */
+    function sfld_register_courses_taxonomies() : void {
 
         /**
          * Level not hierarchical, only one can be selected,
@@ -185,60 +251,6 @@ class SFLD_Courses_Taxonomies
             wp_insert_term($term, $taxonomyName);
         }
 
-        // static $callCount=0;
-        // printf("%d\n", ++$callCount);
-
-    }
-
-    /*
-     * Add metabox for taxonomy Level.
-     * 
-     */
-    public function sfld_add_level_meta_box() : void {
-
-        add_meta_box(
-            'sfld_level_box',
-            __('Level', 'sfldsimple'),
-            [$this, 'sfld_level_meta_box_term'],
-            ['courses'],
-            'side',
-            'high'
-        );
-
-    }
-
-    /*
-     * Make options radio (can select only singe term) for taxonomy Level. 
-     * 
-     */
-    public function sfld_level_meta_box_term( $post ) : void {
-
-       $terms = get_terms( array(
-			'taxonomy' => 'level',
-			'hide_empty' => false // Retrieve all terms
-        ));
-
-        // We assume that there is a single category
-        $currentTaxonomyValue = get_the_terms($post->ID, 'level')[0];
-	?>
-	<p>Choose taxonomy value</p>
-	<p>
-        <?php foreach($terms as $term): ?>
-            <input type="radio" name="level" id="taxonomy_term_<?php echo $term->term_id;?>" value="<?php echo $term->term_id;?>"<?php if($term->term_id==$currentTaxonomyValue->term_id) echo "checked"; ?>>
-            <label for="taxonomy_term_<?php echo $term->term_id;?>"><?php echo $term->name; ?></label>
-            </input><br/>
-        <?php endforeach; ?>
-    </p>
-    <?php
-    }
-
-    /*
-     * Save term for taxonomy Level. 
-     * 
-     */
-    function sfld_save_level_taxonomy($post_id) : void {
-        if ( isset( $_REQUEST['level'] ) ) 
-            wp_set_object_terms($post_id, (int)sanitize_text_field( $_POST['level'] ), 'level');
     }
 
 }

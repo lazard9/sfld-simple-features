@@ -39,24 +39,24 @@ class SFLD_Simple_Features
     private static $_instance = null;
 
     /**
-	 * Protected class constructor to prevent direct object creation
-	 *
-	 * This is meant to be overridden in the classes which implement
-	 * this trait. This is ideal for doing stuff that you only want to
-	 * do once, such as hooking into actions and filters, etc.
-	 */
+     * Protected class constructor to prevent direct object creation
+     *
+     * This is meant to be overridden in the classes which implement
+     * this trait. This is ideal for doing stuff that you only want to
+     * do once, such as hooking into actions and filters, etc.
+     */
     private function __construct() {  
     }
 
     /**
-	 * Prevent object cloning.
-	 */
+     * Prevent object cloning.
+     */
     final protected function __clone() {
 	}
 
     /**
-	 * Method to get the unique instance.
-	 */
+     * Method to get the unique instance.
+     */
     public static function get_instance() {
         // Create the instance if it does not exist.
         if (!isset(self::$_instance)) {
@@ -206,7 +206,7 @@ class SFLD_Simple_Features
         // Usage echo do_shortcode('[swiper_slider_01]');
         $this->loader->add_shortcode( 'swiper_slider_01', $plugin_shortcode, 'sfld_swiper_shortcode' );
         // Usage echo do_shortcode('[ajax_load_more]');
-		$this->loader->add_shortcode( 'ajax_load_more', $plugin_shortcode, 'sfld_ajax_lm_shortcode' );
+	$this->loader->add_shortcode( 'ajax_load_more', $plugin_shortcode, 'sfld_ajax_lm_shortcode' );
         
     }
 

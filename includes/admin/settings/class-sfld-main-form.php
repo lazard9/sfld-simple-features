@@ -30,9 +30,21 @@ class SFLD_Main_Form
       'sfld_settings'
     );
 
-    // Checkbox Field 1
+    // Checkbox Field for Ajax Infinite Scrolling
     add_settings_field(
-      'sfld_main_settings_checkbox1',
+      'sfld_main_settings_checkbox_ajax',
+      __('Infinite scroll for courses archive:', 'sfldsimple'),
+      [$this, 'sfld_main_settings_ajax_checkbox_callback'],
+      'sfld_settings',
+      'sfld_main_settings_section',
+      [
+        'label' => '*Check to enable.'
+      ]
+    );
+
+    // Checkbox Field for CPT
+    add_settings_field(
+      'sfld_main_settings_checkbox_cpt',
       __('Remove all professors and course:', 'sfldsimple'),
       [$this, 'sfld_main_settings_cpt_checkbox_callback'],
       'sfld_settings',
@@ -42,9 +54,9 @@ class SFLD_Main_Form
       ]
     );
 
-    // Checkbox Field 2
+    // Checkbox Field for Taxonomies
     add_settings_field(
-      'sfld_main_settings_checkbox2',
+      'sfld_main_settings_checkbox_taxonomies',
       __('Remove all categories and tags:', 'sfldsimple'),
       [$this, 'sfld_main_settings_taxonomies_checkbox_callback'],
       'sfld_settings',
@@ -54,9 +66,9 @@ class SFLD_Main_Form
       ]
     );
 
-    // Checkbox Field 3
+    // Checkbox Field for Database Table
     add_settings_field(
-      'sfld_main_settings_checkbox3',
+      'sfld_main_settings_database',
       __('Remove data from the database:', 'sfldsimple'),
       [$this, 'sfld_main_settings_database_checkbox_callback'],
       'sfld_settings',
@@ -66,11 +78,11 @@ class SFLD_Main_Form
       ]
     );
 
-    // Checkbox Field 4
+    // Checkbox Field for Options Data
     add_settings_field(
       'sfld_main_settings_checkbox4',
       __('Remove all options data:', 'sfldsimple'),
-      [$this, 'sfld_main_settings_checkbox_callback'],
+      [$this, 'sfld_main_settings_options_checkbox_callback'],
       'sfld_settings',
       'sfld_main_settings_section',
       [
@@ -88,7 +100,23 @@ class SFLD_Main_Form
   public function sfld_main_settings_section_callback(): void
   {
     esc_html_e('By cheking the settings options you will erase all data upon removing the plugin!', 'sfldsimple');
-  }  
+  }
+
+  public function sfld_main_settings_ajax_checkbox_callback($args): void
+  {
+    $options = get_option('sfld_main_settings');
+
+    $checkbox = '';
+    if (isset($options['checkbox-ajax'])) {
+      $checkbox = esc_html($options['checkbox-ajax']);
+    }
+
+    $html = '<input type="checkbox" id="sfld_main_settings_checkbox" name="sfld_main_settings[checkbox-ajax]" value="1"' . checked(1, $checkbox, false) . '/>';
+    $html .= '&nbsp;';
+    $html .= '<label for="sfld_main_settings_checkbox">' . $args['label'] . '</label>';
+
+    echo $html;
+  }
   
   public function sfld_main_settings_cpt_checkbox_callback($args): void
   {
@@ -138,7 +166,7 @@ class SFLD_Main_Form
     echo $html;
   }
 
-  public function sfld_main_settings_checkbox_callback($args): void
+  public function sfld_main_settings_options_checkbox_callback($args): void
   {
     $options = get_option('sfld_main_settings');
 

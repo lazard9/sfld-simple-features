@@ -50,7 +50,8 @@ class SFLD_Public {
             'ajaxConfig', 
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-                'ajax_nonce' => wp_create_nonce( 'load_more_post_nonce' )
+                'ajax_nonce' => wp_create_nonce( 'load_more_post_nonce' ),
+                'enable_ajax' => get_option('sfld_main_settings')['checkbox-ajax']
             ]
         );
 

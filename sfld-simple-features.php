@@ -23,8 +23,8 @@
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
 
-// Define namespace. To make it work remove "includes" from autoloader.php on line 56.
-// namespace SFLD\Includes;
+// Define namespace.
+namespace SFLD\Includes;
 
 // Plugin dir path
 if ( ! defined( 'SFLD_SIMPLE_DIR' ) ) {
@@ -47,13 +47,13 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
 }
 
 function activate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
-    SFLD\Includes\SFLD_Activator::activate();
+    // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
+    SFLD_Activator::activate();
 }
 
 function deactivate_sfld_simple() {
-    // require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
-    SFLD\Includes\SFLD_Deactivator::deactivate();
+    // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
+    SFLD_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_sfld_simple' );
@@ -79,7 +79,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  */
 function sfld_instance() : void {
 
-    $sfld_instance = SFLD\Includes\SFLD_Simple_Features::get_instance();
+    $sfld_instance = SFLD_Simple_Features::get_instance();
     $sfld_instance->run_dependencies();
     $sfld_instance->run_hooks();
 

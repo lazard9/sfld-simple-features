@@ -53,7 +53,7 @@ spl_autoload_register(function( $filename ) {
 	 */
 	$fully_qualified_path = trailingslashit(
 		dirname(
-			dirname( __FILE__ ) . "includes"
+			dirname( __FILE__ )
 		)
 	);
 

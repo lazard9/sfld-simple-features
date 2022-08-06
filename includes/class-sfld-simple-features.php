@@ -33,6 +33,10 @@ namespace SFLD\Includes;
 final class SFLD_Simple_Features
 {
 
+    protected $loader;
+    protected $plugin_name;
+    protected $plugin_version;
+
     /**
      * Unique instance.
      */
@@ -53,7 +57,7 @@ final class SFLD_Simple_Features
         // $this->include(); // Include files witout the autoloader
         $this->init();
         $this->init_hooks();
-        
+
     }
 
     /**
@@ -74,10 +78,6 @@ final class SFLD_Simple_Features
         // Return the unique instance.
         return self::$_instance;
     }
-
-    protected $loader;
-    protected $plugin_name;
-    protected $plugin_version;
 
     /**
      * Load all dependencies.
@@ -123,14 +123,6 @@ final class SFLD_Simple_Features
     }
 
     /**
-     * Run the loader to execute all of the hooks with WordPress.
-     *
-     */
-    public function init_hooks() : void {
-        $this->loader->run_hooks();
-    }
-
-    /**
      * Retrieve the name of the plugin used to uniquely identify it.
      * 
      */
@@ -144,6 +136,14 @@ final class SFLD_Simple_Features
      */
     public function get_plugin_version() : string {
         return $this->plugin_version;
+    }
+
+     /**
+     * Run the loader to execute all of the hooks with WordPress.
+     *
+     */
+    public function init_hooks() : void {
+        $this->loader->run_hooks();
     }
 
     /**

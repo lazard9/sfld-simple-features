@@ -22,7 +22,7 @@
 
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
-defined( 'WPINC' ) or die(); 
+defined( 'WPINC' ) or die( 'Buy, buy!' ); 
 
 // Define namespace.
 namespace SFLD\Includes;
@@ -47,13 +47,13 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
     return;
 }
 
-function activate_sfld_simple() {
+function activate_sfld_simple_features() {
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
     SFLD_Activator::activate();
     
 }
 
-function deactivate_sfld_simple() {
+function deactivate_sfld_simple_features() {
     if ( ! current_user_can( 'activate_plugins' ) ) {
         return;
     }
@@ -68,8 +68,8 @@ function deactivate_sfld_simple() {
 
 }
 
-register_activation_hook( __FILE__, 'activate_sfld_simple' );
-register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
+register_activation_hook( __FILE__, 'activate_sfld_simple_features' );
+register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
 
 
 /**
@@ -92,11 +92,11 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  *
  * 
  */
-function sfld_instance() : void {
+function sfld_simple_features_instance() : void {
 
     SFLD_Simple_Features::get_instance();
 
 }
 
-sfld_instance();
+sfld_simple_features_instance();
 

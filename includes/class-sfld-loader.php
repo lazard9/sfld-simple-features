@@ -103,7 +103,7 @@ if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader
      */
     public function add_shortcode( $tag, $component, $callback ) {
         // $this->shortcodes[] = array( 'tag'=> $tag, 'component' => $component, 'callback'=> $callback );
-        $this->shortcodes = $this->add_shortcodes( $this->shortcodes, $tag, $component, $callback );
+        $this->shortcodes = $this->add_sc( $this->shortcodes, $tag, $component, $callback );
     }
 
     /**
@@ -143,7 +143,7 @@ if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader
      * @param    object               $component        A reference to the instance of the object on which the filter is defined.
      * @param    string               $callback         The name of the function definition on the $component.
      */
-    private function add_shortcodes( $shortcodes, $tag, $component, $callback ) {
+    private function add_sc( $shortcodes, $tag, $component, $callback ) {
         
         $shortcodes[] = array(
             'tag'          => $tag,

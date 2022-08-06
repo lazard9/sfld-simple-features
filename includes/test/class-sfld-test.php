@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 namespace SFLD\Includes\Test;
 

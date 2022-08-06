@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * The admin-specific public functionality of the plugin.
@@ -11,8 +11,7 @@ namespace SFLD\Includes\Admin\Settings;
 if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
 {
 
-  public function sfld_simple_admin_form_init(): void
-  {
+  public function sfld_simple_admin_form_init(): void {
     // If plugin settings don't exist, then create them
     if (false == get_option('sfld_simple_settings')) {
       add_option('sfld_simple_settings');
@@ -100,13 +99,11 @@ if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
   }
 
 
-  public function sfld_simple_settings_section_callback(): void
-  {
+  public function sfld_simple_settings_section_callback(): void {
     esc_html_e('Plugin settings section description', 'sfldsimple');
   }
 
-  public function sfld_simple_settings_text_input_callback(): void
-  {
+  public function sfld_simple_settings_text_input_callback(): void {
     $options = get_option('sfld_simple_settings');
 
     $text_input = '';
@@ -117,8 +114,7 @@ if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
     echo '<input type="text" id="sfld_simple_customtext" name="sfld_simple_settings[text_input]" value="' . $text_input . '" />';
   }
 
-  public function sfld_simple_settings_textarea_callback(): void
-  {
+  public function sfld_simple_settings_textarea_callback(): void {
     $options = get_option('sfld_simple_settings');
 
     $textarea = '';
@@ -129,8 +125,7 @@ if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
     echo '<textarea id="sfld_simple_settings_textarea" name="sfld_simple_settings[textarea]" rows="5" cols="50">' . $textarea . '</textarea>';
   }
 
-  public function sfld_simple_settings_checkbox_callback($args): void
-  {
+  public function sfld_simple_settings_checkbox_callback($args): void {
     $options = get_option('sfld_simple_settings');
 
     $checkbox = '';
@@ -145,8 +140,7 @@ if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
     echo $html;
   }
 
-  public function sfld_simple_settings_radio_callback($args): void
-  {
+  public function sfld_simple_settings_radio_callback($args): void {
     $options = get_option('sfld_simple_settings');
 
     $radio = '';
@@ -162,8 +156,7 @@ if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
     echo $html;
   }
 
-  public function sfld_simple_settings_select_callback($args): void
-  {
+  public function sfld_simple_settings_select_callback($args): void {
     $options = get_option('sfld_simple_settings');
 
     $select = '';

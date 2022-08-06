@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * GDPR checkbox for Woocommerce product review.

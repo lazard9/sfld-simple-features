@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * The public-facing functionality of the plugin.

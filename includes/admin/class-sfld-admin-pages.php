@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * The admin-specific functionality of the plugin.

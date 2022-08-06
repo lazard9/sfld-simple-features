@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * The admin-specific public functionality of the plugin.
@@ -11,8 +11,7 @@ namespace SFLD\Includes\Admin\settings;
 if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
 {
 
-  public function sfld_simple_main_form_init(): void
-  {
+  public function sfld_simple_main_form_init(): void {
     // If plugin settings don't exist, then create them
     if (false == get_option('sfld_main_settings')) {
       add_option('sfld_main_settings');
@@ -62,7 +61,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
       'sfld_settings',
       'sfld_main_settings_section',
       [
-        'label' => '*'
+        'label' => '*Leave unchecked to preserve data for later use.'
       ]
     );
 
@@ -74,7 +73,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
       'sfld_settings',
       'sfld_main_settings_section',
       [
-        'label' => '*'
+        'label' => '*Leave unchecked to preserve data for later use.'
       ]
     );
 
@@ -86,7 +85,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
       'sfld_settings',
       'sfld_main_settings_section',
       [
-        'label' => '*'
+        'label' => '*Leave unchecked to preserve data for later use.'
       ]
     );
 
@@ -97,13 +96,11 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
   }
 
 
-  public function sfld_main_settings_section_callback(): void
-  {
+  public function sfld_main_settings_section_callback(): void {
     esc_html_e('By cheking the settings options you will erase all data upon removing the plugin!', 'sfldsimple');
   }
 
-  public function sfld_main_settings_ajax_checkbox_callback($args): void
-  {
+  public function sfld_main_settings_ajax_checkbox_callback($args): void {
     $options = get_option('sfld_main_settings');
 
     $checkbox = '';
@@ -118,8 +115,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
     echo $html;
   }
   
-  public function sfld_main_settings_cpt_checkbox_callback($args): void
-  {
+  public function sfld_main_settings_cpt_checkbox_callback($args): void {
     $options = get_option('sfld_main_settings');
 
     $checkbox = '';
@@ -134,8 +130,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
     echo $html;
   }
 
-  public function sfld_main_settings_taxonomies_checkbox_callback($args): void
-  {
+  public function sfld_main_settings_taxonomies_checkbox_callback($args): void {
     $options = get_option('sfld_main_settings');
 
     $checkbox = '';
@@ -150,8 +145,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
     echo $html;
   }
 
-  public function sfld_main_settings_database_checkbox_callback($args): void
-  {
+  public function sfld_main_settings_database_checkbox_callback($args): void {
     $options = get_option('sfld_main_settings');
 
     $checkbox = '';
@@ -166,8 +160,7 @@ if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
     echo $html;
   }
 
-  public function sfld_main_settings_options_checkbox_callback($args): void
-  {
+  public function sfld_main_settings_options_checkbox_callback($args): void {
     $options = get_option('sfld_main_settings');
 
     $checkbox = '';

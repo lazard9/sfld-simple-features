@@ -22,6 +22,7 @@
 
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
+defined( 'WPINC' ) or die(); 
 
 // Define namespace.
 namespace SFLD\Includes;
@@ -93,9 +94,8 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  */
 function sfld_instance() : void {
 
-    $sfld_instance = SFLD_Simple_Features::get_instance();
-    $sfld_instance->run_dependencies();
-    $sfld_instance->run_hooks();
+    $plugin = SFLD_Simple_Features::get_instance();
+    $plugin->dependencies();
 
 }
 

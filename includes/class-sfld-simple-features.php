@@ -60,7 +60,7 @@ class SFLD_Simple_Features
     public static function get_instance() {
         // Create the instance if it does not exist.
         if (!isset(self::$_instance)) {
-            self::$_instance = new SFLD_Simple_Features();  
+            self::$_instance = new self;
         }
 
         // Return the unique instance.
@@ -71,13 +71,14 @@ class SFLD_Simple_Features
     protected $plugin_name;
     protected $plugin_version;
 
-    public function run_dependencies() {
+    public function dependencies() {
 
         $this->plugin_name = 'sfldsimple';
         $this->plugin_version = '2.0.0';
 
         // $this->include(); // Include files witout the autoloader
         $this->init();
+        $this->init_hooks();
 
     }
 
@@ -110,7 +111,7 @@ class SFLD_Simple_Features
      */
     private function init() : void {
 
-        $this->loader = new SFLD_Loader();
+        $this->loader = SFLD_Loader::get_instance();
 
         $this->define_admin_hooks();
         $this->define_public_hooks();
@@ -129,8 +130,8 @@ class SFLD_Simple_Features
      * Run the loader to execute all of the hooks with WordPress.
      *
      */
-    public function run_hooks() : void {
-        $this->loader->run();
+    public function init_hooks() : void {
+        $this->loader->run_hooks();
     }
 
     /**
@@ -149,6 +150,10 @@ class SFLD_Simple_Features
         return $this->plugin_version;
     }
 
+    /**
+     * Define all hooks & register shortcodes.
+     * 
+     */
     private function define_admin_hooks() : void {
 
         $plugin_admin = new Admin\SFLD_Admin( $this->get_plugin_name(), $this->get_plugin_version() );
@@ -241,14 +246,13 @@ class SFLD_Simple_Features
         $this->loader->add_action('comment_post', $plugin_woo_gdpr, 'sfld_save_comment_meta_data');
         $this->loader->add_filter('preprocess_comment', $plugin_woo_gdpr, 'sfld_verify_comment_meta_data');
         $this->loader->add_action('add_meta_boxes_comment', $plugin_woo_gdpr, 'sfld_extend_comment_add_meta_box');
-        $this->loader-> add_action('edit_comment', $plugin_woo_gdpr, 'sfld_extend_comment_edit_metafields');
+        $this->loader->add_action('edit_comment', $plugin_woo_gdpr, 'sfld_extend_comment_edit_metafields');
         
     }
 
     private function define_test() : void {
-
         new Test\SFLD_Test();
-        
+
     }
 
 }

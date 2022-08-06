@@ -1,4 +1,5 @@
-<?php
+<?php defined( 'WPINC' ) or die();
+
 /**
  * Automatically locates and loads files based on their namespaces and their
  * file names whenever they are instantiated.

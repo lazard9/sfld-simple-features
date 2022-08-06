@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'WPINC' ) or die();
 
 /**
  * Register all actions and filters for the plugin
@@ -8,8 +8,42 @@
 
 namespace SFLD\Includes;
 
-if( ! class_exists('SFLD_Loader') ) : class SFLD_Loader 
+if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader 
 {
+
+    /**
+	 * Unique instance.
+	 */
+    private static $_instance = null;
+
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     * This is meant to be overridden in the classes which implement
+     * this trait. This is ideal for doing stuff that you only want to
+     * do once, such as hooking into actions and filters, etc.
+     */
+    public function __construct() {
+    }
+
+    /**
+     * Prevent object cloning.
+     */
+    final protected function __clone() {
+	}
+    
+    /**
+     * Method to get the unique instance.
+     */
+    public static function get_instance() {
+        // Create the instance if it does not exist.
+        if (!isset(self::$_instance)) {
+            self::$_instance = new self;
+        }
+
+        // Return the unique instance.
+        return self::$_instance;
+    }
 
     /**
      * The array of actions registered with WordPress.
@@ -43,7 +77,7 @@ if( ! class_exists('SFLD_Loader') ) : class SFLD_Loader
      *
      * 
      */
-    public function __construct() {
+    public function hooks() {
 
         $this->actions = array();
         $this->filters = array();
@@ -143,7 +177,7 @@ if( ! class_exists('SFLD_Loader') ) : class SFLD_Loader
      *
      * 
      */
-    public function run() {
+    public function run_hooks() {
 
         foreach ( $this->actions as $hook ) {
             add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );

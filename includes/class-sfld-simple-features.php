@@ -94,8 +94,7 @@ final class SFLD_Simple_Features
         include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
         include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
         include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-courses-taxonomies.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/taxonomy/class-sfld-professors-taxonomy.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
         include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcode.php';
         include_once SFLD_SIMPLE_DIR . 'includes/metabox/class-sfld-meta-boxes.php';
         include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';

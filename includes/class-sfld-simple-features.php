@@ -46,6 +46,14 @@ final class SFLD_Simple_Features
      * do once, such as hooking into actions and filters, etc.
      */
     private function __construct() {  
+
+        $this->plugin_name = 'sfldsimple';
+        $this->plugin_version = '2.0.0';
+
+        // $this->include(); // Include files witout the autoloader
+        $this->init();
+        $this->init_hooks();
+        
     }
 
     /**
@@ -70,17 +78,6 @@ final class SFLD_Simple_Features
     protected $loader;
     protected $plugin_name;
     protected $plugin_version;
-
-    public function dependencies() {
-
-        $this->plugin_name = 'sfldsimple';
-        $this->plugin_version = '2.0.0';
-
-        // $this->include(); // Include files witout the autoloader
-        $this->init();
-        $this->init_hooks();
-
-    }
 
     /**
      * Load all dependencies.

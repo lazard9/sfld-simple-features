@@ -94,8 +94,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  */
 function sfld_instance() : void {
 
-    $plugin = SFLD_Simple_Features::get_instance();
-    $plugin->dependencies();
+    SFLD_Simple_Features::get_instance();
 
 }
 

@@ -9,11 +9,11 @@
 
 namespace SFLD\Includes;
 
-class SFLD_Deactivator
+if ( ! class_exists( 'SFLD_Deactivator', false ) ) : class SFLD_Deactivator
 {
 
     public static function deactivate() {
 
     }
 
-}
+} endif;

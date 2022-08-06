@@ -9,7 +9,7 @@
 
 namespace SFLD\Includes;
 
-class SFLD_Activator
+if ( ! class_exists( 'SFLD_Activator', false ) ) : class SFLD_Activator
 {
 
     public static function activate() {
@@ -43,4 +43,4 @@ class SFLD_Activator
         dbDelta($course_details);
     }
 
-}
+} endif;

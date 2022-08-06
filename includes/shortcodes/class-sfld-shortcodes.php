@@ -10,7 +10,7 @@
 namespace SFLD\Includes\Shortcodes;
 use \WP_Query;
 
-class SFLD_Shortcodes
+if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
 {
 
     public function sfld_swiper_shortcode() : void {
@@ -92,4 +92,4 @@ class SFLD_Shortcodes
 		<?php
 	}
 
-}
+} endif;

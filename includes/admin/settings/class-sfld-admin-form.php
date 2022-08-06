@@ -8,7 +8,7 @@
 
 namespace SFLD\Includes\Admin\Settings;
 
-class SFLD_Admin_Form
+if ( ! class_exists( 'SFLD_Admin_Form', false ) ) : class SFLD_Admin_Form
 {
 
   public function sfld_simple_admin_form_init(): void
@@ -181,4 +181,5 @@ class SFLD_Admin_Form
 
     echo $html;
   }
-}
+
+} endif;

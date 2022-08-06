@@ -10,7 +10,7 @@
 namespace SFLD\Includes\Ajax;
 use \WP_Query;
 
-class SFLD_Ajax_Load_More
+if ( ! class_exists( 'SFLD_Ajax_Load_More', false ) ) : class SFLD_Ajax_Load_More
 {
 
    public function sfld_ajax_load_more_posts() : void {
@@ -64,4 +64,4 @@ class SFLD_Ajax_Load_More
       
 	}
 
-}
+} endif;

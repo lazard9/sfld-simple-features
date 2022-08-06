@@ -11,7 +11,7 @@ namespace SFLD\Includes\Metabox;
 
 use \WP_User_Query;
 
-class SFLD_Meta_Boxes
+if ( ! class_exists( 'SFLD_Meta_Boxes', false ) ) : class SFLD_Meta_Boxes
 {
 
     /*
@@ -222,4 +222,4 @@ class SFLD_Meta_Boxes
             wp_set_object_terms($post_id, (int)sanitize_text_field( $_POST['level'] ), 'level');
     }
 
-}
+} endif;

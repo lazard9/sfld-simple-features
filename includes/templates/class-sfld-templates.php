@@ -8,7 +8,7 @@
 
 namespace SFLD\Includes\Templates;
 
-class SFLD_Templates
+if ( ! class_exists( 'SFLD_Templates', false ) ) : class SFLD_Templates
 {
 
     /* 
@@ -39,4 +39,4 @@ class SFLD_Templates
         
     }
 
-}
+} endif;

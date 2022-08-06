@@ -8,7 +8,8 @@
 
 namespace SFLD\Includes\Frontend;
 
-class SFLD_Public {
+if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
+{
 
     public function __construct( $plugin_name, $plugin_version ) {
 
@@ -88,4 +89,4 @@ class SFLD_Public {
 
     }
 
-}
+} endif;

@@ -8,7 +8,8 @@
 
 namespace SFLD\Includes;
 
-class SFLD_Loader {
+if( ! class_exists('SFLD_Loader') ) : class SFLD_Loader 
+{
 
     /**
      * The array of actions registered with WordPress.
@@ -158,4 +159,4 @@ class SFLD_Loader {
 
     }
 
-}
+} endif;

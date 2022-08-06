@@ -8,7 +8,8 @@
 
 namespace SFLD\Includes\Admin;
 
-class SFLD_Admin {
+if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin 
+{
 
     public function __construct( $plugin_name, $plugin_version ) {
 
@@ -62,8 +63,7 @@ class SFLD_Admin {
             [],
 			$this->plugin_version
         );
-        
+
     }
 
-
-}
+} endif;

@@ -49,11 +49,22 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
 function activate_sfld_simple() {
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
     SFLD_Activator::activate();
+    
 }
 
 function deactivate_sfld_simple() {
+    if ( ! current_user_can( 'activate_plugins' ) ) {
+        return;
+    }
+    
+    // Reload textdomain on update
+    if ( is_textdomain_loaded( 'sfldsimple' ) ) {
+        unload_textdomain( 'sfldsimple' );
+    }
+
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
     SFLD_Deactivator::deactivate();
+
 }
 
 register_activation_hook( __FILE__, 'activate_sfld_simple' );
@@ -66,6 +77,9 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple' );
  */
 // if ( ! class_exists( 'SFLD_Simple_Features', false ) ) {
 // 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php'; // Include files witout the autoloader
+// } 
+//  else {
+//     return;
 // }
 
 /**

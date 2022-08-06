@@ -8,7 +8,7 @@
 
 namespace SFLD\Includes\CPT;
 
-class SFLD_CPT
+if ( ! class_exists( 'SFLD_CPT', false ) ) : class SFLD_CPT
 {
 
     function sfld_register_cpt() {
@@ -128,4 +128,4 @@ class SFLD_CPT
 
     }
 
-}
+} endif;

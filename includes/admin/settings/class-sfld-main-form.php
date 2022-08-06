@@ -8,7 +8,7 @@
 
 namespace SFLD\Includes\Admin\settings;
 
-class SFLD_Main_Form
+if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
 {
 
   public function sfld_simple_main_form_init(): void
@@ -181,4 +181,5 @@ class SFLD_Main_Form
 
     echo $html;
   }
-}
+
+} endif;

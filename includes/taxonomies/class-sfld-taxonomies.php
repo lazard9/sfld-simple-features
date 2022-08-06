@@ -9,7 +9,7 @@
 
 namespace SFLD\Includes\Taxonomies;
 
-class SFLD_Taxonomies
+if ( ! class_exists( 'SFLD_Taxonomies', false ) ) : class SFLD_Taxonomies
 {
     /**
      * Professors CPT taxonomy
@@ -253,4 +253,4 @@ class SFLD_Taxonomies
 
     }
 
-}
+} endif;

@@ -9,7 +9,7 @@
 
 namespace SFLD\Includes\Ajax;
 
-class SFLD_Ajax_Vote
+if ( ! class_exists( 'SFLD_Ajax_Vote', false ) ) : class SFLD_Ajax_Vote
 {
 
     function sfld_ajax_user_vote() : void {
@@ -50,4 +50,4 @@ class SFLD_Ajax_Vote
         die();
     }
 
-}
+} endif;

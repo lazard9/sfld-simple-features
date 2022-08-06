@@ -14,11 +14,11 @@ class SFLD_Admin_Pages {
     
     public function admin_form_init() : object {
         return new SFLD_Admin_Form;
-	}
+    }
 
     public function main_form_init() : object {
         return new SFLD_Main_Form;
-	}
+    }
 
     /**
      * Admin pages & sub pages.

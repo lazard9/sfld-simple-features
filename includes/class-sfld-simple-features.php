@@ -30,7 +30,7 @@
 
 namespace SFLD\Includes;
 
-class SFLD_Simple_Features
+final class SFLD_Simple_Features
 {
 
     /**
@@ -88,7 +88,7 @@ class SFLD_Simple_Features
      */
     private function include() : void {
 
-        require_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
 
         include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
         include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
@@ -101,7 +101,7 @@ class SFLD_Simple_Features
         include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
         include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
         include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
-        require_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
+        include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
 
     }
 

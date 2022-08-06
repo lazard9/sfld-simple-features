@@ -34,8 +34,8 @@ final class SFLD_Simple_Features
 {
 
     /**
-	 * Unique instance.
-	 */
+     * Unique instance.
+     */
     private static $_instance = null;
 
     /**
@@ -52,7 +52,7 @@ final class SFLD_Simple_Features
      * Prevent object cloning.
      */
     final protected function __clone() {
-	}
+    }
 
     /**
      * Method to get the unique instance.
@@ -252,7 +252,6 @@ final class SFLD_Simple_Features
 
     private function define_test() : void {
         new Test\SFLD_Test();
-
     }
 
 }

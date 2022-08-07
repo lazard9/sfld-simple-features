@@ -16,7 +16,7 @@ if ( ! class_exists( 'SFLD_Ajax_Load_More', false ) ) : class SFLD_Ajax_Load_Mor
    public function sfld_ajax_load_more_posts() : void {
 
 		if ( ! check_ajax_referer( 'load_more_post_nonce', 'ajax_nonce', false ) ) {
-			wp_send_json_error( __( 'Invalid security token sent.', 'sfldsimple' ) );
+			wp_send_json_error( __( 'Invalid security token.', 'sfldsimple' ) );
 			wp_die( '0', 400 );
 		}
 

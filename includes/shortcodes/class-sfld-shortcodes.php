@@ -64,6 +64,15 @@ if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
      */
 	public function sfld_ajax_lm_shortcode() : void {
 
+        $main_settings = get_option('sfld_main_settings');
+
+        if ( $main_settings['checkbox-ajax'] ) {
+            $button_text = 'Loading...';
+        }
+        else {
+            $button_text = 'Load More';
+        }
+
         // Initial Post Load.
         $args = [
             'post_type'      => 'courses',
@@ -71,24 +80,24 @@ if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
             'posts_per_page' => 4
         ];
 
-        $lm_query = new WP_Query( $args );
+        $query = new WP_Query( $args );
 
-        $total_pages = 2 * ($lm_query->max_num_pages);
+        $total_pages = 2 * ($query->max_num_pages);
 
 		?>
 		<div class="load-more-content-wrap">
 			<div id="load-more-content" class="courses-list">
                 <?php                     
-                    if ( $lm_query->have_posts() ):
+                    if ( $query->have_posts() ):
                         // Loop Posts.
-                        while ( $lm_query->have_posts() ): $lm_query->the_post();
+                        while ( $query->have_posts() ): $query->the_post();
                             include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
                         endwhile;
                     endif;
                 ?>
 			</div>
 			<button id="load-more" style="display: block; margin: auto;" data-page="2">
-				<span><?php esc_html_e( 'Load More', 'sfldsimple' ); ?></span>
+				<span><?php esc_html_e( $button_text, 'sfldsimple' ); ?></span>
 			</button>
             <?php if ( $total_pages > 1 ) : ?>
                 <div id="post-pagination" style="display: none;" data-max-pages="<?php echo $total_pages; ?>">

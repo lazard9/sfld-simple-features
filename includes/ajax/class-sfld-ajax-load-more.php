@@ -39,11 +39,11 @@ if ( ! class_exists( 'SFLD_Ajax_Load_More', false ) ) : class SFLD_Ajax_Load_Mor
 			'paged'          => $page_no,
 		];
 
-		$lm_query = new WP_Query( $args );
+		$query = new WP_Query( $args );
 
-		if ( $lm_query->have_posts() ):
+		if ( $query->have_posts() ):
 			// Loop Posts.
-			while ( $lm_query->have_posts() ): $lm_query->the_post();
+			while ( $query->have_posts() ): $query->the_post();
             	include SFLD_SIMPLE_DIR . 'template-parts/components/course-card.php';
 			endwhile;
 

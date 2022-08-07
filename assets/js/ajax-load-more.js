@@ -27,7 +27,7 @@
 			this.totalPagesCount = $( '#post-pagination' ).data( 'max-pages' )
 			// console.log( this.totalPagesCount )
 
-			if ( ajaxConfig?.enable_ajax ) {
+			if ( ajaxConfig?.enable_infinite_scroll ) {
 
 				const observer = new IntersectionObserver(
 					( entries ) => this.intersectionObserverCallback( entries ),

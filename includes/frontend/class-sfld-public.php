@@ -52,7 +52,7 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                 'ajax_nonce' => wp_create_nonce( 'load_more_post_nonce' ),
-                'enable_ajax' => get_option('sfld_main_settings') ?? ['checkbox-ajax']
+                'enable_infinite_scroll' => get_option('sfld_main_settings') ?? ['checkbox-ajax']
             ]
         );
 

@@ -7,7 +7,6 @@
 			this.ajaxUrl = ajaxConfig?.ajaxUrl ?? ''
 			this.ajaxNonce = ajaxConfig?.ajax_nonce ?? ''
 			this.loadMoreBtn = $( '#load-more' )
-			this.isRequestProcessing = false;
 
 			this.options = {
 				root: null,
@@ -20,6 +19,7 @@
 		}
 
 		init() {
+
 			if ( ! this.loadMoreBtn.length ) {
 				return;
 			}
@@ -28,6 +28,7 @@
 			// console.log( this.totalPagesCount )
 
 			if ( ajaxConfig?.enable_ajax ) {
+
 				const observer = new IntersectionObserver(
 					( entries ) => this.intersectionObserverCallback( entries ),
 					this.options
@@ -36,21 +37,31 @@
 
 			} 
 			else {
-				this.loadMoreBtn.on('click', () => this.handleLoadMorePosts() )
+
+				this.loadMoreBtn.on( 'click', () => {
+					this.loadMoreBtn.attr( 'disabled', true )
+					this.handleLoadMorePosts()
+				})
 
 			}
+
 		}
 
+		/**
+		 * Gets called on initial render with status 'isIntersecting' as false and then
+		 * everytime element intersection status changes.
+		 */
 		intersectionObserverCallback( entries ) {
-			// array of observing elements
-
-			// The logic is apply for each entry ( in this case it's just one loadmore button )
+			
 			entries.forEach( ( entry ) => {
 				// If load more button in view.
 				if ( entry?.isIntersecting ) {
+					this.loadMoreBtn.attr( 'disabled', true )
 					this.handleLoadMorePosts();
 				}
-			} );
+
+			})
+
 		}
 
 		/**
@@ -59,15 +70,15 @@
 		handleLoadMorePosts() {
 			// Get page no from data attribute of load-more button.
 			const page = this.loadMoreBtn.data( 'page' )
-			if ( ! page || this.isRequestProcessing ) {
+			if ( ! page ) {
 				return null
 			}
 
 			const newPage = parseInt( page ) + 1; // Increment page count by one.
 			// console.log( newPage )
-			this.isRequestProcessing = true;
 
 			$.ajax( {
+
 				url: this.ajaxUrl,
 				type: 'post',
 				data: {
@@ -75,23 +86,31 @@
 					action: 'load_more',
 					ajax_nonce: this.ajaxNonce,
 				},
+
 				success: ( response ) => {
 					this.loadMoreBtn.data( 'page', newPage )
 					$( '#load-more-content' ).append( response )
+					this.loadMoreBtn.attr( 'disabled', false )
 					this.removeLoadMoreIfOnLastPage( newPage )
-					this.isRequestProcessing = false
 				},
+
 				error: ( response ) => {
 					console.log( response );
-					this.isRequestProcessing = false;
 				},
+
 			});
+
 		}
 
+		/**
+		 * Remove Load more Button If on last page.
+		 */
 		removeLoadMoreIfOnLastPage( newPage ) {
+
 			if ( newPage + 1 > this.totalPagesCount ) {
 				this.loadMoreBtn.remove();
 			}
+
 		}
 		
 	}

@@ -68,10 +68,12 @@ if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
         $args = [
             'post_type'      => 'courses',
             'post_status'    => 'publish',
-            'posts_per_page' => 2
+            'posts_per_page' => 4
         ];
 
         $lm_query = new WP_Query( $args );
+
+        $total_pages = 2 * ($lm_query->max_num_pages);
 
 		?>
 		<div class="load-more-content-wrap">
@@ -85,9 +87,23 @@ if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
                     endif;
                 ?>
 			</div>
-			<button id="load-more" data-page="1">
+			<button id="load-more" style="display: block; margin: auto;" data-page="2">
 				<span><?php esc_html_e( 'Load More', 'sfldsimple' ); ?></span>
 			</button>
+            <?php if ( $total_pages > 1 ) : ?>
+                <div id="post-pagination" style="display: none;" data-max-pages="<?php echo $total_pages; ?>">
+                    <?php
+                        echo paginate_links( [
+                            'base' => get_pagenum_link( 1 ) . '%_%',
+                            'format' => 'page/%#%',
+                            'current' => $page_no,
+                            'total' => $total_pages,
+                            'prev_text' => __( '« Prev', 'sfldsimple' ),
+                            'next_text' => __( 'Next »', 'sfldsimple' ),
+                        ] );
+                    ?>
+                </div>
+            <?php endif; ?>
 		</div>
 		<?php
 	}

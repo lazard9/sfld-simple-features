@@ -14,7 +14,7 @@ if ( ! class_exists( 'SFLD_Ajax_Vote', false ) ) : class SFLD_Ajax_Vote
 
     function sfld_ajax_user_vote() : void {
 
-        if ( !wp_verify_nonce( $_REQUEST['nonce'], "sfld_ajax_user_vote_nonce")) {
+        if ( !wp_verify_nonce( $_REQUEST['nonce'], "ajax_user_vote_nonce")) {
            exit("No naughty business please");
         }   
      

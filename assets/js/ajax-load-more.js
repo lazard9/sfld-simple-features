@@ -1,17 +1,22 @@
 ( function ( $ ) {
-	/**
-	 * Class Loadmore.
-	 */
+	
 	class LoadMore {
-		/**
-		 * Contructor.
-		 */
+		
 		constructor() {
+
 			this.ajaxUrl = ajaxConfig?.ajaxUrl ?? ''
 			this.ajaxNonce = ajaxConfig?.ajax_nonce ?? ''
 			this.loadMoreBtn = $( '#load-more' )
+			this.isRequestProcessing = false;
+
+			this.options = {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0.35, // 1.0 means set isIntersecting to true when element comes in 100% view.
+			};
 
 			this.init()
+
 		}
 
 		init() {
@@ -19,7 +24,33 @@
 				return;
 			}
 
-			this.loadMoreBtn.on('click', () => this.handleLoadMorePosts() )
+			this.totalPagesCount = $( '#post-pagination' ).data( 'max-pages' )
+			// console.log( this.totalPagesCount )
+
+			if ( ajaxConfig?.enable_ajax ) {
+				const observer = new IntersectionObserver(
+					( entries ) => this.intersectionObserverCallback( entries ),
+					this.options
+				);
+				observer.observe( this.loadMoreBtn[ 0 ] )
+
+			} 
+			else {
+				this.loadMoreBtn.on('click', () => this.handleLoadMorePosts() )
+
+			}
+		}
+
+		intersectionObserverCallback( entries ) {
+			// array of observing elements
+
+			// The logic is apply for each entry ( in this case it's just one loadmore button )
+			entries.forEach( ( entry ) => {
+				// If load more button in view.
+				if ( entry?.isIntersecting ) {
+					this.handleLoadMorePosts();
+				}
+			} );
 		}
 
 		/**
@@ -28,11 +59,13 @@
 		handleLoadMorePosts() {
 			// Get page no from data attribute of load-more button.
 			const page = this.loadMoreBtn.data( 'page' )
-			if ( ! page ) {
+			if ( ! page || this.isRequestProcessing ) {
 				return null
 			}
 
 			const newPage = parseInt( page ) + 1; // Increment page count by one.
+			// console.log( newPage )
+			this.isRequestProcessing = true;
 
 			$.ajax( {
 				url: this.ajaxUrl,
@@ -43,17 +76,22 @@
 					ajax_nonce: this.ajaxNonce,
 				},
 				success: ( response ) => {
-               if ( 0 === parseInt( response )) {
-                  this.loadMoreBtn.remove();
-               } else {
-                  this.loadMoreBtn.data( 'page', newPage )
-                  $( '#load-more-content' ).append( response )
-               }
+					this.loadMoreBtn.data( 'page', newPage )
+					$( '#load-more-content' ).append( response )
+					this.removeLoadMoreIfOnLastPage( newPage )
+					this.isRequestProcessing = false
 				},
 				error: ( response ) => {
-					// console.log( response );
+					console.log( response );
+					this.isRequestProcessing = false;
 				},
-			} );
+			});
+		}
+
+		removeLoadMoreIfOnLastPage( newPage ) {
+			if ( newPage + 1 > this.totalPagesCount ) {
+				this.loadMoreBtn.remove();
+			}
 		}
 		
 	}

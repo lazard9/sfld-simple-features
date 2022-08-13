@@ -1,0 +1,1 @@
+{"version":3,"file":"js/admin.bundle.js","mappings":"yBAEAA,QAAQC,IAAI,W","sources":["webpack://sfld-simple-features/./assets/src/js/admin.js"],"sourcesContent":["import '../sass/admin.scss'\r\n\r\nconsole.log('Echo 001')"],"names":["console","log"],"sourceRoot":""}

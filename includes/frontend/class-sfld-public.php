@@ -27,8 +27,8 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
         wp_enqueue_style(
             $this->plugin_name . '-swiper-bundle',
             SFLD_SIMPLE_URL . 'assets/dist/library/css/swiper-bundle.min.css',
-			[],
-			$this->plugin_version
+            [],
+            $this->plugin_version
         );
 
         wp_enqueue_script(
@@ -40,10 +40,10 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
         );
 
         wp_enqueue_style(
-			$this->plugin_name . '-frontend-style',
-			SFLD_SIMPLE_URL . 'assets/dist/css/frontend.css',
-			[],
-			$this->plugin_version
+            $this->plugin_name . '-frontend-style',
+            SFLD_SIMPLE_URL . 'assets/dist/css/frontend.css',
+            [],
+            $this->plugin_version
         );
 
         wp_enqueue_script( 

@@ -42,6 +42,6 @@
     "webpack-cli": "^4.10.0"
   },
   "browserslist": [
-		"last 3 versions"
-	]
+    "last 3 versions"
+  ]
 }

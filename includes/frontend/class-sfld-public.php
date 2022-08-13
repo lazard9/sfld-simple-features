@@ -25,66 +25,43 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
     public function sfld_enqueue_frontend_assets() : void {
 
         wp_enqueue_style(
-			$this->plugin_name . '-front-style',
-			SFLD_SIMPLE_URL . 'assets/css/frontend.css',
+            $this->plugin_name . '-swiper-bundle',
+            SFLD_SIMPLE_URL . 'assets/dist/library/css/swiper-bundle.min.css',
 			[],
 			$this->plugin_version
         );
 
+        wp_enqueue_script(
+            $this->plugin_name . '-swiper-bundle',
+            SFLD_SIMPLE_URL . 'assets/dist/library/js/swiper-bundle.min.js',
+            NULL,
+            $this->plugin_version,
+            true
+        );
+
         wp_enqueue_style(
-			$this->plugin_name . '-gdpr-style',
-			SFLD_SIMPLE_URL . 'assets/css/gdpr.css',
+			$this->plugin_name . '-frontend-style',
+			SFLD_SIMPLE_URL . 'assets/dist/css/frontend.css',
 			[],
 			$this->plugin_version
         );
 
         wp_enqueue_script( 
-            $this->plugin_name . "-ajax-voter",
-            SFLD_SIMPLE_URL . 'assets/js/ajax-voter.js',
+            $this->plugin_name . "-frontend-script",
+            SFLD_SIMPLE_URL . 'assets/dist/js/frontend.bundle.js',
             ['jquery'],
             $this->plugin_version,
             true
         );
 
         wp_localize_script( 
-            $this->plugin_name . "-ajax-voter", 
+            $this->plugin_name . "-frontend-script", 
             'ajaxConfig', 
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                 'ajax_nonce' => wp_create_nonce( 'load_more_post_nonce' ),
                 'enable_infinite_scroll' => get_option('sfld_main_settings') ?? ['checkbox-ajax']
             ]
-        );
-
-        wp_enqueue_script( 
-            $this->plugin_name . "-ajax-load-more",
-            SFLD_SIMPLE_URL . 'assets/js/ajax-load-more.js',
-            ['jquery'],
-            $this->plugin_version,
-            true
-        );
-
-        wp_enqueue_style(
-            $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/plugins/css/swiper-bundle.min.css',
-			[],
-			$this->plugin_version
-        );
-
-        wp_enqueue_script(
-            $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/plugins/js/swiper-bundle.min.js',
-            NULL,
-            $this->plugin_version,
-            true
-        );
-
-        wp_enqueue_script(
-            $this->plugin_name . '-swiper-initialize',
-            SFLD_SIMPLE_URL . 'assets/plugins/js/swiper-initialize.js',
-            NULL,
-            $this->plugin_version,
-            true
         );
 
     }

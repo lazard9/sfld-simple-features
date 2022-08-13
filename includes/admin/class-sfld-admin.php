@@ -61,7 +61,7 @@ if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin
             $this->plugin_name . '-admin-style', 
             SFLD_SIMPLE_URL . 'assets/dist/css/admin.css',
             [],
-			$this->plugin_version
+            $this->plugin_version
         );
 
         wp_enqueue_script( 

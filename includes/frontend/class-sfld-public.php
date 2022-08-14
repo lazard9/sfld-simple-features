@@ -26,14 +26,14 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
 
         wp_enqueue_style(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/library/css/swiper-bundle.min.css',
+            SFLD_SIMPLE_URL . 'assets/vendor/css/swiper-bundle.min.css',
             [],
             $this->plugin_version
         );
 
         wp_enqueue_script(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/library/js/swiper-bundle.min.js',
+            SFLD_SIMPLE_URL . 'assets/vendor/js/swiper-bundle.min.js',
             NULL,
             $this->plugin_version,
             true

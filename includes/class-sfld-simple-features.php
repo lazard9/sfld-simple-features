@@ -194,7 +194,7 @@ final class SFLD_Simple_Features extends SFLD_Singleton
     private function define_metabox_hooks() : void {
 
         $plugin_meta_boxes = new Metabox\SFLD_Meta_Boxes();
-        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor_main' );
+        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor' );
         $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_editor' );
         $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main' );
         $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_course_details' );

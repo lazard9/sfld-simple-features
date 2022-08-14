@@ -1,12 +1,18 @@
 <?php
 
 /**
+ * @wordpress-plugin
  * Plugin Name: SFLD Simple Features
- * Description: Extends functionalities
+ * Plugin URI:
+ * Version: 2.0.0
  * Author: Lazar Dacic
  * Author URI: https://profiles.wordpress.org/lazarus9/
- * Version: 2.0.0
  * Text Domain: sfldsimple
+ * Domain Path: /languages
+ * Description: Extends functionalities
+ * Requires PHP: 7.2
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * 
  * @package SFLD Simple Features
  */
@@ -18,14 +24,9 @@
  * from several courses, tutorials etc. Code refacting in progess!
  */
 
-
-
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die ( 'Buy, buy!' );
 defined( 'WPINC' ) or die( 'Buy, buy!' ); 
-
-// Define namespace.
-namespace SFLD\Includes;
 
 // Plugin dir path
 if ( ! defined( 'SFLD_SIMPLE_DIR' ) ) {
@@ -41,19 +42,19 @@ if ( ! defined( 'SFLD_SIMPLE_BASENAME' ) ) {
 }
 // Include the autoloader so we can dynamically include the rest of the classes.
 if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
-    include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php' ;
+    include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php';
 } 
  else {
     return;
 }
 
 if ( file_exists( SFLD_SIMPLE_DIR . 'lib/singleton.php' ) ) {
-    include_once SFLD_SIMPLE_DIR . 'lib/singleton.php' ;
+    include_once SFLD_SIMPLE_DIR . 'lib/singleton.php';
 }
 
 function activate_sfld_simple_features() {
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
-    SFLD_Activator::activate();
+    SFLD\Includes\SFLD_Activator::activate();
     
 }
 
@@ -70,7 +71,7 @@ function deactivate_sfld_simple_features() {
     }
 
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
-    SFLD_Deactivator::deactivate();
+    SFLD\Includes\SFLD_Deactivator::deactivate();
 
 }
 
@@ -99,7 +100,7 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
  */
 function sfld_simple_features() : void {
 
-    SFLD_Simple_Features::getInstance();
+    SFLD\Includes\SFLD_Simple_Features::getInstance();
 
 }
 

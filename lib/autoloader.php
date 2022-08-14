@@ -7,8 +7,6 @@
  * @package TODO
  */
 
-namespace SFLD\lib;
-
 spl_autoload_register(function( $filename ) {
 
 	// First, separate the components of the incoming file.

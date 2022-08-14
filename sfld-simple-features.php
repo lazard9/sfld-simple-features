@@ -47,11 +47,17 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
     return;
 }
 
+if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE_DIR . 'base/singleton.php' ) ) {
+    include_once SFLD_SIMPLE_DIR . 'base/singleton.php' ;
+}
+
 function activate_sfld_simple_features() {
     // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
     SFLD_Activator::activate();
     
 }
+
+register_activation_hook( __FILE__, 'activate_sfld_simple_features' );
 
 function deactivate_sfld_simple_features() {
     if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -68,7 +74,6 @@ function deactivate_sfld_simple_features() {
 
 }
 
-register_activation_hook( __FILE__, 'activate_sfld_simple_features' );
 register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
 
 
@@ -92,11 +97,11 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
  *
  * 
  */
-function sfld_simple_features_instance() : void {
+function sfld_simple_features() : void {
 
-    SFLD_Simple_Features::get_instance();
+    SFLD_Simple_Features::getInstance();
 
 }
 
-sfld_simple_features_instance();
+sfld_simple_features();
 

@@ -20,14 +20,14 @@ if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin
 
 	}
 
-    private function includes() : void {
+    // private function includes() : void {
 
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-links.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-pages.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-admin-form.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-main-form.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-links.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-pages.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-admin-form.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-main-form.php';
 
-    }
+    // }
     
     /**
      * Add a link to your settings page in your plugin
@@ -59,14 +59,14 @@ if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin
         
         wp_enqueue_style( 
             $this->plugin_name . '-admin-style', 
-            SFLD_SIMPLE_URL . 'assets/dist/css/admin.css',
+            SFLD_SIMPLE_URL . 'assets/build/css/admin.css',
             [],
             $this->plugin_version
         );
 
         wp_enqueue_script( 
             $this->plugin_name . "-main",
-            SFLD_SIMPLE_URL . 'assets/dist/js/admin.bundle.js',
+            SFLD_SIMPLE_URL . 'assets/build/js/admin.bundle.js',
             [],
             $this->plugin_version,
             true

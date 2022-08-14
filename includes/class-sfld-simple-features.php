@@ -29,18 +29,15 @@
  */
 
 namespace SFLD\Includes;
+use SFLD\Includes\Base\SFLD_Singleton;
 
-final class SFLD_Simple_Features
+final class SFLD_Simple_Features extends SFLD_Singleton
 {
 
-    protected $loader;
-    protected $plugin_name;
-    protected $plugin_version;
+    private $loader;
+    private $plugin_name;
+    private $plugin_version;
 
-    /**
-     * Unique instance.
-     */
-    private static $_instance = null;
 
     /**
      * Protected class constructor to prevent direct object creation
@@ -49,7 +46,7 @@ final class SFLD_Simple_Features
      * this trait. This is ideal for doing stuff that you only want to
      * do once, such as hooking into actions and filters, etc.
      */
-    private function __construct() {  
+    protected function __construct() {  
 
         $this->plugin_name = 'sfldsimple';
         $this->plugin_version = '2.0.0';
@@ -61,45 +58,26 @@ final class SFLD_Simple_Features
     }
 
     /**
-     * Prevent object cloning.
-     */
-    final protected function __clone() {
-    }
-
-    /**
-     * Method to get the unique instance.
-     */
-    public static function get_instance() {
-        // Create the instance if it does not exist.
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self;
-        }
-
-        // Return the unique instance.
-        return self::$_instance;
-    }
-
-    /**
      * Load all dependencies.
      * 
      */
-    private function include() : void {
+    // private function include() : void {
 
-        include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
 
-        include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcode.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/metabox/class-sfld-meta-boxes.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
-        include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcode.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/metabox/class-sfld-meta-boxes.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
 
-    }
+    // }
 
     /**
      * Initialize all dependencies.
@@ -107,10 +85,11 @@ final class SFLD_Simple_Features
      */
     private function init() : void {
 
-        $this->loader = SFLD_Loader::get_instance();
+        $this->loader = SFLD_Loader::getInstance();
 
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        
         $this->define_template_hooks();
         $this->define_cpt_hooks();
         $this->define_taxonomy_hooks();

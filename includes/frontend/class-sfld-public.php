@@ -26,14 +26,14 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
 
         wp_enqueue_style(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/dist/library/css/swiper-bundle.min.css',
+            SFLD_SIMPLE_URL . 'assets/build/library/css/swiper-bundle.min.css',
             [],
             $this->plugin_version
         );
 
         wp_enqueue_script(
             $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/dist/library/js/swiper-bundle.min.js',
+            SFLD_SIMPLE_URL . 'assets/build/library/js/swiper-bundle.min.js',
             NULL,
             $this->plugin_version,
             true
@@ -41,14 +41,14 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
 
         wp_enqueue_style(
             $this->plugin_name . '-frontend-style',
-            SFLD_SIMPLE_URL . 'assets/dist/css/frontend.css',
+            SFLD_SIMPLE_URL . 'assets/build/css/frontend.css',
             [],
             $this->plugin_version
         );
 
         wp_enqueue_script( 
             $this->plugin_name . "-frontend-script",
-            SFLD_SIMPLE_URL . 'assets/dist/js/frontend.bundle.js',
+            SFLD_SIMPLE_URL . 'assets/build/js/frontend.bundle.js',
             ['jquery'],
             $this->plugin_version,
             true

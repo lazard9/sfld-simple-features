@@ -1,2 +1,4 @@
-node_modules
+src/
+assets/src/
+node_modules/
 webpack.config.js

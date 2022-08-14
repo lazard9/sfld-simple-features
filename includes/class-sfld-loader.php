@@ -7,29 +7,25 @@
  */
 
 namespace SFLD\Includes;
+use SFLD\Includes\Base\SFLD_Singleton;
 
-if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader 
+if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader extends SFLD_Singleton
 {
 
     /**
      * The array of actions registered with WordPress.
      */
-    protected $actions;
+    private $actions;
 
     /**
      * The array of filters registered with WordPress.
      */
-    protected $filters;
+    private $filters;
 
     /**
      * The array of shortcodes registered with WordPress.
      */
-    protected $shortcodes;
-
-    /**
-	 * Unique instance.
-	 */
-    private static $_instance = null;
+    private $shortcodes;
 
     /**
      * Protected class constructor to prevent direct object creation
@@ -38,31 +34,12 @@ if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader
      * this trait. This is ideal for doing stuff that you only want to
      * do once, such as hooking into actions and filters, etc.
      */
-    private function __construct() {
+    protected function __construct() {
 
         $this->actions = array();
         $this->filters = array();
         $this->shortcodes = array();
 
-    }
-
-    /**
-     * Prevent object cloning.
-     */
-    final protected function __clone() {
-	}
-    
-    /**
-     * Method to get the unique instance.
-     */
-    public static function get_instance() {
-        // Create the instance if it does not exist.
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self;
-        }
-
-        // Return the unique instance.
-        return self::$_instance;
     }
 
     /**

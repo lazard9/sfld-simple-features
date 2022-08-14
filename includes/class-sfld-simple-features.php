@@ -176,6 +176,8 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $this->loader->add_action( 'save_post', $plugin_taxonies, 'sfld_set_default_object_terms', 100, 2 );
         $this->loader->add_action( 'init', $plugin_taxonies, 'sfld_cleanup_level_taxonomy_terms' );
         $this->loader->add_action( 'init', $plugin_taxonies, 'sfld_insert_level_taxonomy_terms', 999 );
+        $this->loader->add_action( 'add_meta_boxes', $plugin_taxonies, 'sfld_level_meta_box' );
+        $this->loader->add_action( 'save_post', $plugin_taxonies, 'sfld_save_level_taxonomy' );
 
     }
 
@@ -192,12 +194,10 @@ final class SFLD_Simple_Features extends SFLD_Singleton
     private function define_metabox_hooks() : void {
 
         $plugin_meta_boxes = new Metabox\SFLD_Meta_Boxes();
-        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor' );
+        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor_main' );
         $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_editor' );
         $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main' );
         $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_course_details' );
-        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_level_meta_box' );
-        $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_level_taxonomy' );
         
     }
 

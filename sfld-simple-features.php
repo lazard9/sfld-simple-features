@@ -47,8 +47,8 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
     return;
 }
 
-if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE_DIR . 'base/singleton.php' ) ) {
-    include_once SFLD_SIMPLE_DIR . 'base/singleton.php' ;
+if ( file_exists( SFLD_SIMPLE_DIR . 'lib/singleton.php' ) ) {
+    include_once SFLD_SIMPLE_DIR . 'lib/singleton.php' ;
 }
 
 function activate_sfld_simple_features() {

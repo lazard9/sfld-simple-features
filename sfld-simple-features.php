@@ -40,25 +40,47 @@ if ( ! defined( 'SFLD_SIMPLE_URL' ) ) {
 if ( ! defined( 'SFLD_SIMPLE_BASENAME' ) ) {
     define( 'SFLD_SIMPLE_BASENAME', plugin_basename( __FILE__ ) );
 }
-// Include the autoloader so we can dynamically include the rest of the classes.
+
+
+/**
+ * Include the autoloader so we can dynamically include the rest of the classes.
+ * 
+ * Files will be included in case the autoloader.php file doesn't exist!
+ */
 if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
     include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php';
 } 
  else {
-    return;
+
+    function sfld_simple_error_notice() {
+
+        if ( current_user_can( 'manage_options' ) ) {
+            ?>
+                <div class="error notice">
+                    <p><?php _e( 'There has been an error with autoloader!', 'sfldsimple' ); ?></p>
+                </div>
+            <?php
+        }
+
+    }
+    
+    add_action( 'admin_notices', 'sfld_simple_error_notice' );
+
 }
 
-if ( file_exists( SFLD_SIMPLE_DIR . 'lib/singleton.php' ) ) {
-    include_once SFLD_SIMPLE_DIR . 'lib/singleton.php';
+if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' )  ) {
+    include_once SFLD_SIMPLE_DIR . 'includes/abstracts/class-sfld-base-singleton.php';
 }
 
 function activate_sfld_simple_features() {
-    // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
+
+    if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
+        include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-activator.php'; // Include files witout the autoloader
+    }
+
     SFLD\Includes\SFLD_Activator::activate();
     
 }
-
-register_activation_hook( __FILE__, 'activate_sfld_simple_features' );
 
 function deactivate_sfld_simple_features() {
     if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -70,11 +92,15 @@ function deactivate_sfld_simple_features() {
         unload_textdomain( 'sfldsimple' );
     }
 
-    // include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
+    if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
+        include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-deactivator.php'; // Include files witout the autoloader
+    }
+
     SFLD\Includes\SFLD_Deactivator::deactivate();
 
 }
 
+register_activation_hook( __FILE__, 'activate_sfld_simple_features' );
 register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
 
 
@@ -82,12 +108,9 @@ register_deactivation_hook( __FILE__, 'deactivate_sfld_simple_features' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-// if ( ! class_exists( 'SFLD_Simple_Features', false ) ) {
-// 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-sfld-features.php'; // Include files witout the autoloader
-// } 
-//  else {
-//     return;
-// }
+if ( ! class_exists( 'SFLD_Simple_Features', false ) && ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
+	include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-features.php'; // Include files witout the autoloader
+}
 
 /**
  * Begins execution of the plugin.

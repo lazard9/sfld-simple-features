@@ -29,9 +29,9 @@
  */
 
 namespace SFLD\Includes;
-use SFLD\Base\SFLD_Singleton;
+use SFLD\Includes\Abstracts\SFLD_Base_Singleton;
 
-final class SFLD_Simple_Features extends SFLD_Singleton
+final class SFLD_Simple_Features extends SFLD_Base_Singleton
 {
 
     private $loader;
@@ -51,7 +51,7 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $this->plugin_name = 'sfldsimple';
         $this->plugin_version = '2.0.0';
 
-        // $this->include(); // Include files witout the autoloader
+        $this->include(); // Include files witout the autoloader
         $this->init();
         $this->init_hooks();
 
@@ -61,24 +61,28 @@ final class SFLD_Simple_Features extends SFLD_Singleton
      * Load all dependencies.
      * 
      */
-    // private function include() : void {
+    private function include() : void {
 
-    //     include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
+        if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
 
-    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-select-editor.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-courses-details.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcode.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
+            // Include files witout the autoloader
+            include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/frontend/class-sfld-public.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-select-editor.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-courses-details.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcodes.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
 
-    // }
+        }
+
+    }
 
     /**
      * Initialize all dependencies.

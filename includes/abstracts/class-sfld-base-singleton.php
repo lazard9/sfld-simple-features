@@ -1,8 +1,8 @@
 <?php
 
-namespace SFLD\Base;
+namespace SFLD\Includes\Abstracts;
 
-abstract class SFLD_Singleton {
+abstract class SFLD_Base_Singleton {
 
     static protected $_instances = array();
 

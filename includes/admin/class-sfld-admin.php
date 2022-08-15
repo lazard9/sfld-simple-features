@@ -16,18 +16,22 @@ if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin
         $this->plugin_name = $plugin_name;
         $this->plugin_version = $plugin_version;
 
-        // $this->includes(); // Include files witout the autoloader
+        $this->includes(); // Include files witout the autoloader
 
 	}
 
-    // private function includes() : void {
+    private function includes() : void {
 
-    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-links.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-pages.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-admin-form.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-main-form.php';
+        if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
 
-    // }
+            // Include files witout the autoloader
+            include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin-pages.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-admin-form.php';
+            include_once SFLD_SIMPLE_DIR . 'includes/admin/settings/class-sfld-main-form.php';
+        
+        }
+
+    }
     
     /**
      * Add a link to your settings page in your plugin

@@ -64,14 +64,16 @@ if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
      */
 	public function sfld_ajax_lm_shortcode() : void {
 
-        $main_settings = get_option('sfld_main_settings');
+        $is_infinite_scroll = get_option('sfld_main_settings');
+        
+        $button_text = ( $is_infinite_scroll ?? ['checkbox-ajax'] ) ? 'Loading...' : 'Load More';
 
-        if ( $main_settings['checkbox-ajax'] ) {
-            $button_text = 'Loading...';
-        }
-        else {
-            $button_text = 'Load More';
-        }
+        /**
+		 * Page number.
+		 * If get_query_var( 'paged' ) is 2 or more, its a number pagination query.
+		 * If $_POST['page'] has a value which means its a loadmore request, which will take precedence.
+		 */
+		$page_no = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
         // Initial Post Load.
         $args = [

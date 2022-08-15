@@ -7,9 +7,16 @@
  */
 
 namespace SFLD\Includes\CPT;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_CPT', false ) ) : class SFLD_CPT
+if ( ! class_exists( 'SFLD_CPT', false ) ) : class SFLD_CPT extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
     function sfld_register_cpt() {
 

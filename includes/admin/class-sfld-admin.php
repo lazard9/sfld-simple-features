@@ -7,11 +7,18 @@
  */
 
 namespace SFLD\Includes\Admin;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin 
+if ( ! class_exists( 'SFLD_Admin', false ) ) : class SFLD_Admin extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+	}
 
-    public function __construct( $plugin_name, $plugin_version ) {
+    public function init( $plugin_name, $plugin_version ) : void {
 
         $this->plugin_name = $plugin_name;
         $this->plugin_version = $plugin_version;

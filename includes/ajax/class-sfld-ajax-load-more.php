@@ -8,10 +8,17 @@
  */
 
 namespace SFLD\Includes\Ajax;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 use \WP_Query;
 
-if ( ! class_exists( 'SFLD_Ajax_Load_More', false ) ) : class SFLD_Ajax_Load_More
+if ( ! class_exists( 'SFLD_Ajax_Load_More', false ) ) : class SFLD_Ajax_Load_More extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
    public function sfld_ajax_load_more_posts() : void {
 

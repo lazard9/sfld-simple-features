@@ -8,9 +8,17 @@
  */
 
 namespace SFLD\Includes\Taxonomies;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Taxonomies', false ) ) : class SFLD_Taxonomies
+if ( ! class_exists( 'SFLD_Taxonomies', false ) ) : class SFLD_Taxonomies extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
+
     /**
      * Professors CPT taxonomy
      *

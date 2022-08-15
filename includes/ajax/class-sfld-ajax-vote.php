@@ -8,9 +8,16 @@
  */
 
 namespace SFLD\Includes\Ajax;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Ajax_Vote', false ) ) : class SFLD_Ajax_Vote
+if ( ! class_exists( 'SFLD_Ajax_Vote', false ) ) : class SFLD_Ajax_Vote extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
    function sfld_ajax_user_vote() : void {
 

@@ -7,11 +7,18 @@
  */
 
 namespace SFLD\Includes\Frontend;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
+if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+	}
 
-    public function __construct( $plugin_name, $plugin_version ) {
+    public function init( $plugin_name, $plugin_version ) : void {
 
         $this->plugin_name = $plugin_name;
         $this->plugin_version = $plugin_version;
@@ -24,20 +31,29 @@ if ( ! class_exists( 'SFLD_Public', false ) ) : class SFLD_Public
      */
     public function sfld_enqueue_frontend_assets() : void {
 
-        wp_enqueue_style(
-            $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/vendor/css/swiper-bundle.min.css',
-            [],
-            $this->plugin_version
-        );
+        /**
+         * Check if Swiper plugin is active,
+         * to prevent double loading of the same resources.
+         * 
+         */
+        if ( !is_plugin_active( 'wp-swiper/wp-swiper.php' ) ) {
 
-        wp_enqueue_script(
-            $this->plugin_name . '-swiper-bundle',
-            SFLD_SIMPLE_URL . 'assets/vendor/js/swiper-bundle.min.js',
-            NULL,
-            $this->plugin_version,
-            true
-        );
+            wp_enqueue_style(
+                $this->plugin_name . '-swiper-bundle',
+                SFLD_SIMPLE_URL . 'assets/vendor/css/swiper-bundle.min.css',
+                [],
+                $this->plugin_version
+            );
+
+            wp_enqueue_script(
+                $this->plugin_name . '-swiper-bundle',
+                SFLD_SIMPLE_URL . 'assets/vendor/js/swiper-bundle.min.js',
+                NULL,
+                $this->plugin_version,
+                true
+            );
+
+        }
 
         wp_enqueue_style(
             $this->plugin_name . '-frontend-style',

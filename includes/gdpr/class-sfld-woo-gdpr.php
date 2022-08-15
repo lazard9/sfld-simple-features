@@ -8,10 +8,17 @@
  */
 
 namespace SFLD\Includes\GDPR;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Woo_GDPR', false ) ) : class SFLD_Woo_GDPR
+if ( ! class_exists( 'SFLD_Woo_GDPR', false ) ) : class SFLD_Woo_GDPR extends SFLD_Singleton
 {
-   
+   /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+   protected function __construct() {
+   }
+
    function sfld_additional_fields()
    {
       echo '<p class="comment-form-consent">' .

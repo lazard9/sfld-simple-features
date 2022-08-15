@@ -7,9 +7,9 @@
  */
 
 namespace SFLD\Includes;
-use SFLD\Includes\Abstracts\SFLD_Base_Singleton;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader extends SFLD_Base_Singleton
+if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader extends SFLD_Singleton
 {
 
     /**

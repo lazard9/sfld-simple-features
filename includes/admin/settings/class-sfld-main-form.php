@@ -7,9 +7,16 @@
  */
 
 namespace SFLD\Includes\Admin\settings;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form
+if ( ! class_exists( 'SFLD_Main_Form', false ) ) : class SFLD_Main_Form extends SFLD_Singleton
 {
+  /**
+   * Protected class constructor to prevent direct object creation
+   *
+   */
+  protected function __construct() {
+  }
 
   public function sfld_simple_main_form_init(): void {
     // If plugin settings don't exist, then create them

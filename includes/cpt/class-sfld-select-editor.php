@@ -8,11 +8,17 @@
  */
 
 namespace SFLD\Includes\CPT;
-
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 use \WP_User_Query;
 
-if ( ! class_exists( 'SFLD_Select_Editor', false ) ) : class SFLD_Select_Editor
+if ( ! class_exists( 'SFLD_Select_Editor', false ) ) : class SFLD_Select_Editor extends SFLD_Singleton
 {
+	/**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
     /*
      * Metabox - Select Editor 

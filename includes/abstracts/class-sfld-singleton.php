@@ -2,7 +2,7 @@
 
 namespace SFLD\Includes\Abstracts;
 
-abstract class SFLD_Base_Singleton {
+abstract class SFLD_Singleton {
 
     static protected $_instances = array();
 
@@ -14,7 +14,7 @@ abstract class SFLD_Base_Singleton {
     final public function __wakeup() {
     }
 
-    static public function getInstance() {
+    static public function get_instance() {
 
         $class = get_called_class();
 

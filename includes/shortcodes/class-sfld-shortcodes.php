@@ -8,10 +8,17 @@
  */
 
 namespace SFLD\Includes\Shortcodes;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 use \WP_Query;
 
-if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes
+if ( ! class_exists( 'SFLD_Shortcodes', false ) ) : class SFLD_Shortcodes extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
     public function sfld_swiper_shortcode() : void {
 

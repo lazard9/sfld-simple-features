@@ -8,9 +8,16 @@
  */
 
 namespace SFLD\Includes\CPT;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Courses_Details', false ) ) : class SFLD_Courses_Details
+if ( ! class_exists( 'SFLD_Courses_Details', false ) ) : class SFLD_Courses_Details extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
     /*
      * Metabox - Add Custom Fields - Courses

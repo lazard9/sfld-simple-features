@@ -7,11 +7,18 @@
  */
 
 namespace SFLD\Includes\Admin;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 use SFLD\Includes\Admin\Settings\SFLD_Admin_Form;
 use SFLD\Includes\Admin\Settings\SFLD_Main_Form;
 
-if ( ! class_exists( 'SFLD_Admin_Pages', false ) ) : class SFLD_Admin_Pages 
+if ( ! class_exists( 'SFLD_Admin_Pages', false ) ) : class SFLD_Admin_Pages extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
     
     public function admin_form_init() : object {
         return new SFLD_Admin_Form;

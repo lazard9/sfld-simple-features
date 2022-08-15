@@ -7,9 +7,16 @@
  */
 
 namespace SFLD\Includes\Templates;
+use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Templates', false ) ) : class SFLD_Templates
+if ( ! class_exists( 'SFLD_Templates', false ) ) : class SFLD_Templates extends SFLD_Singleton
 {
+    /**
+     * Protected class constructor to prevent direct object creation
+     *
+     */
+    protected function __construct() {
+    }
 
     /* 
      * Load Course Template

@@ -18,7 +18,7 @@
  */
 
 /**
- * This plugin is for practice. Free for everyone to use.
+ * This plugin is a practice and experimental plugin.
  * Slightly inspired by WooCommerce and Swiper.js plugins.
  * Various functionalities have been added (some unfinished!) 
  * from several courses, tutorials etc. Code refacting in progess!
@@ -68,10 +68,18 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && file_exists( SFLD_SIMPLE
 
 }
 
+/**
+ * Abstract singleton class.
+ * 
+ */
 if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' )  ) {
-    include_once SFLD_SIMPLE_DIR . 'includes/abstracts/class-sfld-base-singleton.php';
+    include_once SFLD_SIMPLE_DIR . 'includes/abstracts/class-sfld-singleton.php';
 }
 
+/**
+ * Activation and deactivation hooks.
+ * 
+ */
 function activate_sfld_simple_features() {
 
     if ( ! file_exists( SFLD_SIMPLE_DIR . 'lib/autoloader.php' ) ) {
@@ -83,6 +91,7 @@ function activate_sfld_simple_features() {
 }
 
 function deactivate_sfld_simple_features() {
+
     if ( ! current_user_can( 'activate_plugins' ) ) {
         return;
     }
@@ -123,7 +132,7 @@ if ( ! class_exists( 'SFLD_Simple_Features', false ) && ! file_exists( SFLD_SIMP
  */
 function sfld_simple_features() : void {
 
-    SFLD\Includes\SFLD_Simple_Features::getInstance();
+    SFLD\Includes\SFLD_Simple_Features::get_instance();
 
 }
 

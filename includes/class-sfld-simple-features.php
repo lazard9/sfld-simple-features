@@ -99,8 +99,6 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $this->define_gdpr_hooks();
         
         Test\SFLD_Test::getInstance();
-
-        print_r(get_declared_classes());
         
     }
 

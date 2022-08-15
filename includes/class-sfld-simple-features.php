@@ -29,7 +29,7 @@
  */
 
 namespace SFLD\Includes;
-use SFLD\Includes\Base\SFLD_Singleton;
+use SFLD\Base\SFLD_Singleton;
 
 final class SFLD_Simple_Features extends SFLD_Singleton
 {
@@ -69,9 +69,10 @@ final class SFLD_Simple_Features extends SFLD_Singleton
     //     include_once SFLD_SIMPLE_DIR . 'includes/public/class-sfld-public.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-select-editor.php';
+    //     include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-courses-details.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcode.php';
-    //     include_once SFLD_SIMPLE_DIR . 'includes/metabox/class-sfld-meta-boxes.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
     //     include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
@@ -94,10 +95,12 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $this->define_cpt_hooks();
         $this->define_taxonomy_hooks();
         $this->define_shortcode_hooks();
-        $this->define_metabox_hooks();
         $this->define_ajax_hooks();
         $this->define_gdpr_hooks();
-        $this->define_test();
+        
+        Test\SFLD_Test::getInstance();
+
+        print_r(get_declared_classes());
         
     }
 
@@ -163,6 +166,14 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $plugin_cpt = new CPT\SFLD_CPT();
         $this->loader->add_filter( 'init', $plugin_cpt, 'sfld_register_cpt' );
 
+        $plugin_select_editor = new CPT\SFLD_Select_Editor();
+        $this->loader->add_action( 'add_meta_boxes', $plugin_select_editor, 'sfld_select_editor_main' );
+        $this->loader->add_action( 'save_post', $plugin_select_editor, 'sfld_save_editor' );
+
+        $plugin_courses_details = new CPT\SFLD_Courses_Details();
+        $this->loader->add_action( 'add_meta_boxes', $plugin_courses_details, 'sfld_courses_details_main' );
+        $this->loader->add_action( 'save_post', $plugin_courses_details, 'sfld_save_course_details' );
+
     }
 
     private function define_taxonomy_hooks() : void {
@@ -191,16 +202,6 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         
     }
 
-    private function define_metabox_hooks() : void {
-
-        $plugin_meta_boxes = new Metabox\SFLD_Meta_Boxes();
-        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_select_editor' );
-        $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_editor' );
-        $this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'sfld_courses_details_main' );
-        $this->loader->add_action( 'save_post', $plugin_meta_boxes, 'sfld_save_course_details' );
-        
-    }
-
     private function define_ajax_hooks() : void {
 
         $plugin_ajax_vote = new Ajax\SFLD_Ajax_Vote();
@@ -223,10 +224,6 @@ final class SFLD_Simple_Features extends SFLD_Singleton
         $this->loader->add_action('add_meta_boxes_comment', $plugin_woo_gdpr, 'sfld_extend_comment_add_meta_box');
         $this->loader->add_action('edit_comment', $plugin_woo_gdpr, 'sfld_extend_comment_edit_metafields');
         
-    }
-
-    private function define_test() : void {
-        new Test\SFLD_Test();
     }
 
 }

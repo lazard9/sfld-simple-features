@@ -7,7 +7,7 @@
  */
 
 namespace SFLD\Includes;
-use SFLD\Includes\Base\SFLD_Singleton;
+use SFLD\Base\SFLD_Singleton;
 
 if( ! class_exists('SFLD_Loader') ) : final class SFLD_Loader extends SFLD_Singleton
 {

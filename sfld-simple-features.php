@@ -105,4 +105,3 @@ function sfld_simple_features() : void {
 }
 
 sfld_simple_features();
-

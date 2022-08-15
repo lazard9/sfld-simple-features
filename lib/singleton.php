@@ -1,6 +1,6 @@
 <?php
 
-namespace SFLD\Includes\Base;
+namespace SFLD\Base;
 
 abstract class SFLD_Singleton {
 

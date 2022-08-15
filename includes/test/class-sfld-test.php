@@ -1,10 +1,11 @@
 <?php defined( 'WPINC' ) or die();
 
 namespace SFLD\Includes\Test;
+use SFLD\Base\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Test', false ) ) : class SFLD_Test {
+if ( ! class_exists( 'SFLD_Test', false ) ) : class SFLD_Test extends SFLD_Singleton {
 
-    public function __construct() {
+    protected function __construct() {
         add_action( 'admin_menu', [$this, 'sfld_plugin_settings_pages'] );
     }
 

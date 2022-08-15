@@ -23,13 +23,13 @@ abstract class SFLD_Singleton {
     static protected $_instances = array();
 
     /**
-	 * Protected class constructor to prevent direct object creation
-	 */
+     * Protected class constructor to prevent direct object creation
+     */
     abstract protected function __construct();
 
     /**
-	 * Prevent object cloning.
-	 */
+     * Prevent object cloning.
+     */
     final public function __clone() {
     }
 
@@ -40,18 +40,18 @@ abstract class SFLD_Singleton {
     }
 
     /**
-	 * Prevent magic method from being called by unserialize function.
-	 */
+     * Prevent magic method from being called by unserialize function.
+     */
     final public function __wakeup() {
     }
     
     /**
-	 * This method returns new or existing Singleton instance
-	 * of the class for which it is called. This method is set
-	 * as final intentionally, it is not meant to be overridden.
-	 *
-	 * @return object Singleton instance of the class.
-	 */
+     * This method returns new or existing Singleton instance
+     * of the class for which it is called. This method is set
+     * as final intentionally, it is not meant to be overridden.
+     *
+     * @return object Singleton instance of the class.
+     */
     static public function get_instance() {
 
         $class = get_called_class();

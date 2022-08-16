@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Using the singleton pattern in WordPress is an easy way to protect against
  * mistakes caused by creating multiple objects or multiple initialization
@@ -13,7 +14,8 @@
 
 namespace SFLD\Includes\Abstracts;
 
-abstract class SFLD_Singleton {
+abstract class SFLD_Singleton
+{
 
     /**
      * Collection of instance.
@@ -30,21 +32,24 @@ abstract class SFLD_Singleton {
     /**
      * Prevent object cloning.
      */
-    final public function __clone() {
+    final public function __clone()
+    {
     }
 
     /**
      * Prevent magic method from being invoked by serialize function.
      */
-    final public function __sleep() {
+    final public function __sleep()
+    {
     }
 
     /**
      * Prevent magic method from being called by unserialize function.
      */
-    final public function __wakeup() {
+    final public function __wakeup()
+    {
     }
-    
+
     /**
      * This method returns new or existing Singleton instance
      * of the class for which it is called. This method is set
@@ -52,15 +57,15 @@ abstract class SFLD_Singleton {
      *
      * @return object Singleton instance of the class.
      */
-    static public function get_instance() {
+    static public function get_instance()
+    {
 
         $class = get_called_class();
 
-        if (! array_key_exists($class, self::$_instances)) {
+        if (!array_key_exists($class, self::$_instances)) {
             self::$_instances[$class] = new $class();
         }
 
         return self::$_instances[$class];
     }
-
 }

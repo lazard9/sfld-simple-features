@@ -1,4 +1,4 @@
-<?php defined( 'WPINC' ) or die();
+<?php defined('WPINC') or die();
 
 /**
  * Load templates
@@ -7,43 +7,45 @@
  */
 
 namespace SFLD\Includes\Templates;
+
 use SFLD\Includes\Abstracts\SFLD_Singleton;
 
-if ( ! class_exists( 'SFLD_Templates', false ) ) : class SFLD_Templates extends SFLD_Singleton
-{
-    /**
-     * Protected class constructor to prevent direct object creation
-     *
-     */
-    protected function __construct() {
-    }
+if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_Singleton
+    {
+        /**
+         * Protected class constructor to prevent direct object creation
+         *
+         */
+        protected function __construct()
+        {
+        }
 
-    /* 
+        /* 
      * Load Course Template
      */
-    public function sfld_template_course($template) {
-        
-        global $post;
+        public function sfld_template_course($template)
+        {
 
-        if( 'courses' === $post->post_type && locate_template(array('template-course')) !== $template  ) {
-            return  SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
+            global $post;
+
+            if ('courses' === $post->post_type && locate_template(array('template-course')) !== $template) {
+                return  SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
+            }
+
+            return $template;
         }
 
-        return $template;
-
-    }
-
-    /* 
+        /* 
      * Load Archive Courses Template
      */
-    public function sfld_template_arcive_courses($template) {
+        public function sfld_template_arcive_courses($template)
+        {
 
-        if( is_post_type_archive('courses') && locate_template(array('archive-course')) !== $template ) {
-            return  SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
+            if (is_post_type_archive('courses') && locate_template(array('archive-course')) !== $template) {
+                return  SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
+            }
+
+            return $template;
         }
-
-        return $template;
-        
     }
-
-} endif;
+endif;

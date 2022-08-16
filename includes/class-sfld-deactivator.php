@@ -1,4 +1,4 @@
-<?php defined( 'WPINC' ) or die();
+<?php defined('WPINC') or die();
 
 /**
  * Fired during plugin deactivation
@@ -9,11 +9,11 @@
 
 namespace SFLD\Includes;
 
-if ( ! class_exists( 'SFLD_Deactivator', false ) ) : class SFLD_Deactivator
-{
+if (!class_exists('SFLD_Deactivator', false)) : class SFLD_Deactivator
+    {
 
-    public static function deactivate() {
-
+        public static function deactivate()
+        {
+        }
     }
-
-} endif;
+endif;

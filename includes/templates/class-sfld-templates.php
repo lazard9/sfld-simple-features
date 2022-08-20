@@ -30,12 +30,17 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
 
             $post_type = $post->post_type;
 
-            // In future, template for each CPT single view could be included.
+            /* 
+             *  Include template for each CPT single view.
+             */
             $post_type_object = get_post_type_object($post->post_type);
             $rewrite_slug = $post_type_object->rewrite['slug'];
+            $post_types_array = [
+                'courses',
+                'professors',
+            ];
 
-
-            if ('courses' === $post_type && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-' .  $rewrite_slug .'.php')) {
+            if (in_array($post_type, $post_types_array) && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-' .  $rewrite_slug .'.php')) {
                 $template = SFLD_SIMPLE_DIR . 'templates/post/template-' .  $rewrite_slug .'.php';
             }
 

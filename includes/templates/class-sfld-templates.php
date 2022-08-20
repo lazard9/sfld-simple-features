@@ -21,7 +21,7 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
         }
 
         /* 
-         * Load Course Template
+         * Load Single Course Template
          */
         public function sfld_template_course($template)
         {

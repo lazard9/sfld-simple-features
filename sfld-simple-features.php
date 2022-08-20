@@ -55,11 +55,11 @@ if (!class_exists('SFLD_Simple_Features', false) && file_exists(SFLD_SIMPLE_DIR 
     {
 
         if (current_user_can('manage_options')) {
-?>
-            <div class="error notice">
-                <p><?php _e('There has been an error with autoloader!', 'sfldsimple'); ?></p>
-            </div>
-<?php
+            ?>
+                <div class="error notice">
+                    <p><?php _e('There has been an error with autoloader!', 'sfldsimple'); ?></p>
+                </div>
+            <?php
         }
     }
 

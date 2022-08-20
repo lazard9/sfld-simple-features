@@ -21,14 +21,14 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
         }
 
         /* 
-     * Load Course Template
-     */
+         * Load Course Template
+         */
         public function sfld_template_course($template)
         {
 
             global $post;
 
-            if ('courses' === $post->post_type && locate_template(array('template-course')) !== $template) {
+            if ('courses' === $post->post_type && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-course.php')) {
                 return  SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
             }
 
@@ -36,12 +36,12 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
         }
 
         /* 
-     * Load Archive Courses Template
-     */
+         * Load Archive Courses Template
+         */
         public function sfld_template_arcive_courses($template)
         {
 
-            if (is_post_type_archive('courses') && locate_template(array('archive-course')) !== $template) {
+            if (is_post_type_archive('courses') && file_exists(SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php')) {
                 return  SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
             }
 

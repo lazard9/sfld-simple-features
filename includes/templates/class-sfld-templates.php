@@ -28,8 +28,15 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
 
             global $post;
 
-            if ('courses' === $post->post_type && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-course.php')) {
-                $template = SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
+            $post_type = $post->post_type;
+
+            // In future, template for each CPT single view could be included.
+            $post_type_object = get_post_type_object($post->post_type);
+            $rewrite_slug = $post_type_object->rewrite['slug'];
+
+
+            if ('courses' === $post_type && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-' .  $rewrite_slug .'.php')) {
+                $template = SFLD_SIMPLE_DIR . 'templates/post/template-' .  $rewrite_slug .'.php';
             }
 
             return $template;

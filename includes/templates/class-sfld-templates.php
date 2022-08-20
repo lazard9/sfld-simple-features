@@ -33,7 +33,7 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
             /* 
              *  Include template for each CPT single view.
              */
-            $post_type_object = get_post_type_object($post->post_type);
+            $post_type_object = get_post_type_object($post_type);
             $rewrite_slug = $post_type_object->rewrite['slug'];
             $post_types_array = [
                 'courses',

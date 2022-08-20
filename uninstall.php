@@ -27,10 +27,10 @@ if (array_key_exists('checkbox-taxonomies', $options)) {
 		register_taxonomy($taxonomy, null);
 
 		$query = 'SELECT t.name, t.term_id
-				FROM ' . $wpdb->terms . ' AS t
-				INNER JOIN ' . $wpdb->term_taxonomy . ' AS tt
-				ON t.term_id = tt.term_id
-				WHERE tt.taxonomy = "' . $taxonomy . '"';
+			FROM ' . $wpdb->terms . ' AS t
+			INNER JOIN ' . $wpdb->term_taxonomy . ' AS tt
+			ON t.term_id = tt.term_id
+			WHERE tt.taxonomy = "' . $taxonomy . '"';
 
 		$terms = $wpdb->get_results($query);
 

@@ -29,7 +29,7 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
             global $post;
 
             if ('courses' === $post->post_type && file_exists(SFLD_SIMPLE_DIR . 'templates/post/template-course.php')) {
-                return  SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
+                $template = SFLD_SIMPLE_DIR . 'templates/post/template-course.php';
             }
 
             return $template;
@@ -42,7 +42,7 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
         {
 
             if (is_post_type_archive('courses') && file_exists(SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php')) {
-                return  SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
+                $template = SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php';
             }
 
             return $template;

@@ -29,7 +29,7 @@ if (!class_exists('SFLD_Activator', false)) : class SFLD_Activator
             global $wpdb;
 
             $database_table_name = $wpdb->prefix . 'ld_course_details';
-            $charset = $wpdb->get_charset_collate;
+            $charset = $wpdb->get_charset_collate();
             $course_details = "CREATE TABLE IF NOT EXISTS $database_table_name(
                 ID          INT(9) NOT NULL,
                 title       TEXT(100) NOT NULL,

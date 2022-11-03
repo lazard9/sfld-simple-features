@@ -47,7 +47,7 @@ if (!defined('SFLD_SIMPLE_BASENAME')) {
  * 
  * Files will be included in case the autoloader.php file doesn't exist!
  */
-if (!class_exists('SFLD_Simple_Features', false) && file_exists(SFLD_SIMPLE_DIR . 'lib/autoloader.php')) {
+if (file_exists(SFLD_SIMPLE_DIR . 'lib/autoloader.php')) {
     include_once SFLD_SIMPLE_DIR . 'lib/autoloader.php';
 } else {
 
@@ -116,7 +116,7 @@ register_deactivation_hook(__FILE__, 'deactivate_sfld_simple_features');
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-if (!class_exists('SFLD_Simple_Features', false) && !file_exists(SFLD_SIMPLE_DIR . 'lib/autoloader.php')) {
+if (!file_exists(SFLD_SIMPLE_DIR . 'lib/autoloader.php')) {
     include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-simple-features.php'; // Include files witout the autoloader
 }
 

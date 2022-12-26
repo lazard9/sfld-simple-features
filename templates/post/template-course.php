@@ -22,7 +22,7 @@ if (have_posts()) {
 
         echo do_shortcode('[swiper_slider_01]');
 
-        echo '<div class="entry-hrader"><h1 class="entry-title">' . get_the_title() . '</h1></div>';
+        echo '<div class="entry-hrader"><h1 class="entry-title">Plugin ' . get_the_title() . '</h1></div>';
 
         if ($author_id = get_post_meta(get_the_ID(), 'sfld_post_editor', true)) {
 

@@ -16,7 +16,6 @@ const entry = {
 const output = {
     path: build_dir,
     filename: 'js/[name].bundle.js', // [name].bundle_[contenthash].js
-    filename: 'js/[name].bundle.js',
     clean: true, // clean previous js files
     assetModuleFilename: '[path][name][ext]', // Keep the image file name
 }
@@ -78,7 +77,7 @@ const rules = [
     },
     {
         test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        exclude: [ico_dir, /node_modules/],
+        exclude: ico_dir,
         type: 'asset/resource',
         generator: {
             filename: 'fonts/[name][ext]'

@@ -53,7 +53,7 @@ This plugin is designed for testing and learning purposes, combining various tut
 - Utilize the provided templates and shortcodes to enhance your courses' presentation.
 
 ## Credits
-This plugin was developed by [Your Name].
+This plugin was developed by [lazard9](https://github.com/lazard9).
 
 ## License
 This project is licensed under the GNU General Public License v2.0 or later.

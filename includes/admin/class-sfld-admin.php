@@ -12,6 +12,9 @@ use SFLD\Includes\Abstracts\SFLD_Singleton;
 
 if (!class_exists('SFLD_Admin', false)) : class SFLD_Admin extends SFLD_Singleton
     {
+        private $plugin_name;
+        private $plugin_version;
+        
         /**
          * Protected class constructor to prevent direct object creation
          *

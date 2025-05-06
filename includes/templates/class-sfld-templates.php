@@ -50,7 +50,7 @@ if (!class_exists('SFLD_Templates', false)) : class SFLD_Templates extends SFLD_
         /* 
          * Load Archive Courses Template
          */
-        public function sfld_template_arcive_courses($template)
+        public function sfld_template_archive_courses($template)
         {
 
             if (is_post_type_archive('courses') && file_exists(SFLD_SIMPLE_DIR . 'templates/archive/archive-courses.php')) {

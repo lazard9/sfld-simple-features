@@ -61,26 +61,29 @@ final class SFLD_Simple_Features extends SFLD_Singleton
     /**
      * Load all dependencies.
      * 
+     * This method is used to load all the dependency files,
+     * without using the autoloader. It is used when the
+     * autoloader.php file doesn't exist.
      */
     private function include(): void
     {
 
         if (!file_exists(SFLD_SIMPLE_DIR . 'lib/autoloader.php')) {
 
-            // Include files witout the autoloader
-            include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/frontend/class-sfld-public.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-select-editor.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-courses-details.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcodes.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php';
-            include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php';
+            // These files are required for the plugin to work
+            include_once SFLD_SIMPLE_DIR . 'includes/class-sfld-loader.php'; // Load the loader class
+            include_once SFLD_SIMPLE_DIR . 'includes/admin/class-sfld-admin.php'; // Load the admin class
+            include_once SFLD_SIMPLE_DIR . 'includes/frontend/class-sfld-public.php'; // Load the frontend class
+            include_once SFLD_SIMPLE_DIR . 'includes/templates/class-sfld-templates.php'; // Load the templates class
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-cpt.php'; // Load the CPT class
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-select-editor.php'; // Load the select editor class
+            include_once SFLD_SIMPLE_DIR . 'includes/cpt/class-sfld-courses-details.php'; // Load the courses details class
+            include_once SFLD_SIMPLE_DIR . 'includes/taxonomies/class-sfld-taxonomies.php'; // Load the taxonomies class
+            include_once SFLD_SIMPLE_DIR . 'includes/shortcodes/class-sfld-shortcodes.php'; // Load the shortcodes class
+            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-vote.php'; // Load the ajax vote class
+            include_once SFLD_SIMPLE_DIR . 'includes/ajax/class-sfld-ajax-load-more.php'; // Load the ajax load more class
+            include_once SFLD_SIMPLE_DIR . 'includes/gdpr/class-sfld-woo-gdpr.php'; // Load the GDPR class
+            include_once SFLD_SIMPLE_DIR . 'includes/test/class-sfld-test.php'; // Load the test class
         }
     }
 
@@ -164,8 +167,16 @@ final class SFLD_Simple_Features extends SFLD_Singleton
     {
 
         $plugin_templates = Templates\SFLD_Templates::get_instance();
+        /*
+         * Load Single Course Template
+         * Load Archive Courses Template
+         * 
+         * Resources: https://developer.wordpress.org/reference/hooks/type_template/
+         * Resources: https://developer.wordpress.org/reference/hooks/template_include/
+         * Explanation: https://wordpress.stackexchange.com/questions/367425/for-custom-templates-is-it-better-to-use-template-include-or-type-template
+         */
         $this->loader->add_filter('single_template', $plugin_templates, 'sfld_template_course');
-        $this->loader->add_filter('template_include', $plugin_templates, 'sfld_template_arcive_courses');
+        $this->loader->add_filter('archive_template', $plugin_templates, 'sfld_template_archive_courses');
     }
 
     private function define_cpt_hooks(): void

@@ -171,9 +171,10 @@ final class SFLD_Simple_Features extends SFLD_Singleton
          * Load Single Course Template
          * Load Archive Courses Template
          * 
-         * Resources: https://developer.wordpress.org/reference/hooks/type_template/
-         * Resources: https://developer.wordpress.org/reference/hooks/template_include/
-         * Explanation: https://wordpress.stackexchange.com/questions/367425/for-custom-templates-is-it-better-to-use-template-include-or-type-template
+         * References:
+         * - https://developer.wordpress.org/reference/hooks/single_template/
+         * - https://developer.wordpress.org/reference/hooks/archive_template/
+         * - Explanation: https://wordpress.stackexchange.com/questions/367425/for-custom-templates-is-it-better-to-use-template-include-or-type-template
          */
         $this->loader->add_filter('single_template', $plugin_templates, 'sfld_template_course');
         $this->loader->add_filter('archive_template', $plugin_templates, 'sfld_template_archive_courses');
